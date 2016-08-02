@@ -1,0 +1,9 @@
+/.git
+/.gradle
+/.classpath
+/.project
+/.settings
+/bin
+/build
+/lib
+/production

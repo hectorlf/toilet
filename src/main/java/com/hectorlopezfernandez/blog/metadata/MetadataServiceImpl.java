@@ -11,16 +11,25 @@ public class MetadataServiceImpl implements MetadataService {
 	@Autowired
 	private LanguageRepository languageRepository;
 
+	@Autowired
+	private PreferencesRepository preferencesRepository;
+
 	@Override
 	public List<Language> findAllLanguages() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Language> results = languageRepository.findAll();
+		return results;
 	}
 
 	@Override
 	public Language getDefaultLanguage() {
-		// TODO Auto-generated method stub
-		return null;
+		Language defaultLanguage = languageRepository.findByDefaultLanguageIsTrue();
+		return defaultLanguage;
+	}
+
+	@Override
+	public Preferences getPreferences() {
+		Preferences preferences = preferencesRepository.findOne(Preferences.ID);
+		return preferences;
 	}
 
 }

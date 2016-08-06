@@ -5,6 +5,7 @@ import java.util.Locale;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="languages")
@@ -22,6 +23,9 @@ public class Language {
 	private String langCode;
 	private String regionCode;
 	private String variantCode;
+
+	@Indexed
+	private boolean defaultLanguage;
 
 	// utility methods
 	
@@ -60,6 +64,13 @@ public class Language {
 	}
 	public void setVariantCode(String variantCode) {
 		this.variantCode = variantCode;
+	}
+
+	public boolean isDefaultLanguage() {
+		return defaultLanguage;
+	}
+	public void setDefaultLanguage(boolean defaultLanguage) {
+		this.defaultLanguage = defaultLanguage;
 	}
 
 }

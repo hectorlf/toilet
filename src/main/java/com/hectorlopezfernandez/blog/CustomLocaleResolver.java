@@ -80,7 +80,7 @@ public class CustomLocaleResolver implements LocaleContextResolver {
 	@Override
 	public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale l) {
 		logger.debug("setLocale()");
-		request.setAttribute(STORED_LOCALE_KEY, l);
+		setLocale(request, l);
 	}
 
 	@Override
@@ -92,8 +92,9 @@ public class CustomLocaleResolver implements LocaleContextResolver {
 
 	@Override
 	public void setLocaleContext(HttpServletRequest request, HttpServletResponse response, LocaleContext lc) {
+		logger.debug("setLocaleContext()");
 		// currently, timezone is not persisted
-		setLocale(request, response, lc.getLocale());
+		setLocale(request, lc.getLocale());
 	}
 
 	/*
@@ -101,7 +102,8 @@ public class CustomLocaleResolver implements LocaleContextResolver {
 	 */
 
 	private void setLocale(HttpServletRequest request, Locale l) {
-		setLocale(request, l);
+		assert request != null && l != null;
+		request.setAttribute(STORED_LOCALE_KEY, l);
 	}
 
 	private boolean isLocaleSupported(List<Language> supportedLanguages, Locale locale) {

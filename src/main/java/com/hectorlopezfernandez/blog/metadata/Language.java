@@ -10,11 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="languages")
 @CompoundIndexes(
-	@CompoundIndex(def="{'langCode':1,'regionCode':1,'variantCode':1}",unique=true)
+	@CompoundIndex(def="{'langCode':1,'regionCode':1}",unique=true)
 )
 public class Language {
-
-	public static final Long DEFAULT_LANGUAGE_ID = Long.valueOf(1);
 
 	@Id
 	private String id;
@@ -22,7 +20,6 @@ public class Language {
 	// indexed at class level
 	private String langCode;
 	private String regionCode;
-	private String variantCode;
 
 	@Indexed
 	private boolean defaultLanguage;
@@ -32,8 +29,7 @@ public class Language {
 	public Locale toLocale() {
 		if (langCode == null || langCode.isEmpty()) return null;
 		if (regionCode == null || regionCode.isEmpty()) return new Locale(langCode);
-		if (variantCode == null || variantCode.isEmpty()) return new Locale(langCode, regionCode);
-		return new Locale(langCode, regionCode, variantCode);
+		return new Locale(langCode, regionCode);
 	}
 
 	// getters & setters
@@ -57,13 +53,6 @@ public class Language {
 	}
 	public void setRegionCode(String regionCode) {
 		this.regionCode = regionCode;
-	}
-
-	public String getVariantCode() {
-		return variantCode;
-	}
-	public void setVariantCode(String variantCode) {
-		this.variantCode = variantCode;
 	}
 
 	public boolean isDefaultLanguage() {

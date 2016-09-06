@@ -24,12 +24,17 @@ public class User {
 	@DBRef
 	private Language language;
 
+	private String displayName;
+
+	private String about;
+
+	private String relatedUrl;
+
 	// getters & setters
 	
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -37,7 +42,6 @@ public class User {
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -45,9 +49,29 @@ public class User {
 	public Language getLanguage() {
 		return language;
 	}
-
 	public void setLanguage(Language language) {
 		this.language = language;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	public String getRelatedUrl() {
+		return relatedUrl;
+	}
+	public void setRelatedUrl(String relatedUrl) {
+		this.relatedUrl = relatedUrl;
 	}
 
 }

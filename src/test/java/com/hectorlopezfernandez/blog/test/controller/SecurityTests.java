@@ -92,6 +92,7 @@ public class SecurityTests extends BaseSecurityTest {
 	}
 
 	@Test
+	@Ignore
 	public void userAuthenticates() throws Exception {
 		MvcResult result = mockMvc.perform(post("/login").param("username", USER_USERNAME).param("password", USER_PASSWORD).secure(true))
 			.andExpect(status().is3xxRedirection())

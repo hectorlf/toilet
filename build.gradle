@@ -3,14 +3,14 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
+    classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE'
     classpath 'org.springframework:springloaded:1.2.5.RELEASE'
   }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 
 // project configuration
 project.sourceCompatibility = '1.8'
@@ -46,7 +46,7 @@ dependencies {
 
   testCompile 'org.springframework.boot:spring-boot-starter-test'
   testCompile 'org.springframework.security:spring-security-test:4.1.1.RELEASE'
-  testCompile 'com.github.fakemongo:fongo:2.0.7'
+  testCompile 'com.github.fakemongo:fongo:2.0.10'
 }
 
 // local run marker task

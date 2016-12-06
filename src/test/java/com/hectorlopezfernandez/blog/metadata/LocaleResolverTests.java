@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.test.controller;
+package com.hectorlopezfernandez.blog.metadata;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -9,7 +9,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.hectorlopezfernandez.blog.test.BaseMvcTest;
+import com.hectorlopezfernandez.blog.BaseMvcTest;
 
 public class LocaleResolverTests extends BaseMvcTest {
 

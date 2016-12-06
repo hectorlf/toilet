@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.test.service;
+package com.hectorlopezfernandez.blog.metadata;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +10,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import com.hectorlopezfernandez.blog.BaseTest;
 import com.hectorlopezfernandez.blog.metadata.Language;
 import com.hectorlopezfernandez.blog.metadata.MetadataService;
 import com.hectorlopezfernandez.blog.metadata.Preferences;
-import com.hectorlopezfernandez.blog.test.BaseTest;
 
 public class MetadataServiceTests extends BaseTest {
 

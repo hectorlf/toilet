@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.test.service;
+package com.hectorlopezfernandez.blog.auth;
 
 import org.junit.After;
 import org.junit.Before;
@@ -8,11 +8,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.Assert;
 
+import com.hectorlopezfernandez.blog.BaseTest;
 import com.hectorlopezfernandez.blog.auth.Principal;
 import com.hectorlopezfernandez.blog.auth.SecurityService;
-import com.hectorlopezfernandez.blog.test.BaseTest;
 
-public class SecurityServiceTests extends BaseTest {
+public class ServiceTests extends BaseTest {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;

@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.test.repository;
+package com.hectorlopezfernandez.blog.metadata;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.hectorlopezfernandez.blog.BaseTest;
 import com.hectorlopezfernandez.blog.metadata.Preferences;
 import com.hectorlopezfernandez.blog.metadata.PreferencesRepository;
-import com.hectorlopezfernandez.blog.test.BaseTest;
 
 public class PreferencesRepositoryTests extends BaseTest {
 

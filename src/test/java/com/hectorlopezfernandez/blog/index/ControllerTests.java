@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.test.controller;
+package com.hectorlopezfernandez.blog.index;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -10,27 +10,13 @@ import java.util.Locale;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import com.hectorlopezfernandez.blog.test.BaseMvcTest;
+import com.hectorlopezfernandez.blog.BaseMvcTest;
 
 public class ControllerTests extends BaseMvcTest {
 
 	@Test
 	public void testIndex() throws Exception {
 		mockMvc.perform(get("/index.page"))
-			.andExpect(status().isOk())
-			.andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
-	}
-
-	@Test
-	public void testLogin() throws Exception {
-		mockMvc.perform(get("/login.page"))
-			.andExpect(status().isOk())
-			.andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
-	}
-
-	@Test
-	public void testUnauthorized() throws Exception {
-		mockMvc.perform(get("/unauthorized.page"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
 	}

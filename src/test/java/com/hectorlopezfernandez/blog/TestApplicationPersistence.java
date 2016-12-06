@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.test;
+package com.hectorlopezfernandez.blog;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

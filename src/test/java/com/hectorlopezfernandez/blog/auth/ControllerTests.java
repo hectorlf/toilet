@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.test.controller;
+package com.hectorlopezfernandez.blog.auth;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -21,11 +21,11 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
 
-import com.hectorlopezfernandez.blog.test.BaseSecurityTest;
+import com.hectorlopezfernandez.blog.BaseSecurityTest;
 
-public class SecurityTests extends BaseSecurityTest {
+public class ControllerTests extends BaseSecurityTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(SecurityTests.class);
+	private static final Logger logger = LoggerFactory.getLogger(ControllerTests.class);
 	
 	// Ignored due to a race condition between @WithUserDetails and @Before
 	@Ignore

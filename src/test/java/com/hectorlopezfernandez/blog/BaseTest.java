@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.test;
+package com.hectorlopezfernandez.blog;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

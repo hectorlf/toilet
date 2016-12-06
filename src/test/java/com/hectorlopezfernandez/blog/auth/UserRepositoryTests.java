@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.test.repository;
+package com.hectorlopezfernandez.blog.auth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.hectorlopezfernandez.blog.BaseTest;
 import com.hectorlopezfernandez.blog.auth.User;
 import com.hectorlopezfernandez.blog.auth.UserRepository;
 import com.hectorlopezfernandez.blog.metadata.Language;
 import com.hectorlopezfernandez.blog.metadata.LanguageRepository;
-import com.hectorlopezfernandez.blog.test.BaseTest;
 
 public class UserRepositoryTests extends BaseTest {
 	

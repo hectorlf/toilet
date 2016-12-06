@@ -25,14 +25,14 @@ public class ControllerTests extends BaseMvcTest {
 	public void testI18n1() throws Exception {
 		mockMvc.perform(get("/index.page").locale(Locale.forLanguageTag("en")))
 			.andExpect(status().isOk())
-			.andExpect(content().string(containsString("Welcome")));
+			.andExpect(content().string(containsString("Home")));
 	}
 
 	@Test
 	public void testI18n2() throws Exception {
 		mockMvc.perform(get("/index.page").locale(Locale.forLanguageTag("es")))
 			.andExpect(status().isOk())
-			.andExpect(content().string(containsString("Bienvenido")));
+			.andExpect(content().string(containsString("Inicio")));
 	}
 
 }

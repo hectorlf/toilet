@@ -1,4 +1,4 @@
-{% extends '/WEB-INF/pebble/layouts/template.pebble' %}
+{% extends 'web/layout/template' %}
 
 {% set pageName = 'Inicio' %}
 {% set metaDescription = 'Un blog sobre Internet, Java, Android, tecnología y consultoría, aderezado con historias de terror extraídas del curro diario.' %}
@@ -7,12 +7,12 @@
    <main role="main">
 
 {% for post in actionBean.posts %}
-{% include '/WEB-INF/pebble/layouts/post-excerpt.pebble' %}
+{% include 'web/layout/post-excerpt' %}
 
 {% endfor %}
    </main>
 {% endblock %}
 
-{% block 'syntaxhighlighter-scripts' %}
-{% include '/WEB-INF/pebble/layouts/syntaxhighlighter-scripts.pebble' %}
+{% block 'syntaxhighlighting-scripts' %}
+{% include 'web/layout/prettify-scripts' %}
 {% endblock %}

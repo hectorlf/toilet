@@ -14,13 +14,7 @@ public class LoginController {
 	@RequestMapping(value="/login.page")
 	public String login(ModelMap model) {
 		logger.debug("Going into LoginController.login()");
-		return "login-form";
-	}
-
-	@RequestMapping(value="/unauthorized.page")
-	public String unauthorized(ModelMap model) {
-		logger.debug("Going into LoginController.unauthorized()");
-		return "unauthorized";
+		return "admin/login";
 	}
 
 }

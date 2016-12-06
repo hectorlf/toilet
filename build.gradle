@@ -39,10 +39,11 @@ dependencies {
   compile 'org.springframework.boot:spring-boot-starter-undertow'
   compile 'org.springframework.boot:spring-boot-starter-actuator'
   compile 'org.springframework.boot:spring-boot-starter-security'
-  compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
   compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
+  compile 'com.mitchellbosecke:pebble-spring-boot-starter:2.3.0'
+  compile 'com.hectorlopezfernandez.pebble:joda-time-extension:1.0.2'
+//  compile 'com.hectorlopezfernandez.pebble:spring-security-extension'
   compile 'javax.inject:javax.inject:1'
-  compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE'
 
   testCompile 'org.springframework.boot:spring-boot-starter-test'
   testCompile 'org.springframework.security:spring-security-test:4.1.1.RELEASE'

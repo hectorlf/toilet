@@ -1,0 +1,2 @@
+{"_id":{"$oid":"5849f900e936f324585dd614"},"_class":"com.hectorlopezfernandez.blog.metadata.Language","langCode":"es","defaultLanguage":true}
+{"_id":{"$oid":"5849f900e936f324585dd615"},"_class":"com.hectorlopezfernandez.blog.metadata.Language","langCode":"en","defaultLanguage":false}

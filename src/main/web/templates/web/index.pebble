@@ -1,4 +1,4 @@
-{% extends 'web/layout/template' %}
+{% extends 'web/layout/base-one-column' %}
 
 {% set pageName = 'Inicio' %}
 {% set metaDescription = 'Un blog sobre Internet, Java, Android, tecnología y consultoría, aderezado con historias de terror extraídas del curro diario.' %}

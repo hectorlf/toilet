@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityServiceImpl implements SecurityService {
 	
-	private PrincipalRepository principalRepository;
+	private UserRepository userRepository;
 
 	@Inject
-	public SecurityServiceImpl(PrincipalRepository principalRepository) {
-		this.principalRepository = principalRepository;
+	public SecurityServiceImpl(UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		if (username == null || username.isEmpty()) throw new UsernameNotFoundException("Empty username");
-		UserDetails u = principalRepository.findByUsername(username);
+		UserDetails u = userRepository.findByUsername(username);
 		if (u == null) throw new UsernameNotFoundException("Username '" + username + "' not found");
 		return u;
 	}

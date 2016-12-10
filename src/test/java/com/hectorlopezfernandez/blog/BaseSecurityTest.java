@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.hectorlopezfernandez.blog.Application;
-import com.hectorlopezfernandez.blog.auth.Principal;
+import com.hectorlopezfernandez.blog.auth.User;
 import com.hectorlopezfernandez.blog.metadata.Language;
 
 @RunWith(SpringRunner.class)
@@ -37,13 +36,13 @@ public abstract class BaseSecurityTest {
 	@Before
 	public void setup() {
 		// database defaults go before mockmvc
-		Principal admin = new Principal();
+		User admin = new User();
 		admin.setId("1");
 		admin.setEnabled(true);
 		admin.setUsername(ADMIN_USERNAME);
 		admin.setPassword(ADMIN_PASSWORD);
 		mongoTemplate.insert(admin);
-		Principal user = new Principal();
+		User user = new User();
 		user.setId("2");
 		user.setEnabled(true);
 		user.setUsername(USER_USERNAME);
@@ -63,7 +62,7 @@ public abstract class BaseSecurityTest {
 
 	@After
 	public void tearDown() {
-		Principal p = new Principal();
+		User p = new User();
 		p.setId("1");
 		mongoTemplate.remove(p);
 		p.setId("2");

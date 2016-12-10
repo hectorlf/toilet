@@ -18,7 +18,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.LocaleContextResolver;
 
-import com.hectorlopezfernandez.blog.auth.Principal;
+import com.hectorlopezfernandez.blog.auth.User;
 import com.hectorlopezfernandez.blog.metadata.Language;
 import com.hectorlopezfernandez.blog.metadata.MetadataService;
 
@@ -49,7 +49,7 @@ public class CustomLocaleResolver implements LocaleContextResolver {
 		if (sc != null) {
 			Authentication auth = sc.getAuthentication();
 			if (auth != null && !(auth instanceof AnonymousAuthenticationToken) && auth.getPrincipal() != null) {
-				Principal p = (Principal) auth.getPrincipal();
+				User p = (User) auth.getPrincipal();
 				Locale l = p.getLanguage().toLocale();
 				logger.debug("Found authenticated user with locale '{}'", l);
 				setLocale(request, l);

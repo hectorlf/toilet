@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.Assert;
 
 import com.hectorlopezfernandez.blog.BaseTest;
-import com.hectorlopezfernandez.blog.auth.Principal;
-import com.hectorlopezfernandez.blog.auth.SecurityService;
 
 public class ServiceTests extends BaseTest {
 
@@ -21,7 +19,7 @@ public class ServiceTests extends BaseTest {
 
 	@Before
 	public void setup() {
-		Principal p = new Principal();
+		User p = new User();
 		p.setId("1");
 		p.setUsername("test");
 		mongoTemplate.insert(p);
@@ -29,7 +27,7 @@ public class ServiceTests extends BaseTest {
 
 	@After
 	public void tearDown() {
-		Principal p = new Principal();
+		User p = new User();
 		p.setId("1");
 		mongoTemplate.remove(p);
 	}

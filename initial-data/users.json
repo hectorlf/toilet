@@ -1,1 +1,1 @@
-{"_class":"com.hectorlopezfernandez.blog.auth.Authority","username":"admin"}
+{ "_id" : {"$oid":"584dd9c1e936f317b0494773"}, "_class" : "com.hectorlopezfernandez.blog.auth.User", "username" : "admin", "language" : { "_id" : null, "langCode" : "es", "defaultLanguage" : false }, "enabled" : true, "displayName" : "Admin", "about" : "Looking through the black and white window...", "authorities" : [ {"$ref":"authorities","$id":{"$oid":"584dd9c1e936f317b0494772"}} ] }

@@ -24,7 +24,6 @@ public class User implements UserDetails {
 	private String id;
 	@Indexed(unique=true)
 	private String username;
-	@DBRef
 	private Language language;
 
 	// security related

@@ -14,7 +14,7 @@ apply plugin: 'org.springframework.boot'
 
 // project configuration
 project.sourceCompatibility = '1.8'
-project.archivesBaseName = 'yajbs-v2'
+project.archivesBaseName = 'toilet'
 project.version = '0.0.0'
 
 sourceSets {

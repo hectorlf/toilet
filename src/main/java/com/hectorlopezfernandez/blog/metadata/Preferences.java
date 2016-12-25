@@ -11,17 +11,11 @@ public class Preferences {
 
 	@Id
 	private String id = ID;
-
 	private String title;
-
 	private String tagline;
-
 	private Boolean paginateIndexPage;
-
 	private Integer postsPerIndexPage;
-
 	private Integer maxPostAgeInDaysForFeeds;
-
 
 	// getters & setters
 	

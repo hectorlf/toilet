@@ -22,7 +22,7 @@ public class MetadataServiceImpl implements MetadataService {
 
 	@Override
 	public Language getDefaultLanguage() {
-		Language defaultLanguage = languageRepository.findByDefaultLanguageIsTrue();
+		Language defaultLanguage = languageRepository.findByPrimaryIsTrue();
 		return defaultLanguage;
 	}
 

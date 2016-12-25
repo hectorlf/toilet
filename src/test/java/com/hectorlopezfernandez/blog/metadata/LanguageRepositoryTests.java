@@ -18,7 +18,7 @@ public class LanguageRepositoryTests extends BaseTest {
 	@Test
 	public void testLanguages() {
 		Assert.assertTrue(languageRepository.findAll().size() == 2);
-		Language l = languageRepository.findByDefaultLanguageIsTrue();
+		Language l = languageRepository.findByPrimaryIsTrue();
 		Assert.assertNotNull(l);
 		Assert.assertTrue(l.toLocale().equals(new Locale("es", "ES")));
 	}
@@ -26,12 +26,11 @@ public class LanguageRepositoryTests extends BaseTest {
 	@Before
 	public void setup() {
 		Language l = new Language();
-		l.setDefaultLanguage(true);
+		l.setPrimary(true);
 		l.setLangCode("es");
 		l.setRegionCode("ES");
 		languageRepository.save(l);
 		l = new Language();
-		l.setDefaultLanguage(false);
 		l.setLangCode("en");
 		l.setRegionCode("US");
 		languageRepository.save(l);

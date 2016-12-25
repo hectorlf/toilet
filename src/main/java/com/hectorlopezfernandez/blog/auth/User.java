@@ -116,6 +116,8 @@ public class User implements UserDetails {
 		return enabled;
 	}
 
+	// helper classes
+
 	public static class Language {
 
 		private String langCode;

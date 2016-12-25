@@ -1,6 +1,5 @@
 package com.hectorlopezfernandez.blog.post;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -10,15 +9,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
-import com.hectorlopezfernandez.blog.post.Post;
-import com.hectorlopezfernandez.blog.post.PostRepository;
 
 public class PostRepositoryTests extends BaseTest {
 	
 	@Autowired
 	private PostRepository postRepository;
-	
-	private List<Post> posts = new ArrayList<>(2);
 
 	@Test
 	public void testPosts() {
@@ -40,17 +35,17 @@ public class PostRepositoryTests extends BaseTest {
 		p.setContent("Content1");
 		p.setCreationDate(System.currentTimeMillis());
 		p.setTitle("Title1");
-		posts.add(postRepository.save(p));
+		postRepository.save(p);
 		p = new Post();
 		p.setContent("Content2");
 		p.setCreationDate(Long.valueOf(0));
 		p.setTitle("Title2");
-		posts.add(postRepository.save(p));
+		postRepository.save(p);
 	}
 
 	@After
 	public void teardown() {
-		postRepository.delete(posts);
+		postRepository.deleteAll();
 	}
 
 }

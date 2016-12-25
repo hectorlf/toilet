@@ -1,6 +1,5 @@
 package com.hectorlopezfernandez.blog.metadata;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -8,21 +7,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.hectorlopezfernandez.blog.BaseTest;
-import com.hectorlopezfernandez.blog.metadata.Language;
-import com.hectorlopezfernandez.blog.metadata.MetadataService;
-import com.hectorlopezfernandez.blog.metadata.Preferences;
 
 public class MetadataServiceTests extends BaseTest {
 
 	@Autowired
-	private MongoTemplate mongoTemplate;
-	@Autowired
 	private MetadataService metadataService;
 	
-	private List<Language> languages = new ArrayList<>(2);
+	@Autowired
+	private PreferencesRepository preferencesRepository;
+
+	@Autowired
+	private LanguageRepository languageRepository;
 
 	@Test
 	public void testGetPreferences() {
@@ -49,27 +46,22 @@ public class MetadataServiceTests extends BaseTest {
 		p.setPostsPerIndexPage(3);
 		p.setTagline("Tagline");
 		p.setTitle("Title");
-		mongoTemplate.save(p);
+		preferencesRepository.save(p);
 		Language l = new Language();
-		l.setDefaultLanguage(true);
+		l.setPrimary(true);
 		l.setLangCode("es");
 		l.setRegionCode("ES");
-		mongoTemplate.save(l);
-		languages.add(l);
+		languageRepository.save(l);
 		l = new Language();
-		l.setDefaultLanguage(false);
 		l.setLangCode("en");
 		l.setRegionCode("US");
-		mongoTemplate.save(l);
-		languages.add(l);
+		languageRepository.save(l);
 	}
 
 	@After
 	public void teardown() {
-		mongoTemplate.remove(new Preferences());
-		for (Language l : languages) {
-			mongoTemplate.remove(l);
-		}
+		preferencesRepository.deleteAll();
+		languageRepository.deleteAll();
 	}
 
 }

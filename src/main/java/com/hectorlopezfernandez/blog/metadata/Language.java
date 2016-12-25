@@ -22,7 +22,7 @@ public class Language {
 	private String regionCode;
 
 	@Indexed
-	private boolean defaultLanguage;
+	private boolean primary;
 
 	// utility methods
 	
@@ -55,11 +55,11 @@ public class Language {
 		this.regionCode = regionCode;
 	}
 
-	public boolean isDefaultLanguage() {
-		return defaultLanguage;
+	public boolean isPrimary() {
+		return primary;
 	}
-	public void setDefaultLanguage(boolean defaultLanguage) {
-		this.defaultLanguage = defaultLanguage;
+	public void setPrimary(boolean primary) {
+		this.primary = primary;
 	}
 
 }

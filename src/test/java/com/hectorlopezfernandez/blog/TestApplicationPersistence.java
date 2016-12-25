@@ -11,15 +11,17 @@ import com.mongodb.MongoClient;
 @Configuration
 public class TestApplicationPersistence {
 
+	private static final String DB_NAME = "blog";
+
 	@Bean
 	public MongoClient testMongoDb() {
-		Fongo fongo = new Fongo("test");
+		Fongo fongo = new Fongo(DB_NAME);
 		return fongo.getMongo();
 	}
 
 	@Bean
 	public MongoDbFactory mongoDbFactory() {
-		return new SimpleMongoDbFactory(testMongoDb(), "test");
+		return new SimpleMongoDbFactory(testMongoDb(), DB_NAME);
 	}
 
 }

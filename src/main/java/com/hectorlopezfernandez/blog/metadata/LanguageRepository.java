@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LanguageRepository extends MongoRepository<Language, String> {
 
-	Language findByDefaultLanguageIsTrue();
+	Language findByPrimaryIsTrue();
 
 }

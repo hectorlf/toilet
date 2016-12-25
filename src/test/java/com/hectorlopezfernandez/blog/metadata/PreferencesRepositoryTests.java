@@ -7,8 +7,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
-import com.hectorlopezfernandez.blog.metadata.Preferences;
-import com.hectorlopezfernandez.blog.metadata.PreferencesRepository;
 
 public class PreferencesRepositoryTests extends BaseTest {
 
@@ -35,7 +33,7 @@ public class PreferencesRepositoryTests extends BaseTest {
 
 	@After
 	public void teardown() {
-		preferencesRepository.delete(Preferences.ID);
+		preferencesRepository.deleteAll();
 	}
 
 }

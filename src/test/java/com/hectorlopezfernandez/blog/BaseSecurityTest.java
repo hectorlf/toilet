@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -15,7 +14,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.hectorlopezfernandez.blog.auth.User;
+import com.hectorlopezfernandez.blog.auth.UserRepository;
 import com.hectorlopezfernandez.blog.metadata.Language;
+import com.hectorlopezfernandez.blog.metadata.LanguageRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes={TestApplicationPersistence.class,Application.class}, webEnvironment=WebEnvironment.RANDOM_PORT)
@@ -27,7 +28,10 @@ public abstract class BaseSecurityTest {
 	protected static final String USER_PASSWORD = BCrypt.hashpw("user", BCrypt.gensalt());
 
 	@Autowired
-	private MongoTemplate mongoTemplate;
+	private LanguageRepository languageRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	private WebApplicationContext wac;
@@ -37,22 +41,19 @@ public abstract class BaseSecurityTest {
 	public void setup() {
 		// database defaults go before mockmvc
 		User admin = new User();
-		admin.setId("1");
 		admin.setEnabled(true);
 		admin.setUsername(ADMIN_USERNAME);
 		admin.setPassword(ADMIN_PASSWORD);
-		mongoTemplate.insert(admin);
+		userRepository.save(admin);
 		User user = new User();
-		user.setId("2");
 		user.setEnabled(true);
 		user.setUsername(USER_USERNAME);
 		user.setPassword(USER_PASSWORD);
-		mongoTemplate.insert(user);
+		userRepository.save(user);
 		Language l = new Language();
-		l.setId("1");
-		l.setDefaultLanguage(true);
+		l.setPrimary(true);
 		l.setLangCode("es");
-		mongoTemplate.insert(l);
+		languageRepository.save(l);
 
 		this.mockMvc = MockMvcBuilders
 			.webAppContextSetup(this.wac)
@@ -62,14 +63,8 @@ public abstract class BaseSecurityTest {
 
 	@After
 	public void tearDown() {
-		User p = new User();
-		p.setId("1");
-		mongoTemplate.remove(p);
-		p.setId("2");
-		mongoTemplate.remove(p);
-		Language l = new Language();
-		l.setId("1");
-		mongoTemplate.remove(l);
+		languageRepository.deleteAll();
+		userRepository.deleteAll();
 	}
 
 }

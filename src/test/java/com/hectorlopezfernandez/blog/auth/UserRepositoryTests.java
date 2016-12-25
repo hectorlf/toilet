@@ -7,14 +7,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
-import com.hectorlopezfernandez.blog.metadata.LanguageRepository;
 
 public class UserRepositoryTests extends BaseTest {
 	
 	@Autowired
 	private UserRepository userRepository;
-	@Autowired
-	private LanguageRepository languageRepository;
 	
 	@Test
 	public void testUsers() {
@@ -43,7 +40,6 @@ public class UserRepositoryTests extends BaseTest {
 	@After
 	public void teardown() {
 		userRepository.deleteAll();
-		languageRepository.deleteAll();
 	}
 
 }

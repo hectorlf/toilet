@@ -1,14 +1,13 @@
 package com.hectorlopezfernandez.blog.auth;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import com.hectorlopezfernandez.blog.metadata.Language;
 
 /**
  * Application-oriented view of the USERS collection
@@ -115,6 +114,37 @@ public class User implements UserDetails {
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return enabled;
+	}
+
+	public static class Language {
+
+		private String langCode;
+		private String regionCode;
+
+		// utility methods
+		
+		public Locale toLocale() {
+			if (langCode == null || langCode.isEmpty()) return null;
+			if (regionCode == null || regionCode.isEmpty()) return new Locale(langCode);
+			return new Locale(langCode, regionCode);
+		}
+
+		// getters & setters
+
+		public String getLangCode() {
+			return langCode;
+		}
+		public void setLangCode(String langCode) {
+			this.langCode = langCode;
+		}
+
+		public String getRegionCode() {
+			return regionCode;
+		}
+		public void setRegionCode(String regionCode) {
+			this.regionCode = regionCode;
+		}
+
 	}
 
 }

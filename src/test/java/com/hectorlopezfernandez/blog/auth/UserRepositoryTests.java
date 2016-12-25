@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
-import com.hectorlopezfernandez.blog.metadata.Language;
 import com.hectorlopezfernandez.blog.metadata.LanguageRepository;
 
 public class UserRepositoryTests extends BaseTest {
@@ -28,11 +27,9 @@ public class UserRepositoryTests extends BaseTest {
 
 	@Before
 	public void setup() {
-		Language l = new Language();
-		l.setDefaultLanguage(true);
+		User.Language l = new User.Language();
 		l.setLangCode("en");
 		l.setRegionCode("US");
-		languageRepository.save(l);
 		User u = new User();
 		u.setUsername("User1");
 		u.setLanguage(l);

@@ -20,6 +20,11 @@ public class TestApplicationPersistence {
 	}
 
 	@Bean
+	public MongoClient realMongoDb() {
+		return new MongoClient("localhost");
+	}
+
+	@Bean
 	public MongoDbFactory mongoDbFactory() {
 		return new SimpleMongoDbFactory(testMongoDb(), DB_NAME);
 	}

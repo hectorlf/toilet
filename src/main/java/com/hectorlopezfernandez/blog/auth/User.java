@@ -123,6 +123,13 @@ public class User implements UserDetails {
 		private String langCode;
 		private String regionCode;
 
+		public Language() {
+		}
+		public Language(String langCode, String regionCode) {
+			this.langCode = langCode;
+			this.regionCode = regionCode;
+		}
+
 		// utility methods
 		
 		public Locale toLocale() {

@@ -42,7 +42,7 @@ dependencies {
   compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
   compile 'com.mitchellbosecke:pebble-spring-boot-starter:2.3.0'
   compile 'com.hectorlopezfernandez.pebble:joda-time-extension:1.0.2'
-//  compile 'com.hectorlopezfernandez.pebble:spring-security-extension'
+  compile 'com.hectorlopezfernandez.pebble:spring-security-extension:1.0.0'
   compile 'javax.inject:javax.inject:1'
 
   testCompile 'org.springframework.boot:spring-boot-starter-test'

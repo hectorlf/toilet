@@ -41,9 +41,9 @@
             <li><a href="/pages/curriculum">Currículum</a></li>
             <li><a href="https://github.com/hectorlf" target="_blank">GitHub</a></li>
             <li><a href="/pages/about">Acerca de&hellip;</a></li>
-{ % authenticated %}
+{% authorize "isAuthenticated()" %}
             <li><a href="/admin/index.page">Administración</a></li>
-{ % endAuthenticated %}
+{% endAuthorize %}
          </ul>
       </nav>
    </header>

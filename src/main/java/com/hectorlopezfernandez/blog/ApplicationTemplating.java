@@ -1,8 +1,11 @@
 package com.hectorlopezfernandez.blog;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
+import com.hectorlopezfernandez.pebble.resourcer.ResourcerExtension;
 import com.hectorlopezfernandez.pebble.springsecurity.SpringSecurityExtension;
 import com.hectorlopezfernandez.pebblejodatime.JodaExtension;
 import com.mitchellbosecke.pebble.extension.Extension;
@@ -25,6 +28,12 @@ public class ApplicationTemplating {
 	@Bean
 	public Extension jodaExtension() {
 		return new JodaExtension();
+	}
+
+	@Bean
+	@Autowired
+	public Extension resourcerExtension(Environment environment) {
+		return new ResourcerExtension(environment);
 	}
 
 }

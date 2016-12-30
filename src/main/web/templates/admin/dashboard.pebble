@@ -1,0 +1,9 @@
+{% extends 'admin/layout/base-left-menu' %}
+
+{% set pageName = message('admin.dashboard') %}
+
+{% block main %}
+   <main role="main">
+
+   </main>
+{% endblock %}

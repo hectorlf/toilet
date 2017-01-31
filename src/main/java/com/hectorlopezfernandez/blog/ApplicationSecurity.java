@@ -18,7 +18,7 @@ import com.hectorlopezfernandez.blog.auth.SecurityService;
 @EnableConfigurationProperties(SecurityProperties.class)
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
-	private static final String[] MANAGEMENT_ENDPOINTS = {"/management/dump","/management/health","/management/metrics","/management/trace"};
+	private static final String[] MANAGEMENT_ENDPOINTS = {"/management/dump","/management/health","/management/metrics","/management/trace","/management/loggers"};
 
 	@Autowired
 	private SecurityService securityService;

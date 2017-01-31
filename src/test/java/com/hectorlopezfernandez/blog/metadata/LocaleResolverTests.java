@@ -15,13 +15,12 @@ public class LocaleResolverTests extends BaseMvcTest {
 
 	@Test
 	public void testNoLocale() throws Exception {
-		mockMvc.perform(get("/index.page").locale(null))
+		mockMvc.perform(get("/index.page"))
 			.andExpect(status().isOk());
 	}
 
 	@Test
 	public void testAcceptHeaderLocale1() throws Exception {
-		// this should kick in as an accept-language locale
 		mockMvc.perform(get("/index.page").locale(Locale.forLanguageTag("es-ES")))
 			.andExpect(status().isOk())
 			.andExpect(content().string(containsString("Inicio")));

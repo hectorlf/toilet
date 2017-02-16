@@ -27,7 +27,7 @@ public class Post {
 
 	private String content;
 
-	// denormalized text for feeds
+	// preprocessed text for feeds
 	private String feedContent;
 
 	private long creationDate;

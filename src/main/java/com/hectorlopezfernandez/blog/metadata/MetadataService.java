@@ -19,6 +19,9 @@ public interface MetadataService {
 	
 	// blog preferences
 
+	/**
+	 * Returns the global preferences
+	 */
 	Preferences getPreferences();
 
 }

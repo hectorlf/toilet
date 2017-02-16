@@ -6,7 +6,7 @@
 {% block main %}
    <main role="main">
 
-{% for post in actionBean.posts %}
+{% for post in posts %}
 {% include 'web/layout/post-excerpt' %}
 
 {% endfor %}

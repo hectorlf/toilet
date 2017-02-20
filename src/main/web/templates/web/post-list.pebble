@@ -1,4 +1,4 @@
-{% extends '/WEB-INF/pebble/layouts/template.pebble' %}
+{% extends 'web/layout/base-one-column' %}
 
 {% set pageName = 'Entradas archivadas en '~(actionBean.month == null ? actionBean.searchDate | joda("yyyy") : actionBean.searchDate | joda("MMMM 'de' yyyy", "es")) %}
 

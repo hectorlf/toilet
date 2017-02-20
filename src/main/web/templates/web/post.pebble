@@ -1,4 +1,4 @@
-{% extends '/WEB-INF/pebble/layouts/template.pebble' %}
+{% extends 'web/layout/base-one-column' %}
 
 {% set pageName = actionBean.post.title %}
 {% set metaDescription = actionBean.post.metaDescription %}
@@ -6,11 +6,11 @@
 
 {% block main %}
    <main role="main">
-{% include '/WEB-INF/pebble/layouts/post-detail.pebble' %}
+{ % include 'web/layout/post-detail' %}
 
    </main>
 {% endblock %}
 
 {% block 'syntaxhighlighter-scripts' %}
-{% include '/WEB-INF/pebble/layouts/syntaxhighlighter-scripts.pebble' %}
+{ % include '/WEB-INF/pebble/layouts/syntaxhighlighter-scripts.pebble' %}
 {% endblock %}

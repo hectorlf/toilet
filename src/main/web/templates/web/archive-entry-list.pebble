@@ -1,4 +1,4 @@
-{% extends '/WEB-INF/pebble/layouts/template.pebble' %}
+{% extends 'web/layout/base-one-column' %}
 
 {% set pageName = 'Archivo' %}
 

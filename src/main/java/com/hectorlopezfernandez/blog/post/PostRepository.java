@@ -16,4 +16,6 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
 	Page<Post> findByPublishedIsTrueOrderByPublicationDateDesc(Pageable pageable);
 
+	List<Post> findAllByPublishedIsTrue();
+
 }

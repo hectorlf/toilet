@@ -10,4 +10,6 @@ public interface PageRepository extends MongoRepository<Page, String> {
 
 	List<Page> findByTitle(String title);
 
+	List<Page> findAllByPublishedIsTrue();
+
 }

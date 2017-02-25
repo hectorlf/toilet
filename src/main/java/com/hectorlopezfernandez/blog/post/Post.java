@@ -1,6 +1,7 @@
 package com.hectorlopezfernandez.blog.post;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,7 +19,8 @@ public class Post {
 	private String id;
 	
 	private String title;
-	
+
+	@Indexed(unique=true)
 	private String titleUrl;
 
 	private String metaDescription;
@@ -34,8 +36,9 @@ public class Post {
 	private long publicationDate;
 	private long lastModificationDate;
 	
-	private boolean commentsClosed;
+	private boolean commentsAllowed;
 
+	@Indexed
 	private boolean published;
 
 	@DBRef
@@ -119,13 +122,6 @@ public class Post {
 		this.lastModificationDate = lastModificationDate;
 	}
 
-	public boolean isCommentsClosed() {
-		return commentsClosed;
-	}
-	public void setCommentsClosed(boolean commentsClosed) {
-		this.commentsClosed = commentsClosed;
-	}
-
 	public boolean isPublished() {
 		return published;
 	}
@@ -138,6 +134,13 @@ public class Post {
 	}
 	public void setAuthor(User author) {
 		this.author = author;
+	}
+
+	public boolean isCommentsAllowed() {
+		return commentsAllowed;
+	}
+	public void setCommentsAllowed(boolean commentsAllowed) {
+		this.commentsAllowed = commentsAllowed;
 	}
 
 }

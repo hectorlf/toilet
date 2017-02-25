@@ -11,4 +11,9 @@ public interface ArchiveService {
 	 */
 	List<Post> listIndexPosts();
 
+	/**
+	 * Returns a list of posts tailored for the sitemap
+	 */
+	List<Post> listPostsForSitemap();
+
 }

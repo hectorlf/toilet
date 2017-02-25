@@ -19,4 +19,9 @@ public class ArchiveServiceImpl implements ArchiveService {
 		return postRepository.findByPublishedIsTrueOrderByPublicationDateDesc(pageable).getContent();
 	}
 
+	@Override
+	public List<Post> listPostsForSitemap() {
+		return postRepository.findAllByPublishedIsTrue();
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.hectorlopezfernandez.blog.page;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -15,7 +16,8 @@ public class Page {
 	private String id;
 
 	private String title;
-	
+
+	@Indexed(unique=true)
 	private String titleUrl;
 
 	private String metaDescription;
@@ -24,6 +26,9 @@ public class Page {
 
 	private long publicationDate;
 	private long lastModificationDate;
+
+	@Indexed
+	private boolean published;
 
 	// getters & setters
 
@@ -74,6 +79,13 @@ public class Page {
 	}
 	public void setLastModificationDate(long lastModificationDate) {
 		this.lastModificationDate = lastModificationDate;
+	}
+
+	public boolean isPublished() {
+		return published;
+	}
+	public void setPublished(boolean published) {
+		this.published = published;
 	}
 
 }

@@ -17,15 +17,15 @@
 {% include 'web/layout/inlined-styles' %}
 
 
-   <link rel="alternate" href="/feed.page" type="application/atom+xml" title="Feed de entradas en formato ATOM"/>
-   <link rel="index" href="{{indexUrl}}" title="Inicio"/>
+   <link rel="alternate" href="/feed.page" type="application/atom+xml" title="{{ message('feed.description') }}"/>
+   <link rel="index" href="{{indexUrl}}" title="{{ message('index.home') }}"/>
 
    <title>{{pageName}} - {{preferences.title}}</title>
 {% if metaDescription is not empty %}
    <meta name="description" content="{{metaDescription}}" />
 {% endif %}
    <link rel="shortcut icon" href="https://d9xqzluw8al1.cloudfront.net/favicon.gif" type="image/gif"/>
-   <meta name="generator" content="{{APPLICATION_TAG}}"/>
+   <meta name="generator" content="Toilet Blogging Application"/>
 </head>
 {# flush head as soon as possible #}{% flush %}
 
@@ -36,13 +36,13 @@
       <h2 class="blog-description">{{preferences.tagline}}</h2>
       <nav class="menu" role="navigation">
          <ul>
-            <li><a href="/archive">Archivo</a></li>
-            <li><a href="/tags">Etiquetas</a></li>
-            <li><a href="/pages/curriculum">Currículum</a></li>
-            <li><a href="https://github.com/hectorlf" target="_blank">GitHub</a></li>
-            <li><a href="/pages/about">Acerca de&hellip;</a></li>
+            <li><a href="/archive">{{ message('menu.archive') }}</a></li>
+            <li><a href="/tags">{{ message('menu.tags') }}</a></li>
+            <li><a href="/pages/curriculum">{{ message('menu.cv') }}</a></li>
+            <li><a href="https://github.com/hectorlf" target="_blank">{{ message('menu.github') }}</a></li>
+            <li><a href="/pages/about">{{ message('menu.about') }}</a></li>
 {% authorize "isAuthenticated()" %}
-            <li><a href="/admin/index.page">Administración</a></li>
+            <li><a href="/admin/index.page">{{ message('menu.admin') }}</a></li>
 {% endAuthorize %}
          </ul>
       </nav>
@@ -59,12 +59,12 @@
          <section class="footer-description">
             <form role="search" method="get" id="searchform" action="/search">
             <i class="fa fa-search"></i>
-            <input type="search" id="s" name="q" placeholder="Buscar..." value="{{actionBean.q}}" maxlength="50"/>
+            <input type="search" id="s" name="q" placeholder="{{ message('search.placeholder') }}..." value="{{ q }}" maxlength="50"/>
             </form>
          </section>
-         <section class="copyright"><a rel="license" title="Esta obra est&aacute; bajo una licencia Creative Commons" href="http://creativecommons.org/licenses/by/3.0/es/" style="vertical-align:middle;"><img alt="Esta obra est&aacute; bajo una licencia Creative Commons" style="border-width:0" src="https://licensebuttons.net/l/by/3.0/es/80x15.png" height="15" width="80"/></a> Licencia Creative Commons &#8226; <a href="/pages/policies">Privacidad y condiciones</a></section>
-         <section>Tema &ldquo;Vapor&rdquo; diseñado por <a href="http://sethlilly.com/">Seth Lilly</a></section>
-         <section class="poweredby">Orgullosamente publicado con <a href="https://github.com/hectorlf/yajbs">{{APPLICATION_TAG}}</a></section>
+         <section class="copyright"><a rel="license" title="{{ message('footer.license') }}" href="http://creativecommons.org/licenses/by/3.0/es/" style="vertical-align:middle;"><img alt="{{ message('footer.license') }}" style="border-width:0" src="https://licensebuttons.net/l/by/3.0/es/80x15.png" height="15" width="80"/></a> Creative Commons &#8226; <a href="/pages/policies">{{ message('footer.policies') }}</a></section>
+         <section>{{ message('footer.themeby') }} <a href="http://sethlilly.com/">Seth Lilly</a></section>
+         <section class="poweredby">{{ message('footer.publishedwith') }} <a href="https://github.com/hectorlf/toilet">Toilet</a></section>
       </div>
    </footer>
 

@@ -1,7 +1,7 @@
 {% extends 'web/layout/base-one-column' %}
 
-{% set pageName = message('home') %}
-{% set metaDescription = 'Un blog sobre Internet, Java, Android, tecnología y consultoría, aderezado con historias de terror extraídas del curro diario.' %}
+{% set pageName = message('index.home') %}
+{% set metaDescription = preferences.tagline %}
 
 {% block main %}
    <main role="main">

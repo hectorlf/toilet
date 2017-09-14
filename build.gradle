@@ -58,12 +58,3 @@ task start(dependsOn: bootRun) {
 compileJava {
   options.incremental = true
 }
-
-
-
-
-// Gradle wrapper task
-// Only used when in need to reinstall the wrapper
-task wrapper(type: Wrapper) {
-  gradleVersion = '3.5'
-}

@@ -39,6 +39,9 @@ public abstract class BaseMvcTest {
 		l.setLangCode("es");
 		l.setRegionCode("ES");
 		languageRepository.save(l);
+		l = new Language();
+		l.setLangCode("pt");
+		languageRepository.save(l);
 
 		mockMvc = MockMvcBuilders
 			.webAppContextSetup(this.wac)

@@ -1,1 +1,0 @@
-{"_id":{"$oid":"1"},"_class":"com.hectorlopezfernandez.blog.metadata.Preferences","title":"Title","tagline":"Tagline","paginateIndexPage":false,"postsPerIndexPage":3,"maxPostAgeInDaysForFeeds":30}

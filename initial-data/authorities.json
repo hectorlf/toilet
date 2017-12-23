@@ -1,1 +1,0 @@
-{ "_id" : {"$oid":"584dd9c1e936f317b0494772"}, "_class":"com.hectorlopezfernandez.blog.auth.Authority", "authority":"ADMIN_ROLE" }

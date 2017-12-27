@@ -58,3 +58,18 @@ task start(dependsOn: bootRun) {
 compileJava {
   options.incremental = true
 }
+
+
+// model class export for toilet-initializer
+
+task modelClassesJar(type: Jar, dependsOn: classes) {
+   classifier = 'models'
+   from sourceSets.main.output.classesDirs
+   includeEmptyDirs false
+   include '**/Authority*.class', '**/User*.class', '**/Language*.class', '**/Preferences*.class', '**/Page*.class', '**/Post*.class'
+   exclude '**/*Service*.class'
+}
+
+artifacts {
+   archives modelClassesJar
+}

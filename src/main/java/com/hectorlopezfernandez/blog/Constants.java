@@ -6,6 +6,6 @@ public final class Constants {
 	private Constants() {}
 	
 	// system wide settings
-	public static final String LOCALE_RESOLVER_COOKIE_NAME = "yabjs_language";
+	public static final String LOCALE_RESOLVER_COOKIE_NAME = "toilet_language";
 
 }

@@ -1,8 +1,8 @@
 package com.hectorlopezfernandez.blog;
 
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.LocaleContextResolver;
 
 import com.hectorlopezfernandez.blog.auth.User;
-import com.hectorlopezfernandez.blog.metadata.Language;
 import com.hectorlopezfernandez.blog.metadata.MetadataService;
 
 public class CustomLocaleResolver implements LocaleContextResolver {
@@ -52,19 +51,18 @@ public class CustomLocaleResolver implements LocaleContextResolver {
 				User p = (User) auth.getPrincipal();
 				Locale l = p.getLanguage().toLocale();
 				logger.debug("Found authenticated user with locale '{}'", l);
-				setLocale(request, l);
+				storeLocale(request, l);
 				return l;			
 			}
 		}
-		// we'll need this
-		List<Language> supportedLanguages = metadataService.findAllLanguages();
 		// no authenticated user, resort to Accept-Language header
+		Set<String> supportedLanguages = metadataService.findSupportedLanguageTags();
 		Enumeration<Locale> browserLocales = request.getLocales();
 		while (browserLocales.hasMoreElements()) {
 			Locale browserLocale = browserLocales.nextElement();
-			if (isLocaleSupported(supportedLanguages, browserLocale)) {
+			if (supportedLanguages.contains(browserLocale.toLanguageTag())) {
 				logger.debug("Found app language matching Accept-Language header '{}'", browserLocale);
-				setLocale(request, browserLocale);
+				storeLocale(request, browserLocale);
 				return browserLocale;
 			} else {
 				logger.debug("Passed on Accept-Language header '{}' beacuse no app language matched", browserLocale);
@@ -73,14 +71,14 @@ public class CustomLocaleResolver implements LocaleContextResolver {
 		// no match found, return the default
 		logger.debug("No language match, resorting to app default");
 		Locale defaultLocale = metadataService.getDefaultLanguage().toLocale();
-		setLocale(request, defaultLocale);
+		storeLocale(request, defaultLocale);
 		return defaultLocale;
 	}
 
 	@Override
 	public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale l) {
 		logger.debug("setLocale()");
-		setLocale(request, l);
+		storeLocale(request, l);
 	}
 
 	@Override
@@ -94,24 +92,16 @@ public class CustomLocaleResolver implements LocaleContextResolver {
 	public void setLocaleContext(HttpServletRequest request, HttpServletResponse response, LocaleContext lc) {
 		logger.debug("setLocaleContext()");
 		// currently, timezone is not persisted
-		setLocale(request, lc.getLocale());
+		storeLocale(request, lc.getLocale());
 	}
 
 	/*
 	 * Utility methods
 	 */
 
-	private void setLocale(HttpServletRequest request, Locale l) {
+	private void storeLocale(HttpServletRequest request, Locale l) {
 		assert request != null && l != null;
 		request.setAttribute(STORED_LOCALE_KEY, l);
-	}
-
-	private boolean isLocaleSupported(List<Language> supportedLanguages, Locale locale) {
-		if (supportedLanguages == null || supportedLanguages.size() == 0) return false;
-		for (Language lang : supportedLanguages) {
-			if (lang.toLocale().equals(locale)) return true;
-		}
-		return false;
 	}
 
 }

@@ -16,6 +16,7 @@ public class Preferences {
 	private Boolean paginateIndexPage;
 	private Integer postsPerIndexPage;
 	private Integer maxPostAgeInDaysForFeeds;
+	private String defaultLanguage;
 
 	// getters & setters
 	
@@ -52,6 +53,13 @@ public class Preferences {
 	}
 	public void setMaxPostAgeInDaysForFeeds(Integer maxPostAgeInDaysForFeeds) {
 		this.maxPostAgeInDaysForFeeds = maxPostAgeInDaysForFeeds;
+	}
+
+	public String getDefaultLanguage() {
+		return defaultLanguage;
+	}
+	public void setDefaultLanguage(String defaultLanguage) {
+		this.defaultLanguage = defaultLanguage;
 	}
 
 }

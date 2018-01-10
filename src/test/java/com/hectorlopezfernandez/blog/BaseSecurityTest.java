@@ -16,7 +16,8 @@ import org.springframework.web.context.WebApplicationContext;
 import com.hectorlopezfernandez.blog.auth.User;
 import com.hectorlopezfernandez.blog.auth.UserRepository;
 import com.hectorlopezfernandez.blog.metadata.Language;
-import com.hectorlopezfernandez.blog.metadata.LanguageRepository;
+import com.hectorlopezfernandez.blog.metadata.MetadataService;
+import com.hectorlopezfernandez.blog.metadata.Preferences;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes={TestApplicationPersistence.class,Application.class}, webEnvironment=WebEnvironment.RANDOM_PORT)
@@ -28,7 +29,7 @@ public abstract class BaseSecurityTest {
 	protected static final String USER_PASSWORD = BCrypt.hashpw("user", BCrypt.gensalt());
 
 	@Autowired
-	private LanguageRepository languageRepository;
+	private MetadataService metadataService;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -51,9 +52,11 @@ public abstract class BaseSecurityTest {
 		user.setPassword(USER_PASSWORD);
 		userRepository.save(user);
 		Language l = new Language();
-		l.setPrimary(true);
-		l.setLangCode("es");
-		languageRepository.save(l);
+		l.setTag("es");
+		metadataService.addLanguage(l);
+		Preferences p = new Preferences();
+		p.setDefaultLanguage("es");
+		metadataService.overwritePreferences(p);
 
 		this.mockMvc = MockMvcBuilders
 			.webAppContextSetup(this.wac)
@@ -63,7 +66,7 @@ public abstract class BaseSecurityTest {
 
 	@After
 	public void tearDown() {
-		languageRepository.deleteAll();
+		metadataService.removeAllLanguages();
 		userRepository.deleteAll();
 	}
 

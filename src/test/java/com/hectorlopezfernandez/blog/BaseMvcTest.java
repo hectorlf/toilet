@@ -12,14 +12,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.hectorlopezfernandez.blog.metadata.Language;
-import com.hectorlopezfernandez.blog.metadata.LanguageRepository;
+import com.hectorlopezfernandez.blog.metadata.MetadataService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes={TestApplicationPersistence.class,Application.class}, webEnvironment=WebEnvironment.RANDOM_PORT)
 public abstract class BaseMvcTest {
 
 	@Autowired
-	private LanguageRepository languageRepository;
+	private MetadataService metadataService;
 
 	@Autowired
 	private WebApplicationContext wac;
@@ -29,19 +29,17 @@ public abstract class BaseMvcTest {
 	public void setup() {
 		// database defaults go before mockmvc
 		Language l = new Language();
-		l.setPrimary(true);
-		l.setLangCode("en");
-		languageRepository.save(l);
+		l.setTag("en");
+		metadataService.addLanguage(l);
 		l = new Language();
-		l.setLangCode("es");
-		languageRepository.save(l);
+		l.setTag("es");
+		metadataService.addLanguage(l);
 		l = new Language();
-		l.setLangCode("es");
-		l.setRegionCode("ES");
-		languageRepository.save(l);
+		l.setTag("es-ES");
+		metadataService.addLanguage(l);
 		l = new Language();
-		l.setLangCode("pt");
-		languageRepository.save(l);
+		l.setTag("pt");
+		metadataService.addLanguage(l);
 
 		mockMvc = MockMvcBuilders
 			.webAppContextSetup(this.wac)
@@ -50,7 +48,7 @@ public abstract class BaseMvcTest {
 
 	@After
 	public void tearDown() {
-		languageRepository.deleteAll();
+		metadataService.removeAllLanguages();
 	}
 
 }

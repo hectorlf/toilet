@@ -30,12 +30,12 @@ public class MetadataServiceTests extends BaseTest {
 
 	@Test
 	public void testFindAllLanguages() {
-		List<Language> languages = metadataService.findAllLanguages();
+		List<Language> languages = metadataService.findSupportedLanguages();
 		Assert.assertNotNull(languages);
 		Assert.assertTrue(languages.size() == 2);
 		Language l = metadataService.getDefaultLanguage();
 		Assert.assertNotNull(languages);
-		Assert.assertEquals("es", l.getLangCode());
+		Assert.assertEquals("es-ES", l.getTag());
 	}
 
 	@Before
@@ -46,15 +46,13 @@ public class MetadataServiceTests extends BaseTest {
 		p.setPostsPerIndexPage(3);
 		p.setTagline("Tagline");
 		p.setTitle("Title");
+		p.setDefaultLanguage("es-ES");
 		preferencesRepository.save(p);
 		Language l = new Language();
-		l.setPrimary(true);
-		l.setLangCode("es");
-		l.setRegionCode("ES");
+		l.setTag("es-ES");
 		languageRepository.save(l);
 		l = new Language();
-		l.setLangCode("en");
-		l.setRegionCode("US");
+		l.setTag("en-US");
 		languageRepository.save(l);
 	}
 

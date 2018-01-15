@@ -3,19 +3,25 @@ package com.hectorlopezfernandez.blog.metadata;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * System preferences are stored in a single Preferences object, as
+ * currently there's no support for multi-blog deployments. Although
+ * not a singleton Java-wise, there can only be a single representation
+ * of this class in the DB.
+ */
 @Document(collection="preferences")
 public class Preferences {
 
 	// Only allow one preferences object (one blog)
-	public static final String ID = "1";
+	static final String ID = "1";
 
 	@Id
 	private String id = ID;
 	private String title;
 	private String tagline;
-	private Boolean paginateIndexPage;
-	private Integer postsPerIndexPage;
-	private Integer maxPostAgeInDaysForFeeds;
+	private boolean paginateIndexPage;
+	private int maxElementsPerPage;
+	private long postAgeLimitForFeed;
 	private String defaultLanguage;
 
 	// getters & setters
@@ -34,32 +40,44 @@ public class Preferences {
 		this.tagline = tagline;
 	}
 
-	public Boolean getPaginateIndexPage() {
-		return paginateIndexPage;
-	}
-	public void setPaginateIndexPage(Boolean paginateIndexPage) {
-		this.paginateIndexPage = paginateIndexPage;
-	}
-
-	public Integer getPostsPerIndexPage() {
-		return postsPerIndexPage;
-	}
-	public void setPostsPerIndexPage(Integer postsPerIndexPage) {
-		this.postsPerIndexPage = postsPerIndexPage;
-	}
-
-	public Integer getMaxPostAgeInDaysForFeeds() {
-		return maxPostAgeInDaysForFeeds;
-	}
-	public void setMaxPostAgeInDaysForFeeds(Integer maxPostAgeInDaysForFeeds) {
-		this.maxPostAgeInDaysForFeeds = maxPostAgeInDaysForFeeds;
-	}
-
 	public String getDefaultLanguage() {
 		return defaultLanguage;
 	}
 	public void setDefaultLanguage(String defaultLanguage) {
 		this.defaultLanguage = defaultLanguage;
+	}
+
+	/**
+	 * Returns the max age for a Post to appear in the feeds.
+	 * NOTE: measured in milliseconds.
+	 * 
+	 * @return  Post age limit to appear in feeds, in milliseconds 
+	 */
+	public long getPostAgeLimitForFeed() {
+		return postAgeLimitForFeed;
+	}
+	/**
+	 * Sets the max age for a Post to appear in the feeds.
+	 * NOTE: measured in milliseconds.
+	 * 
+	 * @param postAgeLimitForFeed  maximum number of milliseconds
+	 */
+	public void setPostAgeLimitForFeed(long postAgeLimitForFeed) {
+		this.postAgeLimitForFeed = postAgeLimitForFeed;
+	}
+
+	public boolean isPaginateIndexPage() {
+		return paginateIndexPage;
+	}
+	public void setPaginateIndexPage(boolean paginateIndexPage) {
+		this.paginateIndexPage = paginateIndexPage;
+	}
+
+	public int getMaxElementsPerPage() {
+		return maxElementsPerPage;
+	}
+	public void setMaxElementsPerPage(int maxElementsPerPage) {
+		this.maxElementsPerPage = maxElementsPerPage;
 	}
 
 }

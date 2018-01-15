@@ -16,18 +16,19 @@ public class PreferencesRepositoryTests extends BaseTest {
 	@Test
 	public void testPreferences() {
 		Assert.assertTrue(preferencesRepository.findAll().size() == 1);
-		Preferences p = preferencesRepository.findOne(Preferences.ID);
+		Preferences p = preferencesRepository.get();
 		Assert.assertEquals("Title", p.getTitle());
 	}
 
 	@Before
 	public void setup() {
 		Preferences p = new Preferences();
-		p.setMaxPostAgeInDaysForFeeds(30);
+		p.setMaxElementsPerPage(3);
 		p.setPaginateIndexPage(true);
-		p.setPostsPerIndexPage(3);
+		p.setPostAgeLimitForFeed(30*24*60*60*1000);
 		p.setTagline("Tagline");
 		p.setTitle("Title");
+		p.setDefaultLanguage("es");
 		preferencesRepository.save(p);
 	}
 

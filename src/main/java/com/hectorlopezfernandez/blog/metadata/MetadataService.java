@@ -3,12 +3,15 @@ package com.hectorlopezfernandez.blog.metadata;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Deals with logic around Languages and Preferences.
+ */
 public interface MetadataService {
 
 	// system languages
 
 	/**
-	 * Returns the list of all configured languages
+	 * Returns the list of all configured languages.
 	 * 
 	 * @return  List of languages available in the system
 	 */
@@ -16,14 +19,15 @@ public interface MetadataService {
 
 	/**
 	 * Returns a view of the supported languages in the form of a set of language tags,
-	 * compatible with {@link java.util.Locale#forLanguageTag(String)}
+	 * compatible with {@link java.util.Locale#forLanguageTag(String)}.
 	 * 
 	 * @return  List of languages available in the system
 	 */
 	Set<String> findSupportedLanguageTags();
 
 	/**
-	 * Returns the default language for the blog
+	 * Returns the default language for the blog.
+	 * 
 	 * @return  The default language configured for the system
 	 */
 	Language getDefaultLanguage();
@@ -35,7 +39,8 @@ public interface MetadataService {
 	// blog preferences
 
 	/**
-	 * Returns the global preferences
+	 * Returns the global preferences.
+	 * 
 	 * @return  Unique global configuration properties for the system
 	 */
 	Preferences getPreferences();

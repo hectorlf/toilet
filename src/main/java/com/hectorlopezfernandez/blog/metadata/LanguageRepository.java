@@ -7,13 +7,13 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repository-style data access object for the Language class
+ * Repository-style data access object for the Language class.
  */
 @Repository
 interface LanguageRepository extends MongoRepository<Language, String> {
 
 	/**
-	 * Searches the DB for a specific language tag
+	 * Searches the DB for a specific language tag.
 	 * 
 	 * @param languageTag  the language tag that identifies the object
 	 * @return  the {@link Language} object corresponding to the tag, if any
@@ -21,7 +21,7 @@ interface LanguageRepository extends MongoRepository<Language, String> {
 	Language findByTag(String languageTag);
 
 	/**
-	 * Obtains the collection of different language tags contained in the DB
+	 * Obtains the collection of different language tags contained in the DB.
 	 * 
 	 * @return  the list of all language tags in the DB
 	 */

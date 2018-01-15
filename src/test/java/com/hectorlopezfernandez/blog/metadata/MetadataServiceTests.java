@@ -41,9 +41,9 @@ public class MetadataServiceTests extends BaseTest {
 	@Before
 	public void setup() {
 		Preferences p = new Preferences();
-		p.setMaxPostAgeInDaysForFeeds(30);
+		p.setPostAgeLimitForFeed(Long.valueOf(30*24*60*60*1000));
 		p.setPaginateIndexPage(true);
-		p.setPostsPerIndexPage(3);
+		p.setMaxElementsPerPage(3);
 		p.setTagline("Tagline");
 		p.setTitle("Title");
 		p.setDefaultLanguage("es-ES");

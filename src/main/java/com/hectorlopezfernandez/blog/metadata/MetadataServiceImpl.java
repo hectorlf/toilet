@@ -30,7 +30,7 @@ public class MetadataServiceImpl implements MetadataService {
 
 	@Override
 	public Language getDefaultLanguage() {
-		Preferences preferences = preferencesRepository.findOne(Preferences.ID);
+		Preferences preferences = preferencesRepository.get();
 		Language defaultLanguage = languageRepository.findByTag(preferences.getDefaultLanguage());
 		return defaultLanguage;
 	}
@@ -48,7 +48,7 @@ public class MetadataServiceImpl implements MetadataService {
 
 	@Override
 	public Preferences getPreferences() {
-		Preferences preferences = preferencesRepository.findOne(Preferences.ID);
+		Preferences preferences = preferencesRepository.get();
 		return preferences;
 	}
 

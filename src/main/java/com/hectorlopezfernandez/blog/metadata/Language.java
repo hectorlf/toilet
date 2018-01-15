@@ -6,6 +6,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Language objects represent available system languages. They're used to
+ * limit translations of the UI to a few well-known options. Possibly,
+ * in the future, they could be used to offer content translations also.
+ */
 @Document(collection="languages")
 public class Language {
 
@@ -16,6 +21,11 @@ public class Language {
 
 	// utility methods
 	
+	/**
+	 * Translates this object's language tag to a Java Locale.
+	 * 
+	 * @return  the corresponding {@link Locale} for this object's language
+	 */
 	public Locale toLocale() {
 		return Locale.forLanguageTag(tag);
 	}

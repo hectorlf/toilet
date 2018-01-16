@@ -1,10 +1,15 @@
-package com.hectorlopezfernandez.blog.auth;
+package com.hectorlopezfernandez.blog.user;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * An Authority is a simple string that represents a permission
+ * applicable to some part of the system. It is used
+ * primarily to secure the admin UI.
+ */
 @Document(collection="authorities")
 public final class Authority implements GrantedAuthority {
 
@@ -12,9 +17,17 @@ public final class Authority implements GrantedAuthority {
 
 	@Id
 	private String id;
-	
 	@Indexed(unique=true)
 	private String authority;
+	
+	// constructors
+	
+	public Authority() {
+	}
+	
+	public Authority(String authority) {
+		this.authority = authority;
+	}
 
 	// getters & setters
 
@@ -46,7 +59,7 @@ public final class Authority implements GrantedAuthority {
 
 	@Override
 	public int hashCode() {
-		return 17 * this.authority.hashCode();
+		return this.authority.hashCode();
 	}
 
 }

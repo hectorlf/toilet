@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.auth;
+package com.hectorlopezfernandez.blog.user;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

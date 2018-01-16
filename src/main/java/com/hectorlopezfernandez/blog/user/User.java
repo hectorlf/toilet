@@ -1,18 +1,20 @@
-package com.hectorlopezfernandez.blog.auth;
+package com.hectorlopezfernandez.blog.user;
 
-import java.util.List;
-import java.util.Locale;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * Application-oriented view of the USERS collection
- * 
- * @author hector
+ * A User is both an author of content and a security artifact,
+ * and stores information about the two roles, e.g. password and
+ * display name.
  */
 @Document(collection="users")
 public class User implements UserDetails {
@@ -23,13 +25,12 @@ public class User implements UserDetails {
 	private String id;
 	@Indexed(unique=true)
 	private String username;
-	private Language language;
+	private String language;
 
 	// security related
 	private String password;
 	private boolean enabled;
-	@DBRef
-	private List<Authority> authorities;
+	private Set<String> authorities;
 
 	// application related
 	private String displayName;
@@ -50,13 +51,6 @@ public class User implements UserDetails {
 	}
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public Language getLanguage() {
-		return language;
-	}
-	public void setLanguage(Language language) {
-		this.language = language;
 	}
 
 	public String getDisplayName() {
@@ -93,12 +87,28 @@ public class User implements UserDetails {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	
-	public List<Authority> getAuthorities() {
-		return authorities;
+
+	public String getLanguage() {
+		return language;
 	}
-	public void setAuthorities(List<Authority> authorities) {
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public void setAuthorities(Set<String> authorities) {
 		this.authorities = authorities;
+	}
+	/**
+	 * Adds an authority string to the set of granted authorities.
+	 * 
+	 * @param authority  the authority string to add, can't be null or empty
+	 * @return  this User object, to allow chained calls
+	 */
+	public User addAuthority(String authority) {
+		if (authority == null || authority.isEmpty()) throw new IllegalArgumentException("Authority argument can't be null or empty");
+		if (this.authorities == null) this.authorities = new HashSet<>();
+		this.authorities.add(authority);
+		return this;
 	}
 
 	// UserDetails getters
@@ -115,45 +125,11 @@ public class User implements UserDetails {
 	public boolean isCredentialsNonExpired() {
 		return enabled;
 	}
-
-	// helper classes
-
-	public static class Language {
-
-		private String langCode;
-		private String regionCode;
-
-		public Language() {
-		}
-		public Language(String langCode, String regionCode) {
-			this.langCode = langCode;
-			this.regionCode = regionCode;
-		}
-
-		// utility methods
-		
-		public Locale toLocale() {
-			if (langCode == null || langCode.isEmpty()) return null;
-			if (regionCode == null || regionCode.isEmpty()) return new Locale(langCode);
-			return new Locale(langCode, regionCode);
-		}
-
-		// getters & setters
-
-		public String getLangCode() {
-			return langCode;
-		}
-		public void setLangCode(String langCode) {
-			this.langCode = langCode;
-		}
-
-		public String getRegionCode() {
-			return regionCode;
-		}
-		public void setRegionCode(String regionCode) {
-			this.regionCode = regionCode;
-		}
-
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Collection<Authority> grantedAuthorities = this.authorities.stream()
+				.map(authorityString -> new Authority(authorityString)).collect(Collectors.toList());
+		return grantedAuthorities;
 	}
 
 }

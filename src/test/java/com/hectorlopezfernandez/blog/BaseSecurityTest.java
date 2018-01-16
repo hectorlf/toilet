@@ -13,11 +13,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.hectorlopezfernandez.blog.auth.User;
-import com.hectorlopezfernandez.blog.auth.UserRepository;
 import com.hectorlopezfernandez.blog.metadata.Language;
 import com.hectorlopezfernandez.blog.metadata.MetadataService;
 import com.hectorlopezfernandez.blog.metadata.Preferences;
+import com.hectorlopezfernandez.blog.user.SecurityService;
+import com.hectorlopezfernandez.blog.user.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes={TestApplicationPersistence.class,Application.class}, webEnvironment=WebEnvironment.RANDOM_PORT)
@@ -32,7 +32,7 @@ public abstract class BaseSecurityTest {
 	private MetadataService metadataService;
 
 	@Autowired
-	private UserRepository userRepository;
+	private SecurityService securityService;
 
 	@Autowired
 	private WebApplicationContext wac;
@@ -45,12 +45,14 @@ public abstract class BaseSecurityTest {
 		admin.setEnabled(true);
 		admin.setUsername(ADMIN_USERNAME);
 		admin.setPassword(ADMIN_PASSWORD);
-		userRepository.save(admin);
+		admin.setLanguage("es");
+		securityService.addUser(admin);
 		User user = new User();
 		user.setEnabled(true);
 		user.setUsername(USER_USERNAME);
 		user.setPassword(USER_PASSWORD);
-		userRepository.save(user);
+		admin.setLanguage("es");
+		securityService.addUser(user);
 		Language l = new Language();
 		l.setTag("es");
 		metadataService.addLanguage(l);
@@ -67,7 +69,7 @@ public abstract class BaseSecurityTest {
 	@After
 	public void tearDown() {
 		metadataService.removeAllLanguages();
-		userRepository.deleteAll();
+		securityService.removeAllUsers();
 	}
 
 }

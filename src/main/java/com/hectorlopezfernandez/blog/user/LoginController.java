@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.auth;
+package com.hectorlopezfernandez.blog.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

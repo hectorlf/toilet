@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.auth;
+package com.hectorlopezfernandez.blog.user;
 
 import javax.inject.Inject;
 
@@ -22,6 +22,17 @@ public class SecurityServiceImpl implements SecurityService {
 		UserDetails u = userRepository.findByUsername(username);
 		if (u == null) throw new UsernameNotFoundException("Username '" + username + "' not found");
 		return u;
+	}
+
+	@Override
+	public void addUser(User user) {
+		if (user == null) throw new IllegalArgumentException("User argument can't be null");
+		userRepository.save(user);
+	}
+
+	@Override
+	public void removeAllUsers() {
+		userRepository.deleteAll();
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.auth;
+package com.hectorlopezfernandez.blog.user;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
+import com.hectorlopezfernandez.blog.user.Authority;
+import com.hectorlopezfernandez.blog.user.AuthorityRepository;
 
 public class AuthorityRepositoryTests extends BaseTest {
 	

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * Repository-style data access object for the Language class.
  */
 @Repository
-interface LanguageRepository extends MongoRepository<Language, String> {
+public interface LanguageRepository extends MongoRepository<Language, String> {
 
 	/**
 	 * Searches the DB for a specific language tag.

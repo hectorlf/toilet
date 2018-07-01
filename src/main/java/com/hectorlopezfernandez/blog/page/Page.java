@@ -5,7 +5,17 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Page data
+ * A Page contains data about a single static web page,
+ * that can be linked and shown as "everything else" that's
+ * not a blog post.
+ * 
+ * Implementation notes:
+ * - metaDescription contains a meta that can be crawled by search engines, and has
+ *   to be properly HTML encoded
+ * - title contains a text that will be used in the HTML head and optionally in
+ *   other places of a layout, and has to be properly HTML encoded
+ * - content is the proper page HTML body, including markup (relative to the layout
+ *   container) 
  * 
  * @author hector
  */
@@ -14,21 +24,17 @@ public class Page {
 
 	@Id
 	private String id;
-
-	private String title;
-
 	@Indexed(unique=true)
-	private String titleUrl;
+	private String slug;
 
 	private String metaDescription;
-
+	private String title;
 	private String content;
-
-	private long publicationDate;
-	private long lastModificationDate;
 
 	@Indexed
 	private boolean published;
+	private long publicationDate;
+	private long lastModificationDate;
 
 	// getters & setters
 
@@ -44,13 +50,6 @@ public class Page {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getTitleUrl() {
-		return titleUrl;
-	}
-	public void setTitleUrl(String titleUrl) {
-		this.titleUrl = titleUrl;
 	}
 
 	public String getMetaDescription() {
@@ -86,6 +85,13 @@ public class Page {
 	}
 	public void setPublished(boolean published) {
 		this.published = published;
+	}
+
+	public String getSlug() {
+		return slug;
+	}
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 
 }

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PageRepository extends MongoRepository<Page, String> {
 
-	List<Page> findByTitle(String title);
+	Page findBySlug(String slug);
+
+	List<Page> findAllByPublishedIsTrueOrderByPublicationDateDesc();
 
 	List<Page> findAllByPublishedIsTrue();
 

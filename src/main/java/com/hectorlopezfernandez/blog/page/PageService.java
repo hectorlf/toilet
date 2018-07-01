@@ -2,6 +2,9 @@ package com.hectorlopezfernandez.blog.page;
 
 import java.util.List;
 
+/**
+ * Business logic around Pages
+ */
 public interface PageService {
 
 	/**

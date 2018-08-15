@@ -7,11 +7,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/admin")
 public class DashboardController {
 
 	private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
-	@RequestMapping(value="/dashboard.page")
+	@RequestMapping("/dashboard.page")
 	public String dashboard(ModelMap model) {
 		logger.debug("Going into DashboardController.dashboard()");
 		return "admin/dashboard";

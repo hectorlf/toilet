@@ -1,0 +1,6 @@
+{% extends 'admin/layout/admin-base' %}
+
+{% set pageName = message('title.post.list') %}
+
+{% block content %}
+{% endblock %}

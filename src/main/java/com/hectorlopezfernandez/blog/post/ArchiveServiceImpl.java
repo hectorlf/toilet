@@ -3,6 +3,7 @@ package com.hectorlopezfernandez.blog.post;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,11 @@ public class ArchiveServiceImpl implements ArchiveService {
 	@Override
 	public List<Post> listPostsForSitemap() {
 		return postRepository.findAllByPublishedIsTrue();
+	}
+
+	@Override
+	public Page<Post> listPosts(PageRequest pageAndOrder) {
+		return postRepository.findAll(pageAndOrder);
 	}
 
 }

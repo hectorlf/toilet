@@ -1,15 +1,17 @@
 package com.hectorlopezfernandez.blog.admin.post;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hectorlopezfernandez.blog.post.ArchiveService;
 import com.hectorlopezfernandez.blog.post.Post;
 
 @Controller
@@ -17,6 +19,9 @@ import com.hectorlopezfernandez.blog.post.Post;
 public class PostController {
 
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
+
+	@Autowired
+	private ArchiveService archiveService;
 
 	@RequestMapping("/posts.page")
 	public String posts(ModelMap model) {
@@ -26,12 +31,10 @@ public class PostController {
 
 	@RequestMapping("/api/posts")
 	@ResponseBody
-	public List<Post> listPosts(ModelMap model) {
+	public Page<Post> listPosts(ModelMap model) {
 		logger.debug("Going into PostController.listPosts()");
-		Post post1 = new Post();
-		post1.setId("asdf");
-		post1.setContent("blah!");
-		return Arrays.asList(post1);
+		Page<Post> posts = archiveService.listPosts(new PageRequest(0, 10, Direction.DESC, "id"));
+		return posts;
 	}
 
 }

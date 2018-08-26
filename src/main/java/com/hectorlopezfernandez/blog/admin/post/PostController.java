@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,10 +32,16 @@ public class PostController {
 
 	@RequestMapping("/api/posts")
 	@ResponseBody
-	public Page<Post> listPosts(ModelMap model) {
+	public Page<Post> listPosts() {
 		logger.debug("Going into PostController.listPosts()");
-		Page<Post> posts = archiveService.listPosts(new PageRequest(0, 10, Direction.DESC, "id"));
-		return posts;
+		return archiveService.listPosts(new PageRequest(0, 10, Direction.DESC, "id"));
+	}
+
+	@RequestMapping("/api/posts/{postId}")
+	@ResponseBody
+	public Post getPost(@PathVariable("postId") String postId) {
+		logger.debug("Going into PostController.getPost()");
+		return archiveService.getPost(postId);
 	}
 
 }

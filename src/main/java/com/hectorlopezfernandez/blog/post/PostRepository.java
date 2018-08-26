@@ -18,4 +18,6 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
 	List<Post> findAllByPublishedIsTrue();
 
+	Post findOneById(String id);
+
 }

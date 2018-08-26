@@ -30,4 +30,9 @@ public class ArchiveServiceImpl implements ArchiveService {
 		return postRepository.findAll(pageAndOrder);
 	}
 
+	@Override
+	public Post getPost(String id) {
+		return postRepository.findOneById(id);
+	}
+
 }

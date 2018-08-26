@@ -24,4 +24,9 @@ public interface ArchiveService {
 	 */
 	Page<Post> listPosts(PageRequest pageAndOrder);
 
+	/**
+	 * Returns the Post identified by the id argument
+	 */
+	Post getPost(String id);
+
 }

@@ -13,7 +13,7 @@ public class ControllerTests extends BaseMvcTest {
 
 	@Test
 	public void testDashboard() throws Exception {
-		mockMvc.perform(get("/dashboard.page"))
+		mockMvc.perform(get("/admin/dashboard.page"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
 	}

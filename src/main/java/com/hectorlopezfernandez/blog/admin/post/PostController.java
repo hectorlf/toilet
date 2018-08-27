@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,10 +39,10 @@ public class PostController {
 	}
 
 	@RequestMapping("/api/posts/{postId}")
-	@ResponseBody
-	public Post getPost(@PathVariable("postId") String postId) {
+	public ResponseEntity<Post> getPost(@PathVariable("postId") String postId) {
 		logger.debug("Going into PostController.getPost()");
-		return archiveService.getPost(postId);
+		Post post = archiveService.getPost(postId);
+		return post == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(post);
 	}
 
 }

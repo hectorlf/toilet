@@ -1,5 +1,7 @@
 package com.hectorlopezfernandez.blog.admin.post;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +43,8 @@ public class PostController {
 	@RequestMapping("/api/posts/{postId}")
 	public ResponseEntity<Post> getPost(@PathVariable("postId") String postId) {
 		logger.debug("Going into PostController.getPost()");
-		Post post = archiveService.getPost(postId);
-		return post == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(post);
+		Optional<Post> post = archiveService.getPost(postId);
+		return post.isPresent() ? ResponseEntity.notFound().build() : ResponseEntity.ok(post.get());
 	}
 
 }

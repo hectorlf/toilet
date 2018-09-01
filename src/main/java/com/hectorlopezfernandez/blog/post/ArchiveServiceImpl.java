@@ -1,6 +1,7 @@
 package com.hectorlopezfernandez.blog.post;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,7 +32,7 @@ public class ArchiveServiceImpl implements ArchiveService {
 	}
 
 	@Override
-	public Post getPost(String id) {
+	public Optional<Post> getPost(String id) {
 		return postRepository.findOneById(id);
 	}
 

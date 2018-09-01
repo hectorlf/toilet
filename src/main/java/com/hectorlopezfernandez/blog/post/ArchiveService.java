@@ -1,6 +1,7 @@
 package com.hectorlopezfernandez.blog.post;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +28,6 @@ public interface ArchiveService {
 	/**
 	 * Returns the Post identified by the id argument
 	 */
-	Post getPost(String id);
+	Optional<Post> getPost(String id);
 
 }

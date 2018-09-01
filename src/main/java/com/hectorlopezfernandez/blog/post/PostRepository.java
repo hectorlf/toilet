@@ -1,6 +1,7 @@
 package com.hectorlopezfernandez.blog.post;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,6 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
 	List<Post> findAllByPublishedIsTrue();
 
-	Post findOneById(String id);
+	Optional<Post> findOneById(String id);
 
 }

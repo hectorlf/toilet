@@ -9,11 +9,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.hectorlopezfernandez.blog.post.ArchiveEntry.YearlyEntry;
+
 @Service
 public class ArchiveServiceImpl implements ArchiveService {
 
 	@Autowired
 	private PostRepository postRepository;
+
+	@Autowired
+	private ArchiveEntryRepository archiveEntryRepository;
 
 	@Override
 	public List<Post> listIndexPosts() {
@@ -34,6 +39,11 @@ public class ArchiveServiceImpl implements ArchiveService {
 	@Override
 	public Optional<Post> getPost(String id) {
 		return postRepository.findOneById(id);
+	}
+
+	@Override
+	public List<YearlyEntry> listYearsWithPublications() {
+		return archiveEntryRepository.findAllDistinctYearsBy();
 	}
 
 }

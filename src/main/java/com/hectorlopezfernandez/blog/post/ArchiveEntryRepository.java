@@ -10,6 +10,6 @@ import com.hectorlopezfernandez.blog.post.ArchiveEntry.YearlyEntry;
 @Repository
 public interface ArchiveEntryRepository extends MongoRepository<ArchiveEntry, String> {
 
-	List<YearlyEntry> findAllDistinctBy();
+	List<YearlyEntry> findAllDistinctYearsBy();
 
 }

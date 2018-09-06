@@ -38,7 +38,7 @@
          <ul>
             <li><a href="/archive">{{ message('menu.archive') }}</a></li>
             <li><a href="/tags">{{ message('menu.tags') }}</a></li>
-            <li><a href="/pages/curriculum">{{ message('menu.cv') }}</a></li>
+            <li><a href="https://www.linkedin.com/in/hectorlopezfernandez" target="_blank">{{ message('menu.linkedin') }}</a></li>
             <li><a href="https://github.com/hectorlf" target="_blank">{{ message('menu.github') }}</a></li>
             <li><a href="/pages/about">{{ message('menu.about') }}</a></li>
 {% authorize "isAuthenticated()" %}

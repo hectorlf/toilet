@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hectorlopezfernandez.blog.metadata.MetadataService;
 import com.hectorlopezfernandez.blog.metadata.Preferences;
-import com.hectorlopezfernandez.blog.post.ArchiveEntry.YearlyEntry;
 
 @Controller
 @RequestMapping(value="/archive")
@@ -31,9 +30,9 @@ public class ArchiveController {
 		logger.debug("Going into ArchiveController.root()");
 		Preferences prefs = metadataService.getPreferences();
 		model.addAttribute("preferences", prefs);
-		List<YearlyEntry> years = archiveService.listYearsWithPublications();
-		model.addAttribute("years", years);
-		return "web/year-entry-list";
+		List<ArchiveEntry> entries = archiveService.listArchiveEntries();
+		model.addAttribute("entries", entries);
+		return "web/archive-entry-list";
 	}
 
 	@RequestMapping("/{year}")

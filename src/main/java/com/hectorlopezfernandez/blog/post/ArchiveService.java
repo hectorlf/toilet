@@ -6,8 +6,6 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import com.hectorlopezfernandez.blog.post.ArchiveEntry.YearlyEntry;
-
 public interface ArchiveService {
 
 	// posts
@@ -35,8 +33,8 @@ public interface ArchiveService {
 	// archive entries
 
 	/**
-	 * Year list for the archive root
+	 * Entry list for the archive root
 	 */
-	List<YearlyEntry> listYearsWithPublications();
+	List<ArchiveEntry> listArchiveEntries();
 
 }

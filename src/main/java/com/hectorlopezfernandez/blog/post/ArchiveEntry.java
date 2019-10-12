@@ -1,6 +1,5 @@
 package com.hectorlopezfernandez.blog.post;
 
-import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -28,9 +27,10 @@ public class ArchiveEntry {
 
 	// utility getters
 
-	public DateTime getAsDate() {
-		return new DateTime(year, month + 1, 1, 0, 0);
-	}
+	/*
+	 * public DateTime getAsDate() { return new DateTime(year, month + 1, 1, 0, 0);
+	 * }
+	 */
 
 	// getters & setters
 

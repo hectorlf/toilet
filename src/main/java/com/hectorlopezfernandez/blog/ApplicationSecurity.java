@@ -2,7 +2,6 @@ package com.hectorlopezfernandez.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.Headers;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,14 +28,22 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// general properties
-		if (securityProperties.isRequireSsl()) http.requiresChannel().anyRequest().requiresSecure();
-		if (!securityProperties.isEnableCsrf()) http.csrf().disable();
-		if (!securityProperties.getHeaders().isFrame()) http.headers().frameOptions().disable();
-		if (!securityProperties.getHeaders().isContentType()) http.headers().contentTypeOptions().disable();
-		if (!securityProperties.getHeaders().isXss()) http.headers().xssProtection().disable();
-		if (securityProperties.getHeaders().getHsts() != Headers.HSTS.NONE) http.headers().httpStrictTransportSecurity().includeSubDomains(securityProperties.getHeaders().getHsts() == Headers.HSTS.ALL);
-		http.sessionManagement().sessionCreationPolicy(securityProperties.getSessions());
-		// login config
+		/*
+		 * if (securityProperties.getUser().isRequireSsl())
+		 * http.requiresChannel().anyRequest().requiresSecure(); if
+		 * (!securityProperties.isEnableCsrf()) http.csrf().disable(); if
+		 * (!securityProperties.getHeaders().isFrame())
+		 * http.headers().frameOptions().disable(); if
+		 * (!securityProperties.getHeaders().isContentType())
+		 * http.headers().contentTypeOptions().disable(); if
+		 * (!securityProperties.getHeaders().isXss())
+		 * http.headers().xssProtection().disable(); if
+		 * (securityProperties.getHeaders().getHsts() != Headers.HSTS.NONE)
+		 * http.headers().httpStrictTransportSecurity().includeSubDomains(
+		 * securityProperties.getHeaders().getHsts() == Headers.HSTS.ALL);
+		 * http.sessionManagement().sessionCreationPolicy(securityProperties.getSessions
+		 * ());
+		 */		// login config
 		http.formLogin().loginPage("/login.page").loginProcessingUrl("/login").defaultSuccessUrl("/index.page").failureUrl("/login.page?error");
 		http.logout().logoutUrl("/logout").logoutSuccessUrl("/index.page");
 		// management access rules

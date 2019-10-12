@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.core.env.Environment;
 
 import com.mitchellbosecke.pebble.extension.Function;
-import com.mitchellbosecke.pebble.spring4.PebbleView;
+import com.mitchellbosecke.pebble.spring.PebbleView;
 import com.mitchellbosecke.pebble.template.EvaluationContext;
-import com.mitchellbosecke.pebble.template.ScopeChain;
+import com.mitchellbosecke.pebble.template.PebbleTemplate;
 
 public class ResourceFunction implements Function {
 
@@ -32,11 +32,8 @@ public class ResourceFunction implements Function {
         return argumentNames;
     }
 
-    @Override
-    public Object execute(Map<String, Object> args) {
-        EvaluationContext context = (EvaluationContext) args.get("_context");
-        ScopeChain scope = context.getScopeChain();
-        
+	@Override
+	public Object execute(Map<String, Object> args, PebbleTemplate self, EvaluationContext context, int lineNumber) {
     	// process resource url
     	Object value = args.get("url");
 		if (value == null) {
@@ -63,7 +60,7 @@ public class ResourceFunction implements Function {
     	}
 
 		// context path
-		HttpServletRequest request = (HttpServletRequest)scope.get(PebbleView.REQUEST_VARIABLE_NAME);
+		HttpServletRequest request = (HttpServletRequest)context.getVariable(PebbleView.REQUEST_VARIABLE_NAME);
 		if (request == null) {
 			throw new IllegalStateException("Configuration error. No visible ServletRequest instance could be found"
 					+ " in the evaluation context. Check if pebble-spring4 is well configured.");

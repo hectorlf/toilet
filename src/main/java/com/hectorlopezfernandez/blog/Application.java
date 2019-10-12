@@ -1,16 +1,16 @@
 package com.hectorlopezfernandez.blog;
 
-import io.undertow.Undertow.Builder;
-
+import org.eclipse.jetty.server.NetworkTrafficServerConnector;
+import org.eclipse.jetty.server.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.undertow.UndertowBuilderCustomizer;
-import org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServletContainerFactory;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.web.embedded.jetty.JettyServerCustomizer;
+import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
 
@@ -31,13 +31,14 @@ public class Application {
 	}
 
     @Bean
-    public EmbeddedServletContainerFactory servletContainer() {
-    	final UndertowEmbeddedServletContainerFactory containerFactory = new UndertowEmbeddedServletContainerFactory();
-    	containerFactory.addBuilderCustomizers(new UndertowBuilderCustomizer() {
+    public ServletWebServerFactory servletContainer() {
+    	final JettyServletWebServerFactory containerFactory = new JettyServletWebServerFactory();
+    	containerFactory.addServerCustomizers(new JettyServerCustomizer() {
 			@Override
-			public void customize(Builder builder) {
-				String address = containerFactory.getAddress() == null ? "0.0.0.0" : containerFactory.getAddress().getHostAddress();
-				builder.addHttpListener(8080, address);
+			public void customize(Server server) {
+				NetworkTrafficServerConnector httpConnector = new NetworkTrafficServerConnector(server);
+				httpConnector.setPort(8080);
+				server.addConnector(httpConnector);
 			}
     	});
     	return containerFactory;

@@ -37,6 +37,10 @@ public class User implements UserDetails {
 	private String about;
 	private String relatedUrl;
 
+	public User() {
+		this.authorities = new HashSet<>();
+	}
+	
 	// getters & setters
 	
 	public String getId() {
@@ -106,7 +110,6 @@ public class User implements UserDetails {
 	 */
 	public User addAuthority(String authority) {
 		if (authority == null || authority.isEmpty()) throw new IllegalArgumentException("Authority argument can't be null or empty");
-		if (this.authorities == null) this.authorities = new HashSet<>();
 		this.authorities.add(authority);
 		return this;
 	}

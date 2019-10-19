@@ -24,9 +24,11 @@ import com.hectorlopezfernandez.blog.user.User;
 public abstract class BaseSecurityTest {
 
 	protected static final String ADMIN_USERNAME = "admin";
-	protected static final String ADMIN_PASSWORD = BCrypt.hashpw("admin", BCrypt.gensalt());
+	protected static final String ADMIN_PASSWORD = "adminpass";
+	protected static final String ADMIN_PASSWORD_ENCRYPTED = BCrypt.hashpw(ADMIN_PASSWORD, BCrypt.gensalt());
 	protected static final String USER_USERNAME = "user";
-	protected static final String USER_PASSWORD = BCrypt.hashpw("user", BCrypt.gensalt());
+	protected static final String USER_PASSWORD = "userpass";
+	protected static final String USER_PASSWORD_ENCRYPTED = BCrypt.hashpw(USER_PASSWORD, BCrypt.gensalt());
 
 	@Autowired
 	private MetadataService metadataService;
@@ -44,13 +46,13 @@ public abstract class BaseSecurityTest {
 		User admin = new User();
 		admin.setEnabled(true);
 		admin.setUsername(ADMIN_USERNAME);
-		admin.setPassword(ADMIN_PASSWORD);
+		admin.setPassword(ADMIN_PASSWORD_ENCRYPTED);
 		admin.setLanguage("es");
 		securityService.addUser(admin);
 		User user = new User();
 		user.setEnabled(true);
 		user.setUsername(USER_USERNAME);
-		user.setPassword(USER_PASSWORD);
+		user.setPassword(USER_PASSWORD_ENCRYPTED);
 		admin.setLanguage("es");
 		securityService.addUser(user);
 		Language l = new Language();

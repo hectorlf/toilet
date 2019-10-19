@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 import com.hectorlopezfernandez.pebble.resourcer.ResourcerExtension;
+import com.hectorlopezfernandez.pebble.springsecurity.SpringSecurityExtension;
 import com.mitchellbosecke.pebble.extension.Extension;
 import com.mitchellbosecke.pebble.spring.extension.SpringExtension;
 
@@ -18,12 +19,9 @@ public class ApplicationTemplating {
 		return new SpringExtension();
 	}
 
-	/*
-	 * @Bean public Extension springSecurityExtension() { return new
-	 * SpringSecurityExtension(); }
-	 * 
-	 * @Bean public Extension jodaExtension() { return new JodaExtension(); }
-	 */
+	@Bean public Extension springSecurityExtension() {
+		return new SpringSecurityExtension();
+	}
 
 	@Bean
 	@Autowired

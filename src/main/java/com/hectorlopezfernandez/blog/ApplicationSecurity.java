@@ -6,14 +6,12 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.hectorlopezfernandez.blog.user.SecurityService;
 
 @Configuration
-@EnableWebSecurity
 @EnableConfigurationProperties(SecurityProperties.class)
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
@@ -28,6 +26,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// general properties
+		http.csrf().disable();
 		/*
 		 * if (securityProperties.getUser().isRequireSsl())
 		 * http.requiresChannel().anyRequest().requiresSecure(); if

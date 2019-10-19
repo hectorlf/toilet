@@ -86,13 +86,6 @@ public class ControllerTests extends BaseSecurityTest {
 	}
 
 	@Test
-	public void loginPostIsAvailable() throws Exception {
-		this.mockMvc.perform(post("/login").secure(true))
-			.andExpect(status().is3xxRedirection());
-	}
-
-	@Test
-	@Ignore
 	public void userAuthenticates() throws Exception {
 		MvcResult result = mockMvc.perform(post("/login").param("username", USER_USERNAME).param("password", USER_PASSWORD).secure(true))
 			.andExpect(status().is3xxRedirection())
@@ -109,7 +102,7 @@ public class ControllerTests extends BaseSecurityTest {
 	}
 
 	@Test
-	public void userAuthenticateFails() throws Exception {
+	public void userAuthenticationFails() throws Exception {
 		MvcResult result = mockMvc.perform(post("/login").param("username", "notexistent").param("password", "invalid").secure(true))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(redirectedUrl("/login.page?error"))

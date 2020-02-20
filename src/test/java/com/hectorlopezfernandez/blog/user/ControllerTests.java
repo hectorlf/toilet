@@ -10,9 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import javax.servlet.http.HttpSession;
 
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContext;
@@ -28,7 +28,7 @@ public class ControllerTests extends BaseSecurityTest {
 	private static final Logger logger = LoggerFactory.getLogger(ControllerTests.class);
 	
 	// Ignored due to a race condition between @WithUserDetails and @Before
-	@Ignore
+	@Disabled
 	@Test
 	@WithUserDetails("admin")
 	public void testSessionLocale() throws Exception {
@@ -61,7 +61,7 @@ public class ControllerTests extends BaseSecurityTest {
 	}
 
 	// Ignored due to a race condition between @WithUserDetails and @Before
-	@Ignore
+	@Disabled
 	@Test
 	@WithUserDetails("admin")
 	public void accessGranted() throws Exception {
@@ -71,7 +71,7 @@ public class ControllerTests extends BaseSecurityTest {
 	}
 
 	// Ignored due to a race condition between @WithUserDetails and @Before
-	@Ignore
+	@Disabled
 	@Test
 	@WithUserDetails("user")
 	public void accessDenied() throws Exception {
@@ -94,7 +94,7 @@ public class ControllerTests extends BaseSecurityTest {
 				public void match(MvcResult mvcResult) throws Exception {
 					HttpSession session = mvcResult.getRequest().getSession();
 					SecurityContext securityContext = (SecurityContext) session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
-					Assert.assertEquals(securityContext.getAuthentication().getName(), USER_USERNAME);
+					Assertions.assertEquals(securityContext.getAuthentication().getName(), USER_USERNAME);
 				}
 			})
 			.andReturn();
@@ -110,7 +110,7 @@ public class ControllerTests extends BaseSecurityTest {
 				public void match(MvcResult mvcResult) throws Exception {
 					HttpSession session = mvcResult.getRequest().getSession();
 					SecurityContext securityContext = (SecurityContext) session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
-					Assert.assertNull(securityContext);
+					Assertions.assertNull(securityContext);
 				}
 			})
 			.andReturn();

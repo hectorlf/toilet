@@ -37,7 +37,7 @@ public class PostController {
 	@ResponseBody
 	public Page<Post> listPosts() {
 		logger.debug("Going into PostController.listPosts()");
-		return archiveService.listPosts(new PageRequest(0, 10, Direction.DESC, "id"));
+		return archiveService.listPosts(PageRequest.of(0, 10, Direction.DESC, "id"));
 	}
 
 	@RequestMapping("/api/posts/{postId}")

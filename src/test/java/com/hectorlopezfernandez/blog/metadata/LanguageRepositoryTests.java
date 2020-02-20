@@ -1,16 +1,16 @@
 package com.hectorlopezfernandez.blog.metadata;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
@@ -22,7 +22,7 @@ public class LanguageRepositoryTests extends BaseTest {
 	@Autowired
 	private LanguageRepository languageRepository;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		Language l = new Language();
 		l.setTag("es-ES");
@@ -32,7 +32,7 @@ public class LanguageRepositoryTests extends BaseTest {
 		languageRepository.save(l);
 	}
 
-	@After
+	@AfterEach
 	public void teardown() {
 		languageRepository.deleteAll();
 	}

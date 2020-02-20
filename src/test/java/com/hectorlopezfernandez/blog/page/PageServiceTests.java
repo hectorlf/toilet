@@ -2,10 +2,10 @@ package com.hectorlopezfernandez.blog.page;
 
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
@@ -21,11 +21,11 @@ public class PageServiceTests extends BaseTest {
 	@Test
 	public void testShouldReturnAtLeastOnePage() {
 		List<Page> pages = pageService.listPagesForSitemap();
-		Assert.assertNotNull(pages);
-		Assert.assertTrue(pages.size() > 0);
+		Assertions.assertNotNull(pages);
+		Assertions.assertTrue(pages.size() > 0);
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		Page p = new Page();
 		p.setTitle("Test");
@@ -33,7 +33,7 @@ public class PageServiceTests extends BaseTest {
 		pageRepository.save(p);
 	}
 
-	@After
+	@AfterEach
 	public void teardown() {
 		pageRepository.deleteAll();
 	}

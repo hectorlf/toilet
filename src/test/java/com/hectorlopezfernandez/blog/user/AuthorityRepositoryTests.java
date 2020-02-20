@@ -1,14 +1,12 @@
 package com.hectorlopezfernandez.blog.user;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
-import com.hectorlopezfernandez.blog.user.Authority;
-import com.hectorlopezfernandez.blog.user.AuthorityRepository;
 
 public class AuthorityRepositoryTests extends BaseTest {
 	
@@ -17,14 +15,14 @@ public class AuthorityRepositoryTests extends BaseTest {
 
 	@Test
 	public void testAuthorities() {
-		Assert.assertTrue(authorityRepository.findAll().size() == 2);
+		Assertions.assertTrue(authorityRepository.findAll().size() == 2);
 		Authority a = authorityRepository.findByAuthority("Auth2");
-		Assert.assertNotNull(a);
-		Assert.assertEquals("Auth2", a.getAuthority());
-		Assert.assertNull(authorityRepository.findByAuthority("nonexistent"));
+		Assertions.assertNotNull(a);
+		Assertions.assertEquals("Auth2", a.getAuthority());
+		Assertions.assertNull(authorityRepository.findByAuthority("nonexistent"));
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		Authority a = new Authority();
 		a.setAuthority("Auth1");
@@ -34,7 +32,7 @@ public class AuthorityRepositoryTests extends BaseTest {
 		authorityRepository.save(a);
 	}
 
-	@After
+	@AfterEach
 	public void teardown() {
 		authorityRepository.deleteAll();
 	}

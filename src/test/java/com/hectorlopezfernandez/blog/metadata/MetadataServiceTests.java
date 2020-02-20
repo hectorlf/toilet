@@ -2,10 +2,10 @@ package com.hectorlopezfernandez.blog.metadata;
 
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
@@ -24,21 +24,21 @@ public class MetadataServiceTests extends BaseTest {
 	@Test
 	public void testGetPreferences() {
 		Preferences p = metadataService.getPreferences();
-		Assert.assertNotNull(p);
-		Assert.assertEquals("Title", p.getTitle());
+		Assertions.assertNotNull(p);
+		Assertions.assertEquals("Title", p.getTitle());
 	}
 
 	@Test
 	public void testFindAllLanguages() {
 		List<Language> languages = metadataService.findSupportedLanguages();
-		Assert.assertNotNull(languages);
-		Assert.assertTrue(languages.size() == 2);
+		Assertions.assertNotNull(languages);
+		Assertions.assertTrue(languages.size() == 2);
 		Language l = metadataService.getDefaultLanguage();
-		Assert.assertNotNull(languages);
-		Assert.assertEquals("es-ES", l.getTag());
+		Assertions.assertNotNull(languages);
+		Assertions.assertEquals("es-ES", l.getTag());
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		Preferences p = new Preferences();
 		p.setPostAgeLimitForFeed(Long.valueOf(30*24*60*60*1000));
@@ -56,7 +56,7 @@ public class MetadataServiceTests extends BaseTest {
 		languageRepository.save(l);
 	}
 
-	@After
+	@AfterEach
 	public void teardown() {
 		preferencesRepository.deleteAll();
 		languageRepository.deleteAll();

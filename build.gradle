@@ -1,53 +1,59 @@
 plugins {
-  id 'org.springframework.boot' version '2.1.9.RELEASE'
-  id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-  id 'java'
-  id 'eclipse'
-}
-
-// project configuration
-project.sourceCompatibility = '1.8'
-project.archivesBaseName = 'toilet'
-project.version = '0.0.0'
-
-sourceSets {
-  main {
-    resources {
-      srcDir 'src/main/web'
-    }
-  }
+	id 'org.springframework.boot' version '2.2.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+	id 'eclipse'
 }
 
 repositories {
-  mavenCentral()
-  jcenter()
-  maven {
-    url 'http://oss.sonatype.org/content/repositories/snapshots'
-  }
+	mavenCentral()
+	jcenter()
+	maven {
+		url 'http://oss.sonatype.org/content/repositories/snapshots'
+	}
+}
+
+// project configuration
+sourceCompatibility = '11'
+group = 'com.hectorlopezfernandez'
+version = '0.0.1-SNAPSHOT'
+
+sourceSets {
+	main {
+		resources {
+			srcDir 'src/main/web'
+		}
+	}
 }
 
 configurations {
-  compile.exclude module: "spring-boot-starter-tomcat"
+	compile.exclude module: "spring-boot-starter-tomcat"
 }
 
 dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter-web'
-  implementation 'org.springframework.boot:spring-boot-starter-jetty'
-  implementation 'org.springframework.boot:spring-boot-starter-actuator'
-  implementation 'org.springframework.boot:spring-boot-starter-security'
-  implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-  implementation 'io.pebbletemplates:pebble-spring-boot-starter:3.1.0'
-  implementation 'com.hectorlopezfernandez.pebble:spring-security-extension:2.0.0-SNAPSHOT'
-  implementation 'javax.inject:javax.inject:1'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-jetty'
+	implementation 'io.pebbletemplates:pebble-spring-boot-starter:3.1.0'
+	implementation 'com.hectorlopezfernandez.pebble:spring-security-extension:2.0.0-SNAPSHOT'
+	implementation 'javax.inject:javax.inject:1'
 
-  testImplementation 'org.springframework.boot:spring-boot-starter-test'
-  testImplementation 'org.springframework.security:spring-security-test:5.1.6.RELEASE'
-  testImplementation 'de.bwaldvogel:mongo-java-server:1.21.0'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'de.bwaldvogel:mongo-java-server:1.24.0'
+}
+
+test {
+	useJUnitPlatform()
 }
 
 // local run marker task
 task start(dependsOn: bootRun) {
-  outputs.upToDateWhen { false }
+	outputs.upToDateWhen { false }
 }
 
 

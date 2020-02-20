@@ -7,8 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Locale;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import com.hectorlopezfernandez.blog.BaseMvcTest;
 
@@ -57,7 +57,7 @@ public class LocaleResolverTests extends BaseMvcTest {
 
 	// multiple accept-languages are not supported by MockHttpServletRequestBuilder
 	@Test
-	@Ignore
+	@Disabled
 	public void multipleAcceptLanguage_spanishGoesBeforeEnglish_spanishIsSelected() throws Exception {
 		mockMvc.perform(get("/index.page").header("Accept-Language","es-ES, es"))
 			.andExpect(status().isOk())
@@ -66,7 +66,7 @@ public class LocaleResolverTests extends BaseMvcTest {
 
 	// multiple accept-languages are not supported by MockHttpServletRequestBuilder
 	@Test
-	@Ignore
+	@Disabled
 	public void multipleAcceptLanguage_usupportedLanguagesBeforeSpanish_spanishIsSelected() throws Exception {
 		mockMvc.perform(get("/index.page").header("Accept-Language","de, fr, es"))
 			.andExpect(status().isOk())

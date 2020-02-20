@@ -20,7 +20,7 @@ public class ArchiveServiceImpl implements ArchiveService {
 
 	@Override
 	public List<Post> listIndexPosts() {
-		Pageable pageable = new PageRequest(0, 3);
+		Pageable pageable = PageRequest.of(0, 3);
 		return postRepository.findByPublishedIsTrueOrderByPublicationDateDesc(pageable).getContent();
 	}
 

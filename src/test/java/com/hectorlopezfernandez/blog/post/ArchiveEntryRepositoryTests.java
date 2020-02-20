@@ -1,11 +1,12 @@
 package com.hectorlopezfernandez.blog.post;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 
@@ -21,28 +22,34 @@ public class ArchiveEntryRepositoryTests extends BaseTest {
 		assertThat(entryRepository.findAll(), hasSize(2));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testSetMonth_NegativeMonthPassed_ExceptionThrown() {
-		ArchiveEntry ae = new ArchiveEntry();
-		ae.setMonth(-1);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			ArchiveEntry ae = new ArchiveEntry();
+			ae.setMonth(-1);
+		});
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testSetMonth_InvalidMonthPassed_ExceptionThrown() {
-		ArchiveEntry ae = new ArchiveEntry();
-		ae.setMonth(12);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			ArchiveEntry ae = new ArchiveEntry();
+			ae.setMonth(12);
+		});
 	}
 
-	@Test(expected = DuplicateKeyException.class)
+	@Test
 	public void testSave_IndexBreakingObjectSaved_ExceptionThrown() {
-		ArchiveEntry ae = new ArchiveEntry();
-		ae.setMonth(0);
-		ae.setPostCount(0);
-		ae.setYear(2000);
-		entryRepository.save(ae);
+		Assertions.assertThrows(DuplicateKeyException.class, () -> {
+			ArchiveEntry ae = new ArchiveEntry();
+			ae.setMonth(0);
+			ae.setPostCount(0);
+			ae.setYear(2000);
+			entryRepository.save(ae);
+		});
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		ArchiveEntry ae = new ArchiveEntry();
 		ae.setMonth(0);
@@ -56,7 +63,7 @@ public class ArchiveEntryRepositoryTests extends BaseTest {
 		entryRepository.save(ae);
 	}
 
-	@After
+	@AfterEach
 	public void teardown() {
 		entryRepository.deleteAll();
 	}

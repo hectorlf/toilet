@@ -1,21 +1,19 @@
 package com.hectorlopezfernandez.blog.user;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
-import com.hectorlopezfernandez.blog.user.User;
-import com.hectorlopezfernandez.blog.user.UserRepository;
 
 public class UserRepositoryTests extends BaseTest {
 	
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Before
+	@BeforeEach
 	public void setup() {
 		User u = new User();
 		u.setUsername("User1");
@@ -29,14 +27,14 @@ public class UserRepositoryTests extends BaseTest {
 
 	@Test
 	public void testUsers() {
-		Assert.assertTrue(userRepository.findAll().size() == 2);
+		Assertions.assertTrue(userRepository.findAll().size() == 2);
 		User u = userRepository.findByUsername("User2");
-		Assert.assertNotNull(u);
-		Assert.assertEquals("User2", u.getUsername());
-		Assert.assertNull(userRepository.findByUsername("nonexistent"));
+		Assertions.assertNotNull(u);
+		Assertions.assertEquals("User2", u.getUsername());
+		Assertions.assertNull(userRepository.findByUsername("nonexistent"));
 	}
 
-	@After
+	@AfterEach
 	public void teardown() {
 		userRepository.deleteAll();
 	}

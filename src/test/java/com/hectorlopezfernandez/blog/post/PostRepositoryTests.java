@@ -1,11 +1,14 @@
 package com.hectorlopezfernandez.blog.post;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
@@ -17,19 +20,19 @@ public class PostRepositoryTests extends BaseTest {
 
 	@Test
 	public void testPosts() {
-		Assert.assertTrue(postRepository.findAll().size() == 2);
+		assertTrue(postRepository.findAll().size() == 2);
 		List<Post> postList = postRepository.findByTitle("Title2");
-		Assert.assertNotNull(postList);
-		Assert.assertTrue(postList.size() == 1);
-		Assert.assertEquals("Title2", postList.get(0).getTitle());
+		assertNotNull(postList);
+		assertTrue(postList.size() == 1);
+		assertEquals("Title2", postList.get(0).getTitle());
 		postList = postRepository.findByCreationDateLessThanEqual(System.currentTimeMillis() - 60000);
-		Assert.assertNotNull(postList);
-		Assert.assertTrue(postList.size() == 1);
+		assertNotNull(postList);
+		assertTrue(postList.size() == 1);
 		postList = postRepository.findByTitle("nonexistent");
-		Assert.assertTrue(postList.size() == 0);
+		assertTrue(postList.size() == 0);
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		Post p = new Post();
 		p.setContent("Content1");
@@ -45,7 +48,7 @@ public class PostRepositoryTests extends BaseTest {
 		postRepository.save(p);
 	}
 
-	@After
+	@AfterEach
 	public void teardown() {
 		postRepository.deleteAll();
 	}

@@ -1,9 +1,9 @@
 package com.hectorlopezfernandez.blog.metadata;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
@@ -15,12 +15,12 @@ public class PreferencesRepositoryTests extends BaseTest {
 
 	@Test
 	public void testPreferences() {
-		Assert.assertTrue(preferencesRepository.findAll().size() == 1);
+		Assertions.assertTrue(preferencesRepository.findAll().size() == 1);
 		Preferences p = preferencesRepository.get();
-		Assert.assertEquals("Title", p.getTitle());
+		Assertions.assertEquals("Title", p.getTitle());
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		Preferences p = new Preferences();
 		p.setMaxElementsPerPage(3);
@@ -32,7 +32,7 @@ public class PreferencesRepositoryTests extends BaseTest {
 		preferencesRepository.save(p);
 	}
 
-	@After
+	@AfterEach
 	public void teardown() {
 		preferencesRepository.deleteAll();
 	}

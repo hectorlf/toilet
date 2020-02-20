@@ -2,13 +2,12 @@ package com.hectorlopezfernandez.blog.user;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,17 +22,14 @@ public class ServiceTests extends BaseTest {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
-
-	@Before
+	@BeforeEach
 	public void setup() {
 		User p = new User();
 		p.setUsername("test");
 		userRepository.save(p);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		userRepository.deleteAll();
 	}
@@ -46,8 +42,9 @@ public class ServiceTests extends BaseTest {
 
 	@Test
 	public void testLoadUserByUsername2() {
-		expectedException.expect(UsernameNotFoundException.class);
-		securityService.loadUserByUsername("doesnotexist");
+		Assertions.assertThrows(UsernameNotFoundException.class, () -> {
+			securityService.loadUserByUsername("doesnotexist");
+		});
 	}
 
 }

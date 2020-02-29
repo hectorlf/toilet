@@ -95,7 +95,7 @@ public class MetadataService {
 		prefs.setDefaultLanguage(english.getId());
 		prefs.setMaxElementsPerPage(10);
 		prefs.setPaginateIndexPage(false);
-		prefs.setPostAgeLimitForFeed(30*24*60*60*1000);
+		prefs.setPostAgeLimitForFeed(30*24*60*60*1000l);
 		prefs.setTagline("Your blog is ready to start rolling...");
 		prefs.setTitle("It's alive!!");
 		preferencesRepository.save(prefs);

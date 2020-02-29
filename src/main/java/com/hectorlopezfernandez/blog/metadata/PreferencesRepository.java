@@ -1,5 +1,6 @@
 package com.hectorlopezfernandez.blog.metadata;
 
+import org.springframework.data.mongodb.repository.ExistsQuery;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,5 +18,8 @@ public interface PreferencesRepository extends MongoRepository<Preferences, Stri
 	 */
 	@Query("{ \"_id\" : \"" + Preferences.ID + "\" }")
 	Preferences get();
+
+	@ExistsQuery("{ \"_id\" : \"" + Preferences.ID + "\" }")
+	boolean exists();
 
 }

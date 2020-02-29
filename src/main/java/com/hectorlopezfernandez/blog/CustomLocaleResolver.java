@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.LocaleContextResolver;
 
+import com.hectorlopezfernandez.blog.metadata.Language;
 import com.hectorlopezfernandez.blog.metadata.MetadataService;
 import com.hectorlopezfernandez.blog.user.User;
 
@@ -70,7 +71,9 @@ public class CustomLocaleResolver implements LocaleContextResolver {
 		}
 		// no match found, return the default
 		logger.debug("No language match, resorting to app default");
-		Locale defaultLocale = metadataService.getDefaultLanguage().toLocale();
+		Language defaultLanguage = metadataService.getDefaultLanguage();
+		// it's possible that the DB is empty, handle the edge case
+		Locale defaultLocale = defaultLanguage == null ? Locale.getDefault() : defaultLanguage.toLocale();
 		storeLocale(request, defaultLocale);
 		return defaultLocale;
 	}

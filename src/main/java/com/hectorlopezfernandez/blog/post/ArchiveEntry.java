@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection="archiveEntries")
 @CompoundIndexes({
-	@CompoundIndex(def="{'year': -1, 'month': 1}", unique=true)
+	@CompoundIndex(def="{'year': -1, 'month': -1}", unique=true)
 })
 public class ArchiveEntry {
 

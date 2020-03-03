@@ -18,11 +18,8 @@ public class ArchiveEntry {
 
 	@Id
 	private String id;
-	
 	private int year;
-
 	private int month;
-	
 	private int postCount;
 
 	// utility getters

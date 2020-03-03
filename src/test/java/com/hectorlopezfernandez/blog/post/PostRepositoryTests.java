@@ -38,13 +38,13 @@ public class PostRepositoryTests extends BaseTest {
 		p.setContent("Content1");
 		p.setCreationDate(System.currentTimeMillis());
 		p.setTitle("Title1");
-		p.setTitleUrl("title1");
+		p.setSlug("title1");
 		postRepository.save(p);
 		p = new Post();
 		p.setContent("Content2");
 		p.setCreationDate(Long.valueOf(0));
 		p.setTitle("Title2");
-		p.setTitleUrl("title2");
+		p.setSlug("title2");
 		postRepository.save(p);
 	}
 

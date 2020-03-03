@@ -10,7 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * not a blog post.
  * 
  * Implementation notes:
- * - metaDescription contains a meta that can be crawled by search engines, and has
+ * - slug stores the URL path segments, after /pages, that uniquely identify the page
+ *   and has to conform to URL syntax
+ * - metaDescription stores a meta that can be crawled by search engines, and has
  *   to be properly HTML encoded
  * - title contains a text that will be used in the HTML head and optionally in
  *   other places of a layout, and has to be properly HTML encoded

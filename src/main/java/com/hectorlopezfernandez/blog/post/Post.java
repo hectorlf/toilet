@@ -2,13 +2,23 @@ package com.hectorlopezfernandez.blog.post;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.hectorlopezfernandez.blog.user.User;
-
 /**
- * Post data
+ * A Post contains data about a single entry, which forms
+ * the basis of a blog.
+ * 
+ * Implementation notes:
+ * - slug stores the URL path segment, after /posts/year/month, that uniquely identify
+ *   the post and has to conform to URL syntax
+ * - metaDescription stores a meta that can be crawled by search engines, and has
+ *   to be properly HTML encoded
+ * - title contains a text that will be used in the layout, and has to be properly HTML encoded
+ * - content is the proper post HTML body, including markup (relative to the layout container)
+ * - excerpt will typically store a summary of the post, in HTML including markup, although
+ *   different layouts could have different uses for this
+ * - feedContent is a performance optimization: upon saving a post, a feed-compatible content
+ *   will be computed and stored here for quicker responses
  * 
  * @author hector
  */
@@ -17,16 +27,12 @@ public class Post {
 
 	@Id
 	private String id;
-	
 	private String title;
-
 	@Indexed(unique=true)
-	private String titleUrl;
+	private String slug;
 
 	private String metaDescription;
-
 	private String excerpt;
-
 	private String content;
 
 	// preprocessed text for feeds
@@ -35,14 +41,12 @@ public class Post {
 	private long creationDate;
 	private long publicationDate;
 	private long lastModificationDate;
+	@Indexed
+	private boolean published;
 	
 	private boolean commentsAllowed;
 
-	@Indexed
-	private boolean published;
-
-	@DBRef
-	private User author;
+	private String author;
 	
 //	private ArchiveEntry archiveEntry;
 
@@ -64,13 +68,6 @@ public class Post {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getTitleUrl() {
-		return titleUrl;
-	}
-	public void setTitleUrl(String titleUrl) {
-		this.titleUrl = titleUrl;
 	}
 
 	public String getMetaDescription() {
@@ -129,18 +126,25 @@ public class Post {
 		this.published = published;
 	}
 
-	public User getAuthor() {
-		return author;
-	}
-	public void setAuthor(User author) {
-		this.author = author;
-	}
-
 	public boolean isCommentsAllowed() {
 		return commentsAllowed;
 	}
 	public void setCommentsAllowed(boolean commentsAllowed) {
 		this.commentsAllowed = commentsAllowed;
+	}
+
+	public String getSlug() {
+		return slug;
+	}
+	public void setSlug(String slug) {
+		this.slug = slug;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.user;
+package com.hectorlopezfernandez.blog.author;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,8 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
  * and stores information about the two roles, e.g. password and
  * display name.
  */
-@Document(collection="users")
-public class User implements UserDetails {
+@Document(collection="authors")
+public class Author {
 
 	private static final long serialVersionUID = -2219132465446211105L;
 
@@ -37,7 +37,7 @@ public class User implements UserDetails {
 	private String about;
 	private String relatedUrl;
 
-	public User() {
+	public Author() {
 		this.authorities = new HashSet<>();
 	}
 	
@@ -102,37 +102,6 @@ public class User implements UserDetails {
 	public void setAuthorities(Set<String> authorities) {
 		this.authorities = authorities;
 	}
-	/**
-	 * Adds an authority string to the set of granted authorities.
-	 * 
-	 * @param authority  the authority string to add, can't be null or empty
-	 * @return  this User object, to allow chained calls
-	 */
-	public User addAuthority(String authority) {
-		if (authority == null || authority.isEmpty()) throw new IllegalArgumentException("Authority argument can't be null or empty");
-		this.authorities.add(authority);
-		return this;
-	}
 
-	// UserDetails getters
-	
-	@Override
-	public boolean isAccountNonExpired() {
-		return enabled;
-	}
-	@Override
-	public boolean isAccountNonLocked() {
-		return enabled;
-	}
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return enabled;
-	}
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Collection<Authority> grantedAuthorities = this.authorities.stream()
-				.map(authorityString -> new Authority(authorityString)).collect(Collectors.toList());
-		return grantedAuthorities;
-	}
 
 }

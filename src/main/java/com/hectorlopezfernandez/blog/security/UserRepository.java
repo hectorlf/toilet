@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.user;
+package com.hectorlopezfernandez.blog.security;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

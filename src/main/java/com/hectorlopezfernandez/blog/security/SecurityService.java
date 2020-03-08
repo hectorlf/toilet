@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.user;
+package com.hectorlopezfernandez.blog.security;
 
 import javax.inject.Inject;
 

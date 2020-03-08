@@ -14,8 +14,8 @@ import org.springframework.web.context.WebApplicationContext;
 import com.hectorlopezfernandez.blog.metadata.Language;
 import com.hectorlopezfernandez.blog.metadata.MetadataService;
 import com.hectorlopezfernandez.blog.metadata.Preferences;
-import com.hectorlopezfernandez.blog.user.SecurityService;
-import com.hectorlopezfernandez.blog.user.User;
+import com.hectorlopezfernandez.blog.security.SecurityService;
+import com.hectorlopezfernandez.blog.security.User;
 
 @SpringBootTest(classes={TestApplicationPersistence.class,Application.class}, webEnvironment=WebEnvironment.RANDOM_PORT)
 public abstract class BaseSecurityTest {

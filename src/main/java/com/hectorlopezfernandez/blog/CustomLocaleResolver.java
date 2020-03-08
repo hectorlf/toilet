@@ -20,7 +20,7 @@ import org.springframework.web.servlet.LocaleContextResolver;
 
 import com.hectorlopezfernandez.blog.metadata.Language;
 import com.hectorlopezfernandez.blog.metadata.MetadataService;
-import com.hectorlopezfernandez.blog.user.User;
+import com.hectorlopezfernandez.blog.security.User;
 
 public class CustomLocaleResolver implements LocaleContextResolver {
 

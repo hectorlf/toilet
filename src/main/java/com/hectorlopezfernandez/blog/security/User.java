@@ -1,6 +1,7 @@
 package com.hectorlopezfernandez.blog.security;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,10 +28,15 @@ public class User implements UserDetails {
 	private boolean enabled;
 	private Set<String> roles;
 
+	// constructors
+	
 	public User() {
-		this.roles = new HashSet<>();
 	}
 
+	public User(String username) {
+		this.username = username;
+	}
+	
 	// UserDetails interface
 
 	@Override
@@ -47,8 +53,10 @@ public class User implements UserDetails {
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Collection<Role> grantedAuthorities = this.roles.stream()
-				.map(authorityString -> new Role(authorityString)).collect(Collectors.toList());
+		Collection<Role> grantedAuthorities = Collections.emptyList();
+		if (roles != null && !roles.isEmpty()) {
+			grantedAuthorities = roles.stream().map(authorityString -> new Role(authorityString)).collect(Collectors.toList());
+		}
 		return grantedAuthorities;
 	}
 
@@ -89,6 +97,12 @@ public class User implements UserDetails {
 		this.language = language;
 	}
 
+	public Set<String> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
 	/**
 	 * Adds an authority string to the set of granted authorities.
 	 * 
@@ -97,7 +111,8 @@ public class User implements UserDetails {
 	 */
 	public User addRole(String role) {
 		if (role == null || role.isEmpty()) throw new IllegalArgumentException("Role argument can't be null or empty");
-		this.roles.add(role);
+		if (roles == null) roles = new HashSet<>();
+		roles.add(role);
 		return this;
 	}
 	/**
@@ -107,7 +122,10 @@ public class User implements UserDetails {
 	 * @return this User object, to allow chained calls
 	 */
 	public User addRoles(Collection<String> roles) {
-		if (roles != null) this.roles.addAll(roles);
+		if (roles != null && !roles.isEmpty()) {
+			if (this.roles == null) this.roles = new HashSet<>();
+			this.roles.addAll(roles);
+		}
 		return this;
 	}
 

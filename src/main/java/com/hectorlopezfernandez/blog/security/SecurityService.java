@@ -1,5 +1,7 @@
 package com.hectorlopezfernandez.blog.security;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -15,12 +17,16 @@ public class SecurityService implements UserDetailsService {
 	private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
 
 	private UserRepository userRepository;
+	private RoleRepository roleRepository;
 
 	@Inject
-	public SecurityService(UserRepository userRepository) {
+	public SecurityService(UserRepository userRepository, RoleRepository roleRepository) {
 		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
 	}
 
+	// UserDetailsService interface
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.debug("Loading user by username: {}", username);
@@ -30,6 +36,8 @@ public class SecurityService implements UserDetailsService {
 		return u;
 	}
 
+	// User related methods
+
 	public void addUser(User user) {
 		if (user == null) throw new IllegalArgumentException("User argument can't be null");
 		userRepository.save(user);
@@ -37,6 +45,12 @@ public class SecurityService implements UserDetailsService {
 
 	public void removeAllUsers() {
 		userRepository.deleteAll();
+	}
+
+	// Role related methods
+
+	public List<Role> listRoles() {
+		return roleRepository.findAll();
 	}
 
 }

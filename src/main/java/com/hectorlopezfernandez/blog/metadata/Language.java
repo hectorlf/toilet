@@ -3,7 +3,6 @@ package com.hectorlopezfernandez.blog.metadata;
 import java.util.Locale;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -16,8 +15,16 @@ public class Language {
 
 	@Id
 	private String id;
-	@Indexed(unique=true)
 	private String tag;
+
+	// constructors
+
+	public Language() {
+	}
+
+	public Language(String tag) {
+		this.tag = tag;
+	}
 
 	// utility methods
 	

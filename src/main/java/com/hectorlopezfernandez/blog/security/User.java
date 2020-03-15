@@ -23,8 +23,8 @@ public class User implements UserDetails {
 	@Id
 	private String id;
 	private String username;
-	private String language;
 	private String password;
+	private String language;
 	private boolean enabled;
 	private Set<String> roles;
 
@@ -35,6 +35,13 @@ public class User implements UserDetails {
 
 	public User(String username) {
 		this.username = username;
+	}
+	
+	public User(String username, String password, String language, boolean enabled) {
+		this.username = username;
+		this.password = password;
+		this.language = language;
+		this.enabled = enabled;
 	}
 	
 	// UserDetails interface

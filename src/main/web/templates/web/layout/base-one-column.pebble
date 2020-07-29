@@ -3,7 +3,6 @@
 <html>
 
 <head>
-   <link rel="preconnect" href="https://d9xqzluw8al1.cloudfront.net"/>
    <link rel="preconnect" href="https://fonts.googleapis.com"/>
    <link rel="preconnect" href="https://netdna.bootstrapcdn.com"/>
 
@@ -24,7 +23,7 @@
 {% if metaDescription is not empty %}
    <meta name="description" content="{{metaDescription}}" />
 {% endif %}
-   <link rel="shortcut icon" href="https://d9xqzluw8al1.cloudfront.net/favicon.gif" type="image/gif"/>
+   <link rel="shortcut icon" href="/images/favicon.gif" type="image/gif"/>
    <meta name="generator" content="Toilet Blogging Application"/>
 </head>
 {# flush head as soon as possible #}{% flush %}
@@ -72,7 +71,7 @@
   (function() {
     var d=document, s=d.getElementsByTagName("head")[0];
     // screen.css
-    var g=d.createElement("link"); g.type="text/css"; g.rel="stylesheet"; g.href="https://d9xqzluw8al1.cloudfront.net/screen.min.css"; s.appendChild(g);
+    var g=d.createElement("link"); g.type="text/css"; g.rel="stylesheet"; g.href="/css/web/screen.css"; s.appendChild(g);
     // font-awesome.css
     var g=d.createElement("link"); g.type="text/css"; g.rel="stylesheet"; g.href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"; s.appendChild(g);
   })();

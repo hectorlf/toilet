@@ -1,5 +1,7 @@
 package com.hectorlopezfernandez.blog;
 
+import static com.hectorlopezfernandez.blog.security.WellKnownRoles.ADMIN;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -47,10 +49,10 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 		http.logout().logoutUrl("/logout").logoutSuccessUrl("/index.page");
 		// management access rules
 		http.requiresChannel().antMatchers(MANAGEMENT_ENDPOINTS).requiresSecure();
-		http.authorizeRequests().antMatchers(MANAGEMENT_ENDPOINTS).hasRole("ADMIN");
+		http.authorizeRequests().antMatchers(MANAGEMENT_ENDPOINTS).hasRole(ADMIN.name());
 		// app access rules
 		http.requiresChannel().antMatchers("/login","/logout","/login.page","/admin/*.page").requiresSecure();
-		http.authorizeRequests().antMatchers("/admin/*.page").hasRole("ADMIN");
+		http.authorizeRequests().antMatchers("/admin/*.page","/admin/api/*").hasRole(ADMIN.name());
 		// default access rules
 		http.authorizeRequests().antMatchers("/**").permitAll();
 	}

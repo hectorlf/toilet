@@ -41,6 +41,14 @@ public class ArchiveService {
 	public Page<Post> listPosts(PageRequest pageAndOrder) {
 		return postRepository.findAll(pageAndOrder);
 	}
+	
+	/**
+	 * Returns the list of posts associated with a given tag
+	 */
+	public List<Post> listPostsByTag(String tag) {
+		//FIXME
+		return postRepository.findAll();
+	}
 
 	/**
 	 * Returns the Post identified by the id argument

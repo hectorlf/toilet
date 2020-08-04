@@ -110,6 +110,7 @@ public class User implements UserDetails {
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
 	}
+
 	/**
 	 * Adds an authority string to the set of granted authorities.
 	 * 
@@ -123,7 +124,7 @@ public class User implements UserDetails {
 		return this;
 	}
 	/**
-	 * Adds a collection to the set of granted roles.
+	 * Adds a collection of roles to the set of granted authorities.
 	 * 
 	 * @param roles  the collection of roles to add, nulls and empty collections are ignored
 	 * @return this User object, to allow chained calls
@@ -132,6 +133,31 @@ public class User implements UserDetails {
 		if (roles != null && !roles.isEmpty()) {
 			if (this.roles == null) this.roles = new HashSet<>();
 			this.roles.addAll(roles);
+		}
+		return this;
+	}
+	/**
+	 * Removes an authority string from the set of granted authorities.
+	 * 
+	 * @param authority  the authority string to remove, can't be null or empty
+	 * @return this User object, to allow chained calls
+	 */
+	public User removeRole(String role) {
+		if (role == null || role.isEmpty()) throw new IllegalArgumentException("Role argument can't be null or empty");
+		if (roles == null) roles = new HashSet<>();
+		roles.remove(role);
+		return this;
+	}
+	/**
+	 * Removes a collection of roles from the set of granted authorities.
+	 * 
+	 * @param roles  the collection of roles to remove, nulls and empty collections are ignored
+	 * @return this User object, to allow chained calls
+	 */
+	public User removeRoles(Collection<String> roles) {
+		if (roles != null && !roles.isEmpty()) {
+			if (this.roles == null) this.roles = new HashSet<>();
+			this.roles.removeAll(roles);
 		}
 		return this;
 	}

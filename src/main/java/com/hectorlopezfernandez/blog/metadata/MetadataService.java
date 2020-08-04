@@ -90,9 +90,9 @@ public class MetadataService {
 	public void initialize() {
 		Language english = new Language();
 		english.setTag("en");
-		english = languageRepository.save(english);
+		languageRepository.save(english);
 		Preferences prefs = new Preferences();
-		prefs.setDefaultLanguage(english.getId());
+		prefs.setDefaultLanguage("en");
 		prefs.setMaxElementsPerPage(10);
 		prefs.setPaginateIndexPage(false);
 		prefs.setPostAgeLimitForFeed(30*24*60*60*1000l);

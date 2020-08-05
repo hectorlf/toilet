@@ -22,6 +22,7 @@ public class Tag {
 	@Indexed(unique=true)
 	private String slug;
 	private String name;
+	private int count;
 	
 	// constructors
 	
@@ -54,6 +55,13 @@ public class Tag {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 	// equals & hashcode

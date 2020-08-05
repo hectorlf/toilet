@@ -1,20 +1,18 @@
-{% extends '/WEB-INF/pebble/layouts/template.pebble' %}
+{% extends 'web/layout/base-one-column' %}
 
-{% set pageName = 'Etiquetas' %}
+{% set pageName = message('tags.title') %}
 
 {% block main %}
    <main role="main">
       <article>
-         <header><h1 class="post-title">Etiquetas</h1></header>
-
+         <header><h1 class="post-title">{{message('tags.section.title')}}</h1></header>
          <section class="post-content">
             <ul>
-{% for tag in actionBean.tags %}
-               <li><a href="{{stripesUrl("com.hectorlopezfernandez.action.TagsAction", {'name':tag.nameUrl})}}">{{tag.name}}</a> &raquo; {{tag.count}} entrada{{tag.count != 1 ? 's' : ''}}</li>
+{% for tag in tags %}
+               <li><a href="/tags/{{tag.slug}}">{{tag.name}}</a> &raquo; {{tag.count}} {{tag.count != 1 ? message('tags.section.taggedposts.plural') : message('tags.section.taggedposts.singular')}}</li>
 {% endfor %}
             </ul>
          </section>
-
          <footer class="post-footer">
          </footer>
       </article>

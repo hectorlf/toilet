@@ -31,4 +31,31 @@ class SecurityServiceSpecification extends Specification {
 		thrown(UsernameNotFoundException)
 	}
 
+	def "adding a user"() {
+		given:
+		def user = new User()
+		
+		when: "a User object is saved"
+		securityService.addUser(user)
+		
+		then: "the right methods are called"
+		1 * mockedUserRepository.save(user)
+	}
+
+	def "deleting all users"() {
+		when: "all the users are deleted"
+		securityService.removeAllUsers()
+		
+		then: "the right methods are called"
+		1 * mockedUserRepository.deleteAll()
+	}
+
+	def "listing all roles"() {
+		when: "the list of all roles is queried"
+		securityService.listRoles()
+		
+		then: "the right methods are called"
+		1 * mockedRoleRepository.findAll()
+	}
+
 }

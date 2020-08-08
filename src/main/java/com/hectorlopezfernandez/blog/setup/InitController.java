@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.backup;
+package com.hectorlopezfernandez.blog.setup;
 
 import javax.inject.Inject;
 
@@ -13,18 +13,18 @@ public class InitController {
 
 	private static final Logger logger = LoggerFactory.getLogger(InitController.class);
 
+	private final InitService initService;
+
 	@Inject
-	private BackupService backupService;
+	public InitController(InitService initService) {
+		this.initService = initService;
+	}
 
 	@RequestMapping(value="/initialize")
 	public String initialize(ModelMap model) {
 		logger.debug("Going into InitController.initialize()");
-		backupService.initialize();
+		initService.initialize();
 		return "redirect:/index.page";
-	}
-
-	public void setBackupService(BackupService backupService) {
-		this.backupService = backupService;
 	}
 
 }

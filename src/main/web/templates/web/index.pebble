@@ -1,4 +1,4 @@
-{% extends 'web/layout/base-one-column' %}
+{% extends 'web/layout-one-column' %}
 
 {% set pageName = message('index.home') %}
 {% set metaDescription = preferences.tagline %}
@@ -13,6 +13,6 @@
    </main>
 {% endblock %}
 
-{% block 'syntaxhighlighting-scripts' %}
+{% block 'additional-scripts' %}
 {% include 'web/layout/prettify-scripts' %}
 {% endblock %}

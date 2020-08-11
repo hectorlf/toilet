@@ -1,0 +1,15 @@
+{% extends 'web/layout-skeleton' %}
+
+{% set indexUrl = '/index.page' %}
+
+{% block 'head-content' %}
+	<link rel="top" href="{{indexUrl}}"/>
+	<title>{{message('error.500.title')}}</title>
+{% endblock %}
+
+{% block 'body-content' %}
+	<header id="site-head" style="padding-top:60px">
+        <h1 class="blog-title"><a href="{{indexUrl}}">{{message('error.500.message')}}</a></h1>
+        <h2 class="blog-description">{{message('error.500.tagline')}}</h2>
+    </header>
+{% endblock %}

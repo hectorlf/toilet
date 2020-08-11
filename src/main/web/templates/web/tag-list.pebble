@@ -1,4 +1,4 @@
-{% extends 'web/layout/base-one-column' %}
+{% extends 'web/layout-one-column' %}
 
 {% set pageName = message('tags.title') %}
 

@@ -1,34 +1,18 @@
+{% extends 'web/layout-skeleton' %}
+
 {% set indexUrl = '/index.page' %}
-<!DOCTYPE html>
-<html>
 
-<head>
-   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-   <link rel="preconnect" href="https://netdna.bootstrapcdn.com"/>
-
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-   <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
-   <meta name="HandheldFriendly" content="true" />
-   <meta name="MobileOptimized" content="320" />
-
-{% include 'web/layout/inlined-styles' %}
-
-
+{% block 'head-content' %}
    <link rel="alternate" href="/feed.page" type="application/atom+xml" title="{{ message('feed.description') }}"/>
-   <link rel="index" href="{{indexUrl}}" title="{{ message('index.home') }}"/>
+   <link rel="top" href="{{indexUrl}}" title="{{ message('index.home') }}"/>
 
    <title>{{pageName}} - {{preferences.title}}</title>
 {% if metaDescription is not empty %}
    <meta name="description" content="{{metaDescription}}" />
 {% endif %}
-   <link rel="shortcut icon" href="/images/favicon.gif" type="image/gif"/>
-   <meta name="generator" content="Toilet Blogging Application"/>
-</head>
-{# flush head as soon as possible #}{% flush %}
+{% endblock %}
 
-<body>
+{% block 'body-content' %}
    <header id="site-head">
       <a id="blog-logo" href="{{indexUrl}}"><div class="bloglogo"></div></a>
       <h1 class="blog-title"><a href="{{indexUrl}}">{{preferences.title}}</a></h1>
@@ -66,18 +50,4 @@
          <section class="poweredby">{{ message('footer.publishedwith') }} <a href="https://github.com/hectorlf/toilet">Toilet</a></section>
       </div>
    </footer>
-
-<script type="text/javascript">
-  (function() {
-    var d=document, s=d.getElementsByTagName("head")[0];
-    // screen.css
-    var g=d.createElement("link"); g.type="text/css"; g.rel="stylesheet"; g.href="/css/web/screen.css"; s.appendChild(g);
-    // font-awesome.css
-    var g=d.createElement("link"); g.type="text/css"; g.rel="stylesheet"; g.href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"; s.appendChild(g);
-  })();
-</script>
-{% block 'syntaxhighlighting-scripts' %}{# optional block for pages with syntax highlighting #}{% endblock %}
-
-</body>
-
-</html>
+{% endblock %}

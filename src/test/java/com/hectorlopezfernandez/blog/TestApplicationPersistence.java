@@ -1,13 +1,12 @@
 package com.hectorlopezfernandez.blog;
 
+import java.net.InetSocketAddress;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
-
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 
 import de.bwaldvogel.mongo.MongoServer;
 import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
@@ -15,16 +14,15 @@ import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 @Configuration
 public class TestApplicationPersistence {
 
-	private static final String DB_NAME = "blog";
-
 	@Bean
-	public MongoTemplate mongoTemplate(MongoClient mongoClient) {
-		return new MongoTemplate(mongoDbFactory(mongoClient));
+	public MongoTemplate mongoTemplate(MongoDatabaseFactory mongoDatabaseFactory) {
+		return new MongoTemplate(mongoDatabaseFactory);
 	}
 
 	@Bean
-	public MongoDbFactory mongoDbFactory(MongoClient mongoClient) {
-		return new SimpleMongoDbFactory(mongoClient, DB_NAME);
+	public MongoDatabaseFactory mongoDbFactory(MongoServer mongoServer) {
+		InetSocketAddress serverAddress = mongoServer.getLocalAddress();
+		return new SimpleMongoClientDatabaseFactory("mongodb://" + serverAddress.getHostName() + ":" + serverAddress.getPort() + "/blog");
 	}
 	
 	@Bean(destroyMethod="shutdown")
@@ -32,11 +30,6 @@ public class TestApplicationPersistence {
 		MongoServer mongoServer = new MongoServer(new MemoryBackend());
 		mongoServer.bind();
 		return mongoServer;
-	}
-
-	@Bean(destroyMethod="close")
-	public MongoClient mongoClient(MongoServer mongoServer) {
-		return new MongoClient(new ServerAddress(mongoServer.getLocalAddress()));
 	}
 
 }

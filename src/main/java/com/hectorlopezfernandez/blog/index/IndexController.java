@@ -32,7 +32,7 @@ public class IndexController {
 		model.addAttribute("preferences", prefs);
 		List<Post> posts = archiveService.listIndexPosts();
 		model.addAttribute("posts", posts);
-		return "web/index";
+		return "web/pages/index";
 	}
 
 	public void setMetadataService(MetadataService metadataService) {

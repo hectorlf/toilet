@@ -1,4 +1,4 @@
-{% extends '/WEB-INF/pebble/layouts/template.pebble' %}
+{% extends 'web/layouts/one-column' %}
 
 {% set pageName = 'Entradas etiquetadas en ' ~ actionBean.tagName %}
 

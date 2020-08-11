@@ -1,4 +1,4 @@
-{% extends 'web/layout/base-one-column' %}
+{% extends 'web/layouts/one-column' %}
 
 {% set pageName = message('archive.title') %}
 

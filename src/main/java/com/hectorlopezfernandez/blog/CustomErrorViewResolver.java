@@ -20,12 +20,12 @@ public class CustomErrorViewResolver implements ErrorViewResolver {
 	public ModelAndView resolveErrorView(HttpServletRequest request, HttpStatus status, Map<String, Object> model) {
 		ModelAndView response;
 		if (status == HttpStatus.NOT_FOUND) {
-			response = new ModelAndView("web/404-error");
+			response = new ModelAndView("web/pages/404-error");
 		} else if (status.is5xxServerError()) {
-			response = new ModelAndView("web/500-error");
+			response = new ModelAndView("web/pages/500-error");
 		} else {
 			logger.warn("Arrived at a 418 error, WTF! Actual status: {}, path used to get here: {}", status.value(), request.getPathInfo());
-			response = new ModelAndView("web/418-error");
+			response = new ModelAndView("web/pages/418-error");
 		}
 		return response;
 	}

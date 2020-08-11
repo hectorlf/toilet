@@ -1,4 +1,4 @@
-{#% set postUrl = stripesUrl("com.hectorlopezfernandez.action.ArchiveAction",{'year':post.year,'month':post.month|numberformat("00"),'name':post.titleUrl}) %#}
+{#% set postUrl = '/archive/' ~ post.year ~ '/' ~ post.month|numberformat("00") ~ '/' ~ post.slug}) %#}
       <article class="preview">
          <header>
             <h1 class="post-title"><a href="{{ postUrl }}">{{ post.title }}</a></h1>

@@ -1,0 +1,11 @@
+{% extends 'web/layouts/one-column' %}
+
+{% set pageName = page.title %}
+{% set metaDescription = page.metaDescription %}
+
+{% block main %}
+   <main role="main">
+{% include 'web/components/page-detail' %}
+
+   </main>
+{% endblock %}

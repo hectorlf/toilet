@@ -22,12 +22,16 @@ public class TagsController {
 
 	private static final Logger logger = LoggerFactory.getLogger(TagsController.class);
 
+	private final MetadataService metadataService;
+	private final TagService tagService;
+	private final ArchiveService archiveService;
+
 	@Inject
-	private MetadataService metadataService;
-	@Inject
-	private TagService tagService;
-	@Inject
-	private ArchiveService archiveService;
+	public TagsController(TagService tagService, MetadataService metadataService, ArchiveService archiveService) {
+		this.tagService = tagService;
+		this.metadataService = metadataService;
+		this.archiveService = archiveService;
+	}
 
 	@RequestMapping
 	public String root(ModelMap model) {
@@ -36,7 +40,7 @@ public class TagsController {
 		model.addAttribute("preferences", prefs);
 		List<Tag> tags = tagService.listTags();
 		model.addAttribute("tags", tags);
-		return "web/tag-list";
+		return "web/pages/tag-list";
 	}
 
 	@RequestMapping("/{tag}")
@@ -46,19 +50,7 @@ public class TagsController {
 		model.addAttribute("preferences", prefs);
 		List<Post> tagPosts = archiveService.listPostsByTag(slug);
 		model.addAttribute("posts", tagPosts);
-		return "web/tag-posts-list";
-	}
-
-	public void setMetadataService(MetadataService metadataService) {
-		this.metadataService = metadataService;
-	}
-
-	public void setTagService(TagService tagService) {
-		this.tagService = tagService;
-	}
-
-	public void setArchiveService(ArchiveService archiveService) {
-		this.archiveService = archiveService;
+		return "web/pages/tag-posts-list";
 	}
 
 }

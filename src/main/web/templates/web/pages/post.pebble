@@ -1,0 +1,15 @@
+{% extends 'web/layouts/one-column' %}
+
+{% set pageName = post.title %}
+{% set metaDescription = post.metaDescription %}
+
+{% block main %}
+   <main role="main">
+{ % include 'web/components/post-detail' %}
+
+   </main>
+{% endblock %}
+
+{% block 'additional-scripts' %}
+{% include 'web/components/prettify-scripts' %}
+{% endblock %}

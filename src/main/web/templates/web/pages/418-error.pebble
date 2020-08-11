@@ -1,4 +1,4 @@
-{% extends 'web/layout-skeleton' %}
+{% extends 'web/layouts/skeleton' %}
 
 {% set indexUrl = '/index.page' %}
 

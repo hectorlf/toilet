@@ -1,4 +1,4 @@
-{% extends 'web/layout-one-column' %}
+{% extends 'web/layouts/one-column' %}
 
 {% set pageName = message('index.home') %}
 {% set metaDescription = preferences.tagline %}
@@ -7,12 +7,12 @@
    <main role="main">
 
 {% for post in posts %}
-{% include 'web/layout/post-excerpt' %}
+{% include 'web/components/post-excerpt' %}
 
 {% endfor %}
    </main>
 {% endblock %}
 
 {% block 'additional-scripts' %}
-{% include 'web/layout/prettify-scripts' %}
+{% include 'web/components/prettify-scripts' %}
 {% endblock %}

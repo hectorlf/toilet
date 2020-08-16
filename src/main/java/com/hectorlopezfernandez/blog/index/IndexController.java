@@ -20,10 +20,20 @@ public class IndexController {
 
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
+	private final MetadataService metadataService;
+	private final ArchiveService archiveService;
+
 	@Inject
-	private MetadataService metadataService;
-	@Inject
-	private ArchiveService archiveService;
+	public IndexController(MetadataService metadataService, ArchiveService archiveService) {
+		this.archiveService = archiveService;
+		this.metadataService = metadataService;
+	}
+
+	@RequestMapping
+	public String root() {
+		logger.debug("Going into IndexController.root()");
+		return "forward:/index.page";
+	}
 
 	@RequestMapping(value="/index.page")
 	public String welcome(ModelMap model) {
@@ -33,14 +43,6 @@ public class IndexController {
 		List<Post> posts = archiveService.listIndexPosts();
 		model.addAttribute("posts", posts);
 		return "web/pages/index";
-	}
-
-	public void setMetadataService(MetadataService metadataService) {
-		this.metadataService = metadataService;
-	}
-
-	public void setArchiveService(ArchiveService archiveService) {
-		this.archiveService = archiveService;
 	}
 
 }

@@ -15,22 +15,21 @@ import org.springframework.data.mongodb.core.index.Index;
  * Registers an EventListener that initializes the mongodb indexes
  */
 @Configuration
-public class PostIndexConfigurer {
+public class ArchiveEntryIndexConfigurer {
 
-	private static final Logger logger = LoggerFactory.getLogger(PostIndexConfigurer.class);
+	private static final Logger logger = LoggerFactory.getLogger(ArchiveEntryIndexConfigurer.class);
 
 	private final MongoTemplate mongoTemplate;
 
 	@Inject
-	public PostIndexConfigurer(MongoTemplate mongoTemplate) {
+	public ArchiveEntryIndexConfigurer(MongoTemplate mongoTemplate) {
 		this.mongoTemplate = mongoTemplate;
 	}
 
 	@EventListener(ApplicationReadyEvent.class)
 	public void ensureIndexes() {
-		logger.info("Ensuring post indexes...");
-		mongoTemplate.indexOps(Post.class).ensureIndex(new Index().on("slug", Direction.ASC).unique());
-		mongoTemplate.indexOps(Post.class).ensureIndex(new Index().on("published", Direction.ASC));
+		logger.info("Ensuring archive entry indexes...");
+		mongoTemplate.indexOps(ArchiveEntry.class).ensureIndex(new Index().on("year", Direction.DESC).on("month", Direction.DESC).unique());
 	}
 
 }

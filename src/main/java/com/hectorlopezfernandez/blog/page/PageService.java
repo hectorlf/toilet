@@ -1,5 +1,6 @@
 package com.hectorlopezfernandez.blog.page;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,21 @@ public class PageService {
 	 */
 	public Optional<Page> getPageBySlug(String slug) {
 		return Optional.ofNullable(pageRepository.findBySlug(slug));
+	}
+
+	// FIXME this helper function should only live until the admin console is built
+	public void sample() {
+		Instant now = Instant.now();
+
+		Page page = new Page();
+		page.setContent("<p>This is a sample about page. It's about... the about page.</p>");
+		page.setLastModificationDate(now.toEpochMilli());
+		page.setMetaDescription("A sample about page");
+		page.setPublicationDate(now.toEpochMilli());
+		page.setPublished(true);
+		page.setSlug("about");
+		page.setTitle("About");
+		pageRepository.save(page);
 	}
 
 }

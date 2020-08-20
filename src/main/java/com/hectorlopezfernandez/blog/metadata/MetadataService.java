@@ -91,6 +91,7 @@ public class MetadataService {
 		Language english = new Language();
 		english.setTag("en");
 		languageRepository.save(english);
+
 		Preferences prefs = new Preferences();
 		prefs.setDefaultLanguage("en");
 		prefs.setMaxElementsPerPage(10);
@@ -98,6 +99,22 @@ public class MetadataService {
 		prefs.setPostAgeLimitForFeed(30*24*60*60*1000l);
 		prefs.setTagline("Your blog is ready to start rolling...");
 		prefs.setTitle("It's alive!!");
+		preferencesRepository.save(prefs);
+	}
+
+	// FIXME this helper function should only live until the admin console is built
+	public void sample() {
+		Language english = new Language();
+		english.setTag("en");
+		languageRepository.save(english);
+
+		Preferences prefs = new Preferences();
+		prefs.setDefaultLanguage("en");
+		prefs.setMaxElementsPerPage(10);
+		prefs.setPaginateIndexPage(false);
+		prefs.setPostAgeLimitForFeed(30*24*60*60*1000l);
+		prefs.setTagline("This is the tagline of the blog...");
+		prefs.setTitle("This is the name of the blog");
 		preferencesRepository.save(prefs);
 	}
 

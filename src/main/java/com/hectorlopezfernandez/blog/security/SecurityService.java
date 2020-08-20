@@ -62,13 +62,30 @@ public class SecurityService implements UserDetailsService {
 		roleRepository.save(adminRole);
 		Role userRole = new Role(WellKnownRoles.USER.name(), WellKnownRoles.USER.description());
 		roleRepository.save(userRole);
-		
+
 		User superAdmin = new User();
 		superAdmin.setEnabled(true);
 		superAdmin.setLanguage("en");
 		UUID uuid = UUID.randomUUID();
 		logger.warn("IMPORTANT! New admin password generated: {}", uuid.toString());
 		superAdmin.setPassword(BCrypt.hashpw(uuid.toString(), BCrypt.gensalt()));
+		superAdmin.setUsername("admin");
+		superAdmin.addRole(WellKnownRoles.ADMIN.name());
+		userRepository.save(superAdmin);
+	}
+
+	// FIXME this helper function should only live until the admin console is built
+	public void sample() {
+		Role adminRole = new Role(WellKnownRoles.ADMIN.name(), WellKnownRoles.ADMIN.description());
+		roleRepository.save(adminRole);
+		Role userRole = new Role(WellKnownRoles.USER.name(), WellKnownRoles.USER.description());
+		roleRepository.save(userRole);
+
+		User superAdmin = new User();
+		superAdmin.setEnabled(true);
+		superAdmin.setLanguage("en");
+		// sample password is: admin
+		superAdmin.setPassword("$2y$10$PZx0mISGuCMAu6vg5fctH.8mDSHSSD2DfH1XBLwWXlPViH3TwsLjK");
 		superAdmin.setUsername("admin");
 		superAdmin.addRole(WellKnownRoles.ADMIN.name());
 		userRepository.save(superAdmin);

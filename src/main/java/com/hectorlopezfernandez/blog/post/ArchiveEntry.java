@@ -1,5 +1,7 @@
 package com.hectorlopezfernandez.blog.post;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -24,10 +26,9 @@ public class ArchiveEntry {
 
 	// utility getters
 
-	/*
-	 * public DateTime getAsDate() { return new DateTime(year, month + 1, 1, 0, 0);
-	 * }
-	 */
+	public LocalDateTime getAsDate() {
+		return LocalDateTime.of(year, month + 1, 1, 0, 0);
+	}
 
 	// getters & setters
 

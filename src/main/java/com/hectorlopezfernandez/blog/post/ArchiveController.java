@@ -20,10 +20,14 @@ public class ArchiveController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArchiveController.class);
 
+	private final MetadataService metadataService;
+	private final ArchiveService archiveService;
+
 	@Inject
-	private MetadataService metadataService;
-	@Inject
-	private ArchiveService archiveService;
+	public ArchiveController(MetadataService metadataService, ArchiveService archiveService) {
+		this.metadataService = metadataService;
+		this.archiveService = archiveService;
+	}
 
 	@RequestMapping
 	public String archiveRoot(ModelMap model) {
@@ -32,7 +36,7 @@ public class ArchiveController {
 		model.addAttribute("preferences", prefs);
 		List<ArchiveEntry> entries = archiveService.listArchiveEntries();
 		model.addAttribute("entries", entries);
-		return "web/archive-entry-list";
+		return "web/pages/archive-entries";
 	}
 
 	@RequestMapping("/{year}")
@@ -43,7 +47,7 @@ public class ArchiveController {
 		model.addAttribute("preferences", prefs);
 //		List<Post> posts = archiveService.listIndexPosts();
 //		model.addAttribute("posts", posts);
-		return "web/archive-entry-list";
+		return "web/pages/archive-entries";
 	}
 
 	@RequestMapping("/{year}/{month}")
@@ -55,7 +59,7 @@ public class ArchiveController {
 		model.addAttribute("preferences", prefs);
 //		List<Post> posts = archiveService.listIndexPosts();
 //		model.addAttribute("posts", posts);
-		return "web/post-list";
+		return "web/pages/posts-for-archive-entry";
 	}
 
 	@RequestMapping("/{year}/{month}/{post}")
@@ -68,15 +72,7 @@ public class ArchiveController {
 		model.addAttribute("preferences", prefs);
 //		List<Post> posts = archiveService.listIndexPosts();
 //		model.addAttribute("posts", posts);
-		return "web/post";
-	}
-
-	public void setMetadataService(MetadataService metadataService) {
-		this.metadataService = metadataService;
-	}
-
-	public void setArchiveService(ArchiveService archiveService) {
-		this.archiveService = archiveService;
+		return "web/pages/post";
 	}
 
 }

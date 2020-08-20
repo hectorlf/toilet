@@ -10,9 +10,9 @@
          <section class="post-content">
             <ul>
 {% for entry in entries %}
-{% set entryMonth = entry.asDate | joda("MMMM","es") %}
-{% set entryYear = entry.asDate | joda("yyyy","es") %}
-               <li><a href="/archive/{{entry.year}}/{{entry.month|numberformat("00")}}" title="{{entryMonth}}">{{entryMonth | capitalize}}</a>, <a href="/archive/{{entry.year}}" title="{{entryYear}}">{{entryYear}}</a> &raquo; {{entry.postCount}} {{entry.count == 1 ? message('archive.entry') : message('archive.entries')}}</li>
+{% set entryMonth = entry.asDate | date("MMMM") %}
+{% set entryYear = entry.asDate | date("yyyy") %}
+               <li><a href="/archive/{{entry.year}}/{{entry.month|numberformat("##")}}" title="{{entryMonth}}">{{entryMonth | capitalize}}</a>, <a href="/archive/{{entry.year}}" title="{{entryYear}}">{{entryYear}}</a> &raquo; {{entry.postCount}} {{entry.count == 1 ? message('archive.entry') : message('archive.entries')}}</li>
 {% endfor %}
             </ul>
          </section>

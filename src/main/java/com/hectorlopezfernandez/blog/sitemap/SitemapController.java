@@ -21,10 +21,14 @@ public class SitemapController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SitemapController.class);
 
+	private final ArchiveService archiveService;
+	private final PageService pageService;
+
 	@Inject
-	private ArchiveService archiveService;
-	@Inject
-	private PageService pageService;
+	public SitemapController(ArchiveService archiveService, PageService pageService) {
+		this.archiveService = archiveService;
+		this.pageService = pageService;
+	}
 
 	@RequestMapping(value="/sitemap.xml")
 	public String sitemap(ModelMap model, HttpServletResponse response) {
@@ -35,15 +39,7 @@ public class SitemapController {
 		model.addAttribute("pages", pages);
 		// special content type
 		response.setContentType("text/xml");
-		return "web/sitemap";
-	}
-
-	public void setArchiveService(ArchiveService archiveService) {
-		this.archiveService = archiveService;
-	}
-
-	public void setPageService(PageService pageService) {
-		this.pageService = pageService;
+		return "web/pages/sitemap";
 	}
 
 }

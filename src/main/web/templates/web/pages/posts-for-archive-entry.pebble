@@ -1,4 +1,4 @@
-{% extends 'web/layout/base-one-column' %}
+{% extends 'web/layouts/one-column' %}
 
 {% set pageName = 'Entradas archivadas en '~(actionBean.month == null ? actionBean.searchDate | date("yyyy") : actionBean.searchDate | date("MMMM 'de' yyyy", "es")) %}
 

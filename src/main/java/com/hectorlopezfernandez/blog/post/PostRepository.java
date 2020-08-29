@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PostRepository extends MongoRepository<Post, String> {
 
-	List<Post> findByTitle(String title);
+	Post findBySlug(String slug);
 
-	List<Post> findByCreationDateLessThanEqual(long date);
+	List<Post> findByCreationTimeLessThanEqual(long date);
 
-	Page<Post> findByPublishedIsTrueOrderByPublicationDateDesc(Pageable pageable);
+	Page<Post> findByPublishedIsTrueOrderByPublicationTimeDesc(Pageable pageable);
 
 	List<Post> findAllByPublishedIsTrue();
 

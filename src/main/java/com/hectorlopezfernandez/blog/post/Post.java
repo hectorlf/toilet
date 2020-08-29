@@ -1,5 +1,9 @@
 package com.hectorlopezfernandez.blog.post;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -38,9 +42,9 @@ public class Post {
 	// preprocessed text for feeds
 	private String feedContent;
 
-	private long creationDate;
-	private long publicationDate;
-	private long lastModificationDate;
+	private long creationTime;
+	private long publicationTime;
+	private long lastModificationTime;
 	@Indexed
 	private boolean published;
 	
@@ -53,6 +57,16 @@ public class Post {
 //	private Collection<Tag> tags;
 
 //	private Collection<Post> relatedPosts;
+
+	// utility getters
+
+	public LocalDateTime getCreationTimeAsDate() {
+		return LocalDateTime.ofInstant(Instant.ofEpochMilli(creationTime), ZoneId.systemDefault());
+	}
+
+	public LocalDateTime getPublicationTimeAsDate() {
+		return LocalDateTime.ofInstant(Instant.ofEpochMilli(publicationTime), ZoneId.systemDefault());
+	}
 
 	// getters & setters
 
@@ -98,27 +112,6 @@ public class Post {
 		this.feedContent = feedContent;
 	}
 
-	public long getCreationDate() {
-		return creationDate;
-	}
-	public void setCreationDate(long creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public long getPublicationDate() {
-		return publicationDate;
-	}
-	public void setPublicationDate(long publicationDate) {
-		this.publicationDate = publicationDate;
-	}
-
-	public long getLastModificationDate() {
-		return lastModificationDate;
-	}
-	public void setLastModificationDate(long lastModificationDate) {
-		this.lastModificationDate = lastModificationDate;
-	}
-
 	public boolean isPublished() {
 		return published;
 	}
@@ -145,6 +138,27 @@ public class Post {
 	}
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public long getCreationTime() {
+		return creationTime;
+	}
+	public void setCreationTime(long creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public long getPublicationTime() {
+		return publicationTime;
+	}
+	public void setPublicationTime(long publicationTime) {
+		this.publicationTime = publicationTime;
+	}
+
+	public long getLastModificationTime() {
+		return lastModificationTime;
+	}
+	public void setLastModificationTime(long lastModificationTime) {
+		this.lastModificationTime = lastModificationTime;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.hectorlopezfernandez.blog.post;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -11,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hectorlopezfernandez.blog.ContentNotFoundException;
 import com.hectorlopezfernandez.blog.metadata.MetadataService;
 import com.hectorlopezfernandez.blog.metadata.Preferences;
 
@@ -62,16 +64,19 @@ public class ArchiveController {
 		return "web/pages/posts-for-archive-entry";
 	}
 
-	@RequestMapping("/{year}/{month}/{post}")
-	public String permalink(@PathVariable("year") Integer year, @PathVariable("month") Integer month, @PathVariable("post") String post, ModelMap model) {
+	@RequestMapping("/{year}/{month}/{slug}")
+	public String permalink(@PathVariable("year") Integer year, @PathVariable("month") Integer month, @PathVariable("slug") String slug, ModelMap model) {
 		logger.debug("Going into ArchiveController.permalink()");
 		logger.debug("year " + year);
 		logger.debug("month " + month);
-		logger.debug("post " + post);
+		logger.debug("post " + slug);
+		Optional<Post> post = archiveService.getPostBySlug(slug);
+		if (post.isEmpty() || !post.get().isPublished()) {
+			throw new ContentNotFoundException("No post exists with slug: " + slug);
+		}
+		model.addAttribute("post", post.get());
 		Preferences prefs = metadataService.getPreferences();
 		model.addAttribute("preferences", prefs);
-//		List<Post> posts = archiveService.listIndexPosts();
-//		model.addAttribute("posts", posts);
 		return "web/pages/post";
 	}
 

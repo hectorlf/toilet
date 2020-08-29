@@ -3,7 +3,8 @@ package com.hectorlopezfernandez.blog.post;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,11 +13,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ArchiveService {
 
-	@Autowired
-	private PostRepository postRepository;
+	private final PostRepository postRepository;
+	private final ArchiveEntryRepository archiveEntryRepository;
 
-	@Autowired
-	private ArchiveEntryRepository archiveEntryRepository;
+	@Inject
+	public ArchiveService(PostRepository postRepository, ArchiveEntryRepository archiveEntryRepository) {
+		this.archiveEntryRepository = archiveEntryRepository;
+		this.postRepository = postRepository;
+	}
 
 	// posts
 
@@ -25,7 +29,7 @@ public class ArchiveService {
 	 */
 	public List<Post> listIndexPosts() {
 		Pageable pageable = PageRequest.of(0, 3);
-		return postRepository.findByPublishedIsTrueOrderByPublicationDateDesc(pageable).getContent();
+		return postRepository.findByPublishedIsTrueOrderByPublicationTimeDesc(pageable).getContent();
 	}
 
 	/**
@@ -51,10 +55,10 @@ public class ArchiveService {
 	}
 
 	/**
-	 * Returns the Post identified by the id argument
+	 * Returns the Post identified by the slug
 	 */
-	public Optional<Post> getPost(String id) {
-		return postRepository.findOneById(id);
+	public Optional<Post> getPostBySlug(String slug) {
+		return Optional.ofNullable(postRepository.findBySlug(slug));
 	}
 
 	// archive entries

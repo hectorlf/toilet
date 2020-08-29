@@ -40,12 +40,12 @@ public class PostService {
 		post.setAuthor("shakespeare");
 		post.setCommentsAllowed(true);
 		post.setContent("<p>This is a sample post that says some things and expands the information stored in the excerpt.</p>");
-		post.setCreationDate(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post.setExcerpt("<p>This is a sample post.</p>");
 		post.setFeedContent("Post content processed for the feeds.");
-		post.setLastModificationDate(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post.setLastModificationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post.setMetaDescription("This is the meta of the sample post");
-		post.setPublicationDate(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post.setPublicationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post.setPublished(true);
 		post.setSlug("a-sample-post");
 		post.setTitle("A sample post");

@@ -1,11 +1,12 @@
-{% set postUrl = stripesUrl("com.hectorlopezfernandez.action.ArchiveAction",{'year':post.year,'month':post.month|numberformat("00"),'name':post.titleUrl}) %}
+{% set publicationDate = post.publicationTimeAsDate %}
+{% set postUrl = '/archive/' ~ (publicationDate | date('yyyy')) ~ '/' ~ (publicationDate | date('MM')) ~ '/' ~ post.slug %}
       <article>
          <header>
-{% if post.tags is not empty %}
-            <div class="post-meta tags">Etiquetado en {% for tag in post.tags %}{% if loop.index > 0 %}, {% endif %}<a href="{{stripesUrl("com.hectorlopezfernandez.action.TagsAction",{'name':tag.nameUrl})}}" rel="category tag">{{tag.name}}</a>{% endfor %}</div>
+{% if tags is not empty %}
+            <div class="post-meta tags">Etiquetado en {% for tag in tags %}{% if loop.index > 0 %}, {% endif %}<a href="{{'/tags/' ~ tag.slug}}" rel="category tag">{{tag.name}}</a>{% endfor %}</div>
 {% endif %}
             <h1 class="post-title">{{post.title}}</h1>
-            <div class="post-meta"><time datetime="{{post.publicationDate | joda("yyyy-MM-dd")}}">{{post.publicationDate | joda("EEEE, d 'de' MMMM, yyyy","es")}}</time></div>
+            <div class="post-meta"><time datetime="{{ publicationDate | date("yyyy-MM-dd") }}">{{ publicationDate | date("yyyy-MM-dd") }}</time></div>
          </header>
 
          <section class="post-content">
@@ -16,8 +17,8 @@
 
          </section>
 
-{% if post.relatedPosts is not empty %}
-         <div class="post-meta tags">Entradas relacionadas: {% for relatedPost in post.relatedPosts %}{% if relatedPost.published %}{% if atLeastOnePublished %} &#8226; {% endif %}<a href="{{stripesUrl("com.hectorlopezfernandez.action.ArchiveAction",{'year':relatedPost.year,'month':relatedPost.month|numberformat("00"),'name':relatedPost.titleUrl})}}" rel="next">{{relatedPost.title}}</a>{% set atLeastOnePublished = true %}{% endif %}{% endfor %}</div>
+{% if relatedPosts is not empty %}
+         <div class="post-meta tags">Entradas relacionadas: {% for relatedPost in relatedPosts %}{% if relatedPost.published %}{% if atLeastOnePublished %} &#8226; {% endif %}<a href="{{stripesUrl("com.hectorlopezfernandez.action.ArchiveAction",{'year':relatedPost.year,'month':relatedPost.month|numberformat("00"),'name':relatedPost.titleUrl})}}" rel="next">{{relatedPost.title}}</a>{% set atLeastOnePublished = true %}{% endif %}{% endfor %}</div>
 
 {% endif %}
          <section class="share">
@@ -28,16 +29,13 @@
             <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.hectorlopezfernandez.com{{postUrl}}" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                <i class="fa fa-2x fa-fw fa-facebook-square"></i> <span class="hidden">Facebook</span>
             </a>
-            <a href="https://plus.google.com/share?url=https://www.hectorlopezfernandez.com{{postUrl}}" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-               <i class="fa fa-2x fa-fw fa-google-plus-square"></i> <span class="hidden">Google+</span>
-            </a>
          </section>
 
          <footer class="post-footer">
-{% set author = post.author %}{% include '/WEB-INF/pebble/layouts/author-detail.pebble' %}
+{% include 'web/components/author-detail' %}
 
          </footer>
-{% if not post.commentsClosed %}
+{#% if not post.commentsClosed %}
 
          <div id="disqus_thread"></div>
          <script>
@@ -53,5 +51,5 @@
          })();
          </script>
          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-{% endif %}
+{% endif %#}
       </article>

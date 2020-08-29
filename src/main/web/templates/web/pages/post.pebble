@@ -5,7 +5,7 @@
 
 {% block main %}
    <main role="main">
-{ % include 'web/components/post-detail' %}
+{% include 'web/components/post-detail' %}
 
    </main>
 {% endblock %}

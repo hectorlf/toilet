@@ -1,12 +1,13 @@
-{#% set postUrl = '/archive/' ~ post.year ~ '/' ~ post.month|numberformat("00") ~ '/' ~ post.slug}) %#}
+{% set publicationDate = post.publicationTimeAsDate %}
+{% set postUrl = '/archive/' ~ (publicationDate | date('yyyy')) ~ '/' ~ (publicationDate | date('MM')) ~ '/' ~ post.slug %}
       <article class="preview">
          <header>
             <h1 class="post-title"><a href="{{ postUrl }}">{{ post.title }}</a></h1>
-            <div class="post-meta"><time datetime="{#{ post.publicationDate | joda("yyyy-MM-dd") }#}">{#{ post.publicationDate | joda("EEEE, d 'de' MMMM, yyyy","es") }#}</time></div>
+            <div class="post-meta"><time datetime="{{ publicationDate | date("yyyy-MM-dd") }}">{{ publicationDate | date("yyyy-MM-dd") }}</time></div>
          </header>
          <section class="post-excerpt">
 {{ post.excerpt | raw }}
 
-<p class="readmore"><a href="{{ postUrl }}#readmore">{{ message('post.keepreading') }} <i class="fa fa-chevron-circle-right"></i></a></p>
+<p class="readmore"><a href="{{ postUrl }}#readmore">{{ message('post.excerpt.readmore') }} <i class="fa fa-chevron-circle-right"></i></a></p>
          </section>
       </article>

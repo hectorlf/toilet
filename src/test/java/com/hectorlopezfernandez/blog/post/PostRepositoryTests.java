@@ -1,5 +1,6 @@
 package com.hectorlopezfernandez.blog.post;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,28 +22,28 @@ public class PostRepositoryTests extends BaseTest {
 	@Test
 	public void testPosts() {
 		assertTrue(postRepository.findAll().size() == 2);
-		List<Post> postList = postRepository.findByTitle("Title2");
+		Post post = postRepository.findBySlug("title2");
+		assertNotNull(post);
+		assertEquals("Title2", post.getTitle());
+		post = postRepository.findBySlug("nonexistent");
+		assertNull(post);
+
+		List<Post> postList = postRepository.findByCreationTimeLessThanEqual(System.currentTimeMillis() - 60000);
 		assertNotNull(postList);
 		assertTrue(postList.size() == 1);
-		assertEquals("Title2", postList.get(0).getTitle());
-		postList = postRepository.findByCreationDateLessThanEqual(System.currentTimeMillis() - 60000);
-		assertNotNull(postList);
-		assertTrue(postList.size() == 1);
-		postList = postRepository.findByTitle("nonexistent");
-		assertTrue(postList.size() == 0);
 	}
 
 	@BeforeEach
 	public void setup() {
 		Post p = new Post();
 		p.setContent("Content1");
-		p.setCreationDate(System.currentTimeMillis());
+		p.setCreationTime(System.currentTimeMillis());
 		p.setTitle("Title1");
 		p.setSlug("title1");
 		postRepository.save(p);
 		p = new Post();
 		p.setContent("Content2");
-		p.setCreationDate(Long.valueOf(0));
+		p.setCreationTime(Long.valueOf(0));
 		p.setTitle("Title2");
 		p.setSlug("title2");
 		postRepository.save(p);

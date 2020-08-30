@@ -1,6 +1,6 @@
             <section class="author">
-               <div class="authorimage" style="background:url(//d9xqzluw8al1.cloudfront.net/avatar-{{author.username}}.jpg)"></div>
-               <p class="attr">Autor</p>
+               <div class="authorimage" style="background:url(/images/avatar-{{author.slug}}.jpg)"></div>
+               <p class="attr">{{ message('author.title') }}</p>
                <h4><a href="{{author.relatedUrl}}">{{author.displayName}}</a></h4>
                <p class="bio">{{author.about}}</p>
             </section>

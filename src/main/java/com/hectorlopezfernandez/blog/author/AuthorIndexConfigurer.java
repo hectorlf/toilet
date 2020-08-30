@@ -19,7 +19,7 @@ public class AuthorIndexConfigurer {
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthorIndexConfigurer.class);
 
-	private MongoTemplate mongoTemplate;
+	private final MongoTemplate mongoTemplate;
 
 	@Inject
 	public AuthorIndexConfigurer(MongoTemplate mongoTemplate) {
@@ -28,8 +28,8 @@ public class AuthorIndexConfigurer {
 
 	@EventListener(ApplicationReadyEvent.class)
 	public void ensureIndexes() {
-		logger.info("Ensuring user indexes...");
-		mongoTemplate.indexOps(Author.class).ensureIndex(new Index().on("authority", Direction.ASC).unique());
+		logger.info("Ensuring author indexes...");
+		mongoTemplate.indexOps(Author.class).ensureIndex(new Index().on("slug", Direction.ASC).unique());
 	}
 
 }

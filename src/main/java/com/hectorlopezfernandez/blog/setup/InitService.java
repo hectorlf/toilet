@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.hectorlopezfernandez.blog.author.AuthorService;
 import com.hectorlopezfernandez.blog.metadata.MetadataService;
 import com.hectorlopezfernandez.blog.page.PageService;
 import com.hectorlopezfernandez.blog.post.PostService;
@@ -18,14 +19,17 @@ public class InitService {
 	private final PageService pageService;
 	private final TagService tagService;
 	private final PostService postService;
+	private final AuthorService authorService;
 
 	@Inject
-	public InitService(SecurityService securityService, MetadataService metadataService, PageService pageService, TagService tagService, PostService postService) {
+	public InitService(SecurityService securityService, MetadataService metadataService, PageService pageService, 
+			TagService tagService, PostService postService, AuthorService authorService) {
 		this.securityService = securityService;
 		this.metadataService = metadataService;
 		this.pageService = pageService;
 		this.tagService = tagService;
 		this.postService = postService;
+		this.authorService = authorService;
 	}
 
 	public void initialize() {
@@ -39,6 +43,7 @@ public class InitService {
 	public void sample() {
 		metadataService.sample();
 		securityService.sample();
+		authorService.sample();
 		pageService.sample();
 		tagService.sample();
 		postService.sample();

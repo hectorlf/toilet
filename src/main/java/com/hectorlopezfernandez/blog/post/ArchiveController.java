@@ -67,14 +67,13 @@ public class ArchiveController {
 	@RequestMapping("/{year}/{month}/{slug}")
 	public String permalink(@PathVariable("year") Integer year, @PathVariable("month") Integer month, @PathVariable("slug") String slug, ModelMap model) {
 		logger.debug("Going into ArchiveController.permalink()");
-		logger.debug("year " + year);
-		logger.debug("month " + month);
-		logger.debug("post " + slug);
-		Optional<Post> post = archiveService.getPostBySlug(slug);
-		if (post.isEmpty() || !post.get().isPublished()) {
-			throw new ContentNotFoundException("No post exists with slug: " + slug);
+		Optional<SinglePostView> postData = archiveService.getDataForPostPage(year, month, slug);
+		if (postData.isEmpty()) {
+			throw new ContentNotFoundException("No post exists with year: " + year + ", month: " + month + ", and slug: " + slug);
 		}
-		model.addAttribute("post", post.get());
+		model.addAttribute("post", postData.get().getPost());
+		model.addAttribute("author", postData.get().getAuthor());
+		model.addAttribute("tags", postData.get().getTags());
 		Preferences prefs = metadataService.getPreferences();
 		model.addAttribute("preferences", prefs);
 		return "web/pages/post";

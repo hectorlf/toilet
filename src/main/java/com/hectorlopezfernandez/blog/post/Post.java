@@ -3,6 +3,7 @@ package com.hectorlopezfernandez.blog.post;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Collection;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -51,10 +52,8 @@ public class Post {
 	private boolean commentsAllowed;
 
 	private String author;
-	
-//	private ArchiveEntry archiveEntry;
 
-//	private Collection<Tag> tags;
+	private Collection<String> tags;
 
 //	private Collection<Post> relatedPosts;
 
@@ -159,6 +158,13 @@ public class Post {
 	}
 	public void setLastModificationTime(long lastModificationTime) {
 		this.lastModificationTime = lastModificationTime;
+	}
+
+	public Collection<String> getTags() {
+		return tags;
+	}
+	public void setTags(Collection<String> tags) {
+		this.tags = tags;
 	}
 
 }

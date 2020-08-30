@@ -1,5 +1,8 @@
 package com.hectorlopezfernandez.blog.tag;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +34,20 @@ public class TagService {
 	 * Returns the Tag identified by the id argument
 	 */
 	public Optional<Tag> getTag(String id) {
-		return tagRepository.findOneById(id);
+		return tagRepository.findById(id);
+	}
+
+	/**
+	 * Returns a collection of Tags identified by their slugs
+	 */
+	public Collection<Tag> getTagsBySlug(Collection<String> slugs) {
+		if (slugs == null || slugs.isEmpty()) return Collections.emptyList();
+		Collection<Tag> tags = new ArrayList<>();
+		for (String slug : slugs) {
+			Optional<Tag> tag = tagRepository.findBySlug(slug);
+			if (tag.isPresent()) tags.add(tag.get());
+		}
+		return tags;
 	}
 
 	/**

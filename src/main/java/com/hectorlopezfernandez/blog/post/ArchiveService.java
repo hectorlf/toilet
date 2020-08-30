@@ -1,5 +1,7 @@
 package com.hectorlopezfernandez.blog.post;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,16 +12,26 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.hectorlopezfernandez.blog.author.Author;
+import com.hectorlopezfernandez.blog.author.AuthorService;
+import com.hectorlopezfernandez.blog.tag.Tag;
+import com.hectorlopezfernandez.blog.tag.TagService;
+
 @Service
 public class ArchiveService {
 
 	private final PostRepository postRepository;
 	private final ArchiveEntryRepository archiveEntryRepository;
+	private final AuthorService authorService;
+	private final TagService tagService;
 
 	@Inject
-	public ArchiveService(PostRepository postRepository, ArchiveEntryRepository archiveEntryRepository) {
+	public ArchiveService(PostRepository postRepository, ArchiveEntryRepository archiveEntryRepository, 
+			AuthorService authorService, TagService tagService) {
 		this.archiveEntryRepository = archiveEntryRepository;
 		this.postRepository = postRepository;
+		this.authorService = authorService;
+		this.tagService = tagService;
 	}
 
 	// posts
@@ -55,10 +67,17 @@ public class ArchiveService {
 	}
 
 	/**
-	 * Returns the Post identified by the slug
+	 * Returns the Post details identified by the slug
 	 */
-	public Optional<Post> getPostBySlug(String slug) {
-		return Optional.ofNullable(postRepository.findBySlug(slug));
+	public Optional<SinglePostView> getDataForPostPage(Integer year, Integer month, String slug) {
+		if (year == null || month == null || slug == null || slug.isEmpty()) return Optional.empty();
+		Post post = postRepository.findBySlug(slug);
+		if (post == null) return Optional.empty();
+		LocalDateTime publicationDate = post.getPublicationTimeAsDate();
+		if (publicationDate.getYear() != year || publicationDate.getMonthValue() != month) return Optional.empty();
+		Author author = authorService.getAuthorBySlug(post.getAuthor()).orElse(null);
+		Collection<Tag> tags = tagService.getTagsBySlug(post.getTags());
+		return Optional.of(new SinglePostView(post, author, tags));
 	}
 
 	// archive entries

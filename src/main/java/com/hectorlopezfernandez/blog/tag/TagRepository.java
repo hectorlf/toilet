@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TagRepository extends MongoRepository<Tag, String> {
 
-	Tag findBySlug(String slug);
-
-	Optional<Tag> findOneById(String id);
+	Optional<Tag> findBySlug(String slug);
 
 }

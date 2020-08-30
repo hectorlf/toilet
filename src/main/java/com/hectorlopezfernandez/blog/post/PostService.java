@@ -2,6 +2,7 @@ package com.hectorlopezfernandez.blog.post;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -37,7 +38,7 @@ public class PostService {
 		archiveEntryRepository.save(entry);
 
 		Post post = new Post();
-		post.setAuthor("shakespeare");
+		post.setAuthor("mcauthor");
 		post.setCommentsAllowed(true);
 		post.setContent("<p>This is a sample post that says some things and expands the information stored in the excerpt.</p>");
 		post.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
@@ -49,6 +50,7 @@ public class PostService {
 		post.setPublished(true);
 		post.setSlug("a-sample-post");
 		post.setTitle("A sample post");
+		post.setTags(Arrays.asList("a-tag", "another-tag"));
 		postRepository.save(post);
 	}
 

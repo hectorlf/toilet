@@ -52,6 +52,21 @@ public class PostService {
 		post.setTitle("A sample post");
 		post.setTags(Arrays.asList("a-tag", "another-tag"));
 		postRepository.save(post);
+		
+		Post post2 = new Post();
+		post2.setAuthor("admin");
+		post2.setCommentsAllowed(false);
+		post2.setContent("<p>Posted by the Administrator.</p>");
+		post2.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post2.setExcerpt("<p>System information.</p>");
+		post2.setFeedContent("System information. Posted by the Administrator.");
+		post2.setLastModificationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post2.setMetaDescription("System information");
+		post2.setPublicationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post2.setPublished(true);
+		post2.setSlug("system-information");
+		post2.setTitle("WARNING!");
+		postRepository.save(post2);
 	}
 
 }

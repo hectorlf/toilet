@@ -36,7 +36,8 @@ public class InitService {
 		if (metadataService.isAlreadyInitialized()) return;
 
 		metadataService.initialize();
-		securityService.initialize();		
+		securityService.initialize();
+		authorService.initialize();
 	}
 
 	// FIXME this helper function should only live until the admin console is built

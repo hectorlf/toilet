@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import javax.inject.Inject;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,18 +14,22 @@ public class PostService {
 
 	private final PostRepository postRepository;
 	private final ArchiveEntryRepository archiveEntryRepository;
+	private final ApplicationEventPublisher eventPublisher;
 
 	@Inject
-	public PostService(PostRepository postRepository, ArchiveEntryRepository archiveEntryRepository) {
+	public PostService(PostRepository postRepository, ArchiveEntryRepository archiveEntryRepository, ApplicationEventPublisher eventPublisher) {
 		this.postRepository = postRepository;
 		this.archiveEntryRepository = archiveEntryRepository;
+		this.eventPublisher = eventPublisher;
 	}
 
 	/**
 	 * Creates a Post
 	 */
 	public Post create(Post post) {
-		return postRepository.save(post);
+		Post result = postRepository.save(post);
+		eventPublisher.publishEvent(new PostPublicationEvent(result, PostPublicationEvent.Type.CREATED));
+		return result;
 	}
 
 	// FIXME this helper function should only live until the admin console is built
@@ -67,6 +72,22 @@ public class PostService {
 		post2.setSlug("system-information");
 		post2.setTitle("WARNING!");
 		postRepository.save(post2);
+		
+		Post post3 = new Post();
+		post3.setAuthor("mcauthor");
+		post3.setCommentsAllowed(false);
+		post3.setContent("<p>This post is tagged under A Tag.</p>");
+		post3.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post3.setExcerpt("<p>Tagged post.</p>");
+		post3.setFeedContent("This post is tagged under A Tag.");
+		post3.setLastModificationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post3.setMetaDescription("Tagged post");
+		post3.setPublicationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post3.setPublished(true);
+		post3.setSlug("tagged-post");
+		post3.setTitle("Tagged Post");
+		post3.setTags(Arrays.asList("a-tag"));
+		postRepository.save(post3);
 	}
 
 }

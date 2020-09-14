@@ -46,8 +46,8 @@ public class InitService {
 		securityService.sample();
 		authorService.sample();
 		pageService.sample();
-		tagService.sample();
 		postService.sample();
+		tagService.sample();
 	}
 
 }

@@ -23,12 +23,12 @@ public class TagsController {
 	private static final Logger logger = LoggerFactory.getLogger(TagsController.class);
 
 	private final MetadataService metadataService;
-	private final TagService tagService;
+	private final TagsService tagsService;
 	private final ArchiveService archiveService;
 
 	@Inject
-	public TagsController(TagService tagService, MetadataService metadataService, ArchiveService archiveService) {
-		this.tagService = tagService;
+	public TagsController(TagsService tagsService, MetadataService metadataService, ArchiveService archiveService) {
+		this.tagsService = tagsService;
 		this.metadataService = metadataService;
 		this.archiveService = archiveService;
 	}
@@ -38,7 +38,7 @@ public class TagsController {
 		logger.debug("Going into TagsController.root()");
 		Preferences prefs = metadataService.getPreferences();
 		model.addAttribute("preferences", prefs);
-		List<Tag> tags = tagService.listTags();
+		List<Tag> tags = tagsService.listTags();
 		model.addAttribute("tags", tags);
 		return "web/pages/tag-list";
 	}

@@ -4,12 +4,22 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
+import javax.inject.Inject;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
 import com.hectorlopezfernandez.blog.BaseMvcTest;
 
 public class ControllerTests extends BaseMvcTest {
+
+	@Inject
+	private PostRepository postRepository;
 
 	@Test
 	public void testArchiveRoot() throws Exception {
@@ -37,6 +47,22 @@ public class ControllerTests extends BaseMvcTest {
 		mockMvc.perform(get("/archive/2017/02/post-name"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
+	}
+
+	@BeforeEach
+	public void setup() {
+		super.setup();
+		Post post = new Post();
+		post.setPublicationTime(LocalDateTime.of(2017, 2, 1, 0, 0).toInstant(ZoneOffset.UTC).toEpochMilli());
+		post.setPublished(true);
+		post.setSlug("post-name");
+		postRepository.save(post);
+	}
+
+	@AfterEach
+	public void tearDown() {
+		postRepository.deleteAll();
+		super.tearDown();
 	}
 
 }

@@ -60,13 +60,15 @@ class TagRepositorySpecification extends Specification {
 		
 		then: "the tag is returned"
 		result != null
-		result.equals(tag1)
+		result.isPresent()
+		result.get().equals(tag1)
 		
 		when: "a non-existing tag is searched by slug"
 		def nonExistent = tagRepository.findBySlug('non-existent')
 		
 		then: "the tag is not found"
-		nonExistent == null
+		nonExistent != null
+		nonExistent.isEmpty()
 		
 		cleanup:
 		tagRepository.deleteAll()

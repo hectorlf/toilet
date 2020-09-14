@@ -1,9 +1,5 @@
 package com.hectorlopezfernandez.blog.tag
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException
-
-import com.hectorlopezfernandez.blog.metadata.MetadataService
-
 import spock.lang.Specification
 
 class TagServiceSpecification extends Specification {
@@ -29,15 +25,7 @@ class TagServiceSpecification extends Specification {
 		tagService.getTag("1")
 		
 		then: "the right methods are called"
-		1 * mockedTagRepository.findOneById("1")
-	}
-
-	def "listing all tags"() {
-		when: "the list of all tags is queried"
-		tagService.listTags()
-		
-		then: "the right methods are called"
-		1 * mockedTagRepository.findAll()
+		1 * mockedTagRepository.findById("1")
 	}
 
 }

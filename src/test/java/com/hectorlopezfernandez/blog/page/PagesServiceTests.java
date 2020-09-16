@@ -10,17 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.blog.BaseTest;
 
-public class PageServiceTests extends BaseTest {
+public class PagesServiceTests extends BaseTest {
 
 	@Autowired
-	private PageService pageService;
+	private PagesService pagesService;
 	
 	@Autowired
 	private PageRepository pageRepository;
 
 	@Test
 	public void testShouldReturnAtLeastOnePage() {
-		List<Page> pages = pageService.listPagesForSitemap();
+		List<Page> pages = pagesService.listPagesForSitemap();
 		Assertions.assertNotNull(pages);
 		Assertions.assertTrue(pages.size() > 0);
 	}

@@ -22,18 +22,18 @@ public class PagesController {
 	private static final Logger logger = LoggerFactory.getLogger(PagesController.class);
 
 	private final MetadataService metadataService;
-	private final PageService pageService;
+	private final PagesService pagesService;
 
 	@Inject
-	public PagesController(MetadataService metadataService, PageService pageService) {
+	public PagesController(MetadataService metadataService, PagesService pagesService) {
 		this.metadataService = metadataService;
-		this.pageService = pageService;
+		this.pagesService = pagesService;
 	}
 
 	@RequestMapping("/{page}")
 	public String bySlug(@PathVariable("page") String slug, ModelMap model) {
 		logger.debug("Going into PagesController.bySlug()");
-		Optional<Page> page = pageService.getPageBySlug(slug);
+		Optional<Page> page = pagesService.getPageBySlug(slug);
 		if (page.isEmpty() || !page.get().isPublished()) {
 			throw new ContentNotFoundException("No page exists with slug: " + slug);
 		}

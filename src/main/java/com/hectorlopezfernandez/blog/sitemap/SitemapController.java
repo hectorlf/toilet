@@ -12,7 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hectorlopezfernandez.blog.page.Page;
-import com.hectorlopezfernandez.blog.page.PageService;
+import com.hectorlopezfernandez.blog.page.PagesService;
 import com.hectorlopezfernandez.blog.post.ArchiveService;
 import com.hectorlopezfernandez.blog.post.Post;
 
@@ -22,12 +22,12 @@ public class SitemapController {
 	private static final Logger logger = LoggerFactory.getLogger(SitemapController.class);
 
 	private final ArchiveService archiveService;
-	private final PageService pageService;
+	private final PagesService pagesService;
 
 	@Inject
-	public SitemapController(ArchiveService archiveService, PageService pageService) {
+	public SitemapController(ArchiveService archiveService, PagesService pagesService) {
 		this.archiveService = archiveService;
-		this.pageService = pageService;
+		this.pagesService = pagesService;
 	}
 
 	@RequestMapping(value="/sitemap.xml")
@@ -35,7 +35,7 @@ public class SitemapController {
 		logger.debug("Going into SitemapController.sitemap()");
 		List<Post> posts = archiveService.listPostsForSitemap();
 		model.addAttribute("posts", posts);
-		List<Page> pages = pageService.listPagesForSitemap();
+		List<Page> pages = pagesService.listPagesForSitemap();
 		model.addAttribute("pages", pages);
 		// special content type
 		response.setContentType("text/xml");

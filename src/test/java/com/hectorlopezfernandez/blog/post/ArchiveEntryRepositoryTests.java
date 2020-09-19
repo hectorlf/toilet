@@ -26,7 +26,7 @@ public class ArchiveEntryRepositoryTests extends BaseTest {
 	public void testSetMonth_NegativeMonthPassed_ExceptionThrown() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
 			ArchiveEntry ae = new ArchiveEntry();
-			ae.setMonth(-1);
+			ae.setMonth(0);
 		});
 	}
 	
@@ -34,7 +34,7 @@ public class ArchiveEntryRepositoryTests extends BaseTest {
 	public void testSetMonth_InvalidMonthPassed_ExceptionThrown() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
 			ArchiveEntry ae = new ArchiveEntry();
-			ae.setMonth(12);
+			ae.setMonth(13);
 		});
 	}
 
@@ -42,8 +42,8 @@ public class ArchiveEntryRepositoryTests extends BaseTest {
 	public void testSave_IndexBreakingObjectSaved_ExceptionThrown() {
 		Assertions.assertThrows(DuplicateKeyException.class, () -> {
 			ArchiveEntry ae = new ArchiveEntry();
-			ae.setMonth(0);
-			ae.setPostCount(0);
+			ae.setMonth(1);
+			ae.setCount(0);
 			ae.setYear(2000);
 			entryRepository.save(ae);
 		});
@@ -52,13 +52,13 @@ public class ArchiveEntryRepositoryTests extends BaseTest {
 	@BeforeEach
 	public void setup() {
 		ArchiveEntry ae = new ArchiveEntry();
-		ae.setMonth(0);
-		ae.setPostCount(0);
+		ae.setMonth(1);
+		ae.setCount(0);
 		ae.setYear(2000);
 		entryRepository.save(ae);
 		ae = new ArchiveEntry();
-		ae.setMonth(2);
-		ae.setPostCount(0);
+		ae.setMonth(3);
+		ae.setCount(0);
 		ae.setYear(2002);
 		entryRepository.save(ae);
 	}

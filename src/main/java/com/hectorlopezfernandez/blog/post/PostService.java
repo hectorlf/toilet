@@ -13,13 +13,11 @@ import org.springframework.stereotype.Service;
 public class PostService {
 
 	private final PostRepository postRepository;
-	private final ArchiveEntryRepository archiveEntryRepository;
 	private final ApplicationEventPublisher eventPublisher;
 
 	@Inject
-	public PostService(PostRepository postRepository, ArchiveEntryRepository archiveEntryRepository, ApplicationEventPublisher eventPublisher) {
+	public PostService(PostRepository postRepository, ApplicationEventPublisher eventPublisher) {
 		this.postRepository = postRepository;
-		this.archiveEntryRepository = archiveEntryRepository;
 		this.eventPublisher = eventPublisher;
 	}
 
@@ -35,12 +33,6 @@ public class PostService {
 	// FIXME this helper function should only live until the admin console is built
 	public void sample() {
 		LocalDateTime now = LocalDateTime.now();
-
-		ArchiveEntry entry = new ArchiveEntry();
-		entry.setMonth(now.getMonthValue());
-		entry.setPostCount(1);
-		entry.setYear(now.getYear());
-		archiveEntryRepository.save(entry);
 
 		Post post = new Post();
 		post.setAuthor("mcauthor");

@@ -2,6 +2,7 @@ package com.hectorlopezfernandez.blog.post;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +66,24 @@ public class ArchiveService {
 	public List<Post> listPostsByTag(String tag) {
 		//FIXME
 		return postRepository.findAll();
+	}
+	
+	/**
+	 * Returns the list of posts associated with a given year
+	 */
+	public List<Post> listPostsByYear(Integer year) {
+		if (year == null) return Collections.emptyList();
+		//FIXME
+		return postRepository.findPublishedBetween(0, System.currentTimeMillis());
+	}
+
+	/**
+	 * Returns the list of posts associated with a given year and month
+	 */
+	public List<Post> listPostsByMonth(Integer year, Integer month) {
+		if (year == null || month == null) return Collections.emptyList();
+		//FIXME
+		return postRepository.findPublishedBetween(0, System.currentTimeMillis());
 	}
 
 	/**

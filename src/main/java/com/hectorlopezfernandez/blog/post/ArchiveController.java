@@ -33,7 +33,7 @@ public class ArchiveController {
 
 	@RequestMapping
 	public String archiveRoot(ModelMap model) {
-		logger.debug("Going into ArchiveController.root()");
+		logger.debug("Going into .root()");
 		Preferences prefs = metadataService.getPreferences();
 		model.addAttribute("preferences", prefs);
 		List<ArchiveEntry> entries = archiveService.listArchiveEntries();
@@ -42,31 +42,31 @@ public class ArchiveController {
 	}
 
 	@RequestMapping("/{year}")
-	public String yearly(@PathVariable("year") String year, ModelMap model) {
-		logger.debug("Going into ArchiveController.yearly()");
-		logger.debug("year " + year);
+	public String yearly(@PathVariable("year") Integer year, ModelMap model) {
+		logger.debug("Going into .yearly(), with year {}", year);
+		model.addAttribute("searchDate", year.toString());
 		Preferences prefs = metadataService.getPreferences();
 		model.addAttribute("preferences", prefs);
-//		List<Post> posts = archiveService.listIndexPosts();
-//		model.addAttribute("posts", posts);
-		return "web/pages/archive-entries";
+		List<Post> posts = archiveService.listPostsByYear(year);
+		model.addAttribute("posts", posts);
+		return "web/pages/posts-for-archive-entry";
 	}
 
 	@RequestMapping("/{year}/{month}")
-	public String monthly(@PathVariable("year") String year, @PathVariable("month") String month, ModelMap model) {
-		logger.debug("Going into ArchiveController.monthly()");
-		logger.debug("year " + year);
-		logger.debug("month " + month);
+	public String monthly(@PathVariable("year") Integer year, @PathVariable("month") Integer month, ModelMap model) {
+		logger.debug("Going into .monthly(), with year: {}, and month: {}", year, month);
+		//FIXME
+		model.addAttribute("searchDate", year.toString() + "-" + month.toString());
 		Preferences prefs = metadataService.getPreferences();
 		model.addAttribute("preferences", prefs);
-//		List<Post> posts = archiveService.listIndexPosts();
-//		model.addAttribute("posts", posts);
+		List<Post> posts = archiveService.listPostsByMonth(year, month);
+		model.addAttribute("posts", posts);
 		return "web/pages/posts-for-archive-entry";
 	}
 
 	@RequestMapping("/{year}/{month}/{slug}")
 	public String permalink(@PathVariable("year") Integer year, @PathVariable("month") Integer month, @PathVariable("slug") String slug, ModelMap model) {
-		logger.debug("Going into ArchiveController.permalink()");
+		logger.debug("Going into .permalink(), with year: {}, month: {}, and slug: {}", year, month, slug);
 		Optional<SinglePostView> postData = archiveService.getDataForPostPage(year, month, slug);
 		if (postData.isEmpty()) {
 			throw new ContentNotFoundException("No post exists with year: " + year + ", month: " + month + ", and slug: " + slug);

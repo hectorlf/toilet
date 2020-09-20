@@ -1,17 +1,17 @@
 {% extends 'web/layouts/one-column' %}
 
-{% set pageName = 'Entradas archivadas en '~(actionBean.month == null ? actionBean.searchDate | date("yyyy") : actionBean.searchDate | date("MMMM 'de' yyyy", "es")) %}
+{% set pageName = message('archive.pagename', searchDate) %}
 
 {% block main %}
    <main role="main">
 
-{% for post in actionBean.posts %}
-{% include '/WEB-INF/pebble/layouts/post-excerpt.pebble' %}
+{% for post in posts %}
+{% include 'web/components/post-excerpt' %}
 
 {% else %}
       <article class="preview">
          <header>
-            <div class="post-meta">No se ha encontrado ning&uacute;n resultado</div>
+            <div class="post-meta">{{ message('archive.noresults') }}</div>
          </header>
       </article>
 
@@ -26,6 +26,6 @@
    </main>
 {% endblock %}
 
-{% block 'syntaxhighlighter-scripts' %}
-{% include '/WEB-INF/pebble/layouts/syntaxhighlighter-scripts.pebble' %}
+{% block 'additional-scripts' %}
+{% include 'web/components/prettify-scripts' %}
 {% endblock %}

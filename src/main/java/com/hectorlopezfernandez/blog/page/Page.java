@@ -1,7 +1,10 @@
 package com.hectorlopezfernandez.blog.page;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -17,7 +20,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * - title contains a text that will be used in the HTML head and optionally in
  *   other places of a layout, and has to be properly HTML encoded
  * - content is the proper page HTML body, including markup (relative to the layout
- *   container) 
+ *   container)
+ * 
+ * Restrictions: slug is unique in the DB
  * 
  * @author hector
  */
@@ -26,17 +31,30 @@ public class Page {
 
 	@Id
 	private String id;
-	@Indexed(unique=true)
 	private String slug;
 
 	private String metaDescription;
 	private String title;
 	private String content;
 
-	@Indexed
+	private long creationTime;
+	private long publicationTime;
+	private long lastModificationTime;
 	private boolean published;
-	private long publicationDate;
-	private long lastModificationDate;
+
+	// utility getters
+
+	public LocalDateTime getCreationTimeAsDate() {
+		return LocalDateTime.ofInstant(Instant.ofEpochMilli(creationTime), ZoneId.systemDefault());
+	}
+
+	public LocalDateTime getPublicationTimeAsDate() {
+		return LocalDateTime.ofInstant(Instant.ofEpochMilli(publicationTime), ZoneId.systemDefault());
+	}
+
+	public LocalDateTime getLastModificationTimeAsDate() {
+		return LocalDateTime.ofInstant(Instant.ofEpochMilli(lastModificationTime), ZoneId.systemDefault());
+	}
 
 	// getters & setters
 
@@ -68,20 +86,6 @@ public class Page {
 		this.id = id;
 	}
 
-	public long getPublicationDate() {
-		return publicationDate;
-	}
-	public void setPublicationDate(long publicationDate) {
-		this.publicationDate = publicationDate;
-	}
-
-	public long getLastModificationDate() {
-		return lastModificationDate;
-	}
-	public void setLastModificationDate(long lastModificationDate) {
-		this.lastModificationDate = lastModificationDate;
-	}
-
 	public boolean isPublished() {
 		return published;
 	}
@@ -94,6 +98,27 @@ public class Page {
 	}
 	public void setSlug(String slug) {
 		this.slug = slug;
+	}
+
+	public long getCreationTime() {
+		return creationTime;
+	}
+	public void setCreationTime(long creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public long getPublicationTime() {
+		return publicationTime;
+	}
+	public void setPublicationTime(long publicationTime) {
+		this.publicationTime = publicationTime;
+	}
+
+	public long getLastModificationTime() {
+		return lastModificationTime;
+	}
+	public void setLastModificationTime(long lastModificationTime) {
+		this.lastModificationTime = lastModificationTime;
 	}
 
 }

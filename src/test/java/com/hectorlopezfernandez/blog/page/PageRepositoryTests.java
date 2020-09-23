@@ -24,14 +24,19 @@ public class PageRepositoryTests extends BaseTest {
 	public void setup() {
 		Page p = new Page();
 		p.setContent("Content1");
-		p.setPublicationDate(System.currentTimeMillis());
+		p.setCreationTime(System.currentTimeMillis());
+		p.setPublicationTime(System.currentTimeMillis());
+		p.setLastModificationTime(System.currentTimeMillis());
 		p.setTitle("Title1");
 		p.setPublished(true);
 		p.setSlug("title1");
 		pageRepository.save(p);
 		p = new Page();
 		p.setContent("Content2");
-		p.setPublicationDate(Long.valueOf(0));
+		p.setCreationTime(System.currentTimeMillis());
+		p.setPublicationTime(System.currentTimeMillis());
+		p.setLastModificationTime(System.currentTimeMillis());
+		p.setPublished(false);
 		p.setTitle("Title2");
 		pageRepository.save(p);
 	}

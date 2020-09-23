@@ -10,7 +10,7 @@ public interface PageRepository extends MongoRepository<Page, String> {
 
 	Page findBySlug(String slug);
 
-	List<Page> findAllByPublishedIsTrueOrderByPublicationDateDesc();
+	List<Page> findAllByPublishedIsTrueOrderByPublicationTimeDesc();
 
 	List<Page> findAllByPublishedIsTrue();
 

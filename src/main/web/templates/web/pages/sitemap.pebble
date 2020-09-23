@@ -6,15 +6,15 @@
    </url>
 {% for post in posts %}
    <url>
-      <loc>https://www.hectorlopezfernandez.com/archive/{{post.year}}/{{post.month|numberformat("00")}}/{{post.titleUrl}}</loc>
-      <lastmod>{{post.lastModificationDate | joda("yyyy-MM-dd")}}</lastmod>
+      <loc>https://www.hectorlopezfernandez.com/archive/{{post.publicationTimeAsDate|date("yyyy")}}/{{post.publicationTimeAsDate|date("MM")}}/{{post.slug}}</loc>
+      <lastmod>{{post.lastModificationTimeAsDate | date("yyyy-MM-dd")}}</lastmod>
       <changefreq>yearly</changefreq>
    </url>
 {% endfor %}
 {% for page in pages %}
    <url>
-      <loc>https://www.hectorlopezfernandez.com/pages/{{page.titleUrl}}</loc>
-      <lastmod>{{page.lastModificationDate | joda("yyyy-MM-dd")}}</lastmod>
+      <loc>https://www.hectorlopezfernandez.com/pages/{{page.slug}}</loc>
+      <lastmod>{{page.lastModificationTimeAsDate | date("yyyy-MM-dd")}}</lastmod>
       <changefreq>yearly</changefreq>
    </url>
 {% endfor %}

@@ -37,9 +37,10 @@ public class PageService {
 
 		Page page = new Page();
 		page.setContent("<p>This is a sample about page. It's about... the about page.</p>");
-		page.setLastModificationDate(now.toEpochMilli());
+		page.setCreationTime(now.toEpochMilli());
+		page.setLastModificationTime(now.toEpochMilli());
 		page.setMetaDescription("A sample about page");
-		page.setPublicationDate(now.toEpochMilli());
+		page.setPublicationTime(now.toEpochMilli());
 		page.setPublished(true);
 		page.setSlug("about");
 		page.setTitle("About");

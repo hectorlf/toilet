@@ -32,7 +32,7 @@ public class SitemapController {
 
 	@RequestMapping(value="/sitemap.xml")
 	public String sitemap(ModelMap model, HttpServletResponse response) {
-		logger.debug("Going into SitemapController.sitemap()");
+		logger.debug("Going into .sitemap()");
 		List<Post> posts = archiveService.listPostsForSitemap();
 		model.addAttribute("posts", posts);
 		List<Page> pages = pagesService.listPagesForSitemap();

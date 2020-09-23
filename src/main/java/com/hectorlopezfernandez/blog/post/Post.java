@@ -6,7 +6,6 @@ import java.time.ZoneId;
 import java.util.Collection;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -25,6 +24,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * - feedContent is a performance optimization: upon saving a post, a feed-compatible content
  *   will be computed and stored here for quicker responses
  * 
+ * Restrictions: slug is unique in the DB
+ * 
  * @author hector
  */
 @Document(collection="posts")
@@ -33,7 +34,6 @@ public class Post {
 	@Id
 	private String id;
 	private String title;
-	@Indexed(unique=true)
 	private String slug;
 
 	private String metaDescription;
@@ -46,7 +46,6 @@ public class Post {
 	private long creationTime;
 	private long publicationTime;
 	private long lastModificationTime;
-	@Indexed
 	private boolean published;
 	
 	private boolean commentsAllowed;
@@ -65,6 +64,10 @@ public class Post {
 
 	public LocalDateTime getPublicationTimeAsDate() {
 		return LocalDateTime.ofInstant(Instant.ofEpochMilli(publicationTime), ZoneId.systemDefault());
+	}
+
+	public LocalDateTime getLastModificationTimeAsDate() {
+		return LocalDateTime.ofInstant(Instant.ofEpochMilli(lastModificationTime), ZoneId.systemDefault());
 	}
 
 	// getters & setters

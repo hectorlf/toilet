@@ -3,10 +3,10 @@ package com.hectorlopezfernandez.blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
+import org.springframework.core.env.PropertyResolver;
 
-import com.hectorlopezfernandez.pebble.resourcer.ResourcerExtension;
 import com.hectorlopezfernandez.pebble.springsecurity.SpringSecurityExtension;
+import com.hectorlopezfernandez.toilet.pebble.ToiletExtension;
 import com.mitchellbosecke.pebble.extension.Extension;
 import com.mitchellbosecke.pebble.spring.extension.SpringExtension;
 
@@ -25,8 +25,8 @@ public class ApplicationTemplating {
 
 	@Bean
 	@Autowired
-	public Extension resourcerExtension(Environment environment) {
-		return new ResourcerExtension(environment);
+	public Extension toiletExtension(PropertyResolver propertyResolver) {
+		return new ToiletExtension(propertyResolver);
 	}
 
 }

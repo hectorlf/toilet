@@ -170,4 +170,12 @@ public class Post {
 		this.tags = tags;
 	}
 
+	// projections
+
+	public static interface SitemapProjection {
+		String getSlug();
+		long getPublicationTime();
+		long getLastModificationTime();
+	}
+
 }

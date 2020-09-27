@@ -28,7 +28,7 @@ public class PostRepositoryTests extends BaseTest {
 		post = postRepository.findBySlug("nonexistent");
 		assertNull(post);
 
-		List<Post> postList = postRepository.findByCreationTimeLessThanEqual(System.currentTimeMillis() - 60000);
+		List<Post> postList = postRepository.findByPublishedIsTrueAndPublicationTimeLessThanEqual(System.currentTimeMillis() - 60000);
 		assertNotNull(postList);
 		assertTrue(postList.size() == 1);
 	}
@@ -40,12 +40,14 @@ public class PostRepositoryTests extends BaseTest {
 		p.setCreationTime(System.currentTimeMillis());
 		p.setTitle("Title1");
 		p.setSlug("title1");
+		p.setPublished(true);
 		postRepository.save(p);
 		p = new Post();
 		p.setContent("Content2");
 		p.setCreationTime(Long.valueOf(0));
 		p.setTitle("Title2");
 		p.setSlug("title2");
+		p.setPublished(false);
 		postRepository.save(p);
 	}
 

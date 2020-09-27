@@ -29,10 +29,10 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
 	// sitemap
 
-	List<Post> findAllByPublishedIsTrue();
+	List<Post.SitemapProjection> findAllByPublishedIsTrue();
 
 	// feeds
 
-	List<Post> findByCreationTimeLessThanEqual(long date);
+	List<Post> findByPublishedIsTrueAndPublicationTimeLessThanEqual(long date);
 
 }

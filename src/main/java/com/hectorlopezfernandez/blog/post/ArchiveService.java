@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -44,13 +45,6 @@ public class ArchiveService {
 	public List<Post> listIndexPosts() {
 		Pageable pageable = PageRequest.of(0, 3);
 		return postRepository.findByPublishedIsTrueOrderByPublicationTimeDesc(pageable).getContent();
-	}
-
-	/**
-	 * Returns a list of posts tailored for the sitemap
-	 */
-	public List<Post> listPostsForSitemap() {
-		return postRepository.findAllByPublishedIsTrue();
 	}
 
 	/**
@@ -109,4 +103,20 @@ public class ArchiveService {
 		return archiveEntryRepository.findAll();
 	}
 
+	// sitemap
+
+	/**
+	 * Returns a list of posts tailored for the sitemap
+	 */
+	public List<SitemapPostView> listPostsForSitemap() {
+		List<SitemapPostView> posts = postRepository.findAllByPublishedIsTrue().stream()
+				.map(element -> new SitemapPostView(element.getSlug(), element.getPublicationTime(),
+						element.getLastModificationTime()))
+				.collect(Collectors.toList());
+		return posts;
+	}
+
+	// feeds
+
+	
 }

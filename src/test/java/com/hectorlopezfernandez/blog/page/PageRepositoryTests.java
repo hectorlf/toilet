@@ -38,6 +38,7 @@ public class PageRepositoryTests extends BaseTest {
 		p.setLastModificationTime(System.currentTimeMillis());
 		p.setPublished(false);
 		p.setTitle("Title2");
+		p.setSlug("title2");
 		pageRepository.save(p);
 	}
 
@@ -57,7 +58,7 @@ public class PageRepositoryTests extends BaseTest {
 	@Test
 	public void testFindAllByPublishedIsTrue_OnePublishedPageExists_ReturnedOk() {
 		assertThat(pageRepository.findAll(), hasSize(2));
-		List<Page> pageList = pageRepository.findAllByPublishedIsTrue();
+		List<SitemapPageView> pageList = pageRepository.findAllByPublishedIsTrue();
 		assertThat(pageList, is(notNullValue()));
 		assertThat(pageList, hasSize(1));
 	}

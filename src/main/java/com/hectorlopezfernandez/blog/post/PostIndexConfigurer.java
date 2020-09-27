@@ -30,8 +30,11 @@ public class PostIndexConfigurer {
 	public void ensureIndexes() {
 		logger.info("Ensuring post indexes...");
 		mongoTemplate.indexOps(Post.class).ensureIndex(new Index().on("slug", Direction.ASC).unique());
-		mongoTemplate.indexOps(Post.class).ensureIndex(new Index().on("published", Direction.ASC));
-		mongoTemplate.indexOps(Post.class).ensureIndex(new Index().on("publicationTime", Direction.DESC));
+		mongoTemplate.indexOps(Post.class)
+				.ensureIndex(new Index().on("published", Direction.ASC).on("publicationTime", Direction.DESC));
+		mongoTemplate.indexOps(Post.class)
+				.ensureIndex(new Index().on("published", Direction.ASC).on("slug", Direction.ASC)
+						.on("publicationTime", Direction.DESC).on("lastModificationTime", Direction.DESC));
 		mongoTemplate.indexOps(Post.class).ensureIndex(new Index().on("tags", Direction.ASC));
 	}
 

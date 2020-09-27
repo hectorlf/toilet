@@ -121,4 +121,11 @@ public class Page {
 		this.lastModificationTime = lastModificationTime;
 	}
 
+	// projections
+
+	public static interface SitemapProjection {
+		String getSlug();
+		long getLastModificationTime();
+	}
+
 }

@@ -7,14 +7,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.hectorlopezfernandez.blog.page.Page;
 import com.hectorlopezfernandez.blog.page.PagesService;
+import com.hectorlopezfernandez.blog.page.SitemapPageView;
 import com.hectorlopezfernandez.blog.post.ArchiveService;
-import com.hectorlopezfernandez.blog.post.Post;
+import com.hectorlopezfernandez.blog.post.SitemapPostView;
 
 @Controller
 public class SitemapController {
@@ -30,14 +32,14 @@ public class SitemapController {
 		this.pagesService = pagesService;
 	}
 
-	@RequestMapping(value="/sitemap.xml")
+	@RequestMapping(value="/sitemap.xml", method=RequestMethod.GET, produces=MediaType.TEXT_XML_VALUE)
 	public String sitemap(ModelMap model, HttpServletResponse response) {
 		logger.debug("Going into .sitemap()");
-		List<Post> posts = archiveService.listPostsForSitemap();
+		List<SitemapPostView> posts = archiveService.listPostsForSitemap();
 		model.addAttribute("posts", posts);
-		List<Page> pages = pagesService.listPagesForSitemap();
+		List<SitemapPageView> pages = pagesService.listPagesForSitemap();
 		model.addAttribute("pages", pages);
-		// special content type
+		// required to override Pebble's default content type
 		response.setContentType("text/xml");
 		return "web/pages/sitemap";
 	}

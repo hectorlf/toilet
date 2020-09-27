@@ -7,14 +7,14 @@
 {% for post in posts %}
    <url>
       <loc>{{property('application.url')}}/archive/{{post.publicationTimeAsDate|date("yyyy")}}/{{post.publicationTimeAsDate|date("MM")}}/{{post.slug}}</loc>
-      <lastmod>{{post.lastModificationTimeAsDate | date("yyyy-MM-dd")}}</lastmod>
+      <lastmod>{{post.lastModificationTimeAsDate | date("yyyy-MM-dd'T'HH:mm:ss'Z'")}}</lastmod>
       <changefreq>yearly</changefreq>
    </url>
 {% endfor %}
 {% for page in pages %}
    <url>
       <loc>{{property('application.url')}}/pages/{{page.slug}}</loc>
-      <lastmod>{{page.lastModificationTimeAsDate | date("yyyy-MM-dd")}}</lastmod>
+      <lastmod>{{page.lastModificationTimeAsDate | date("yyyy-MM-dd'T'HH:mm:ss'Z'")}}</lastmod>
       <changefreq>yearly</changefreq>
    </url>
 {% endfor %}

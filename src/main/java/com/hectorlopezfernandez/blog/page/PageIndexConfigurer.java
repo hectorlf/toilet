@@ -30,7 +30,8 @@ public class PageIndexConfigurer {
 	public void ensureIndexes() {
 		logger.info("Ensuring page indexes...");
 		mongoTemplate.indexOps(Page.class).ensureIndex(new Index().on("slug", Direction.ASC).unique());
-		mongoTemplate.indexOps(Page.class).ensureIndex(new Index().on("published", Direction.ASC));
+		mongoTemplate.indexOps(Page.class).ensureIndex(new Index().on("published", Direction.ASC)
+				.on("slug", Direction.ASC).on("lastModificationTime", Direction.DESC));
 	}
 
 }

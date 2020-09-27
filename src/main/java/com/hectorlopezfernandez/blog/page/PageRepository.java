@@ -12,6 +12,8 @@ public interface PageRepository extends MongoRepository<Page, String> {
 
 	List<Page> findAllByPublishedIsTrueOrderByPublicationTimeDesc();
 
-	List<Page> findAllByPublishedIsTrue();
+	// sitemap
+
+	List<SitemapPageView> findAllByPublishedIsTrue();
 
 }

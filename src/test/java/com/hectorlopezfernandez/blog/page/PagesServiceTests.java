@@ -20,17 +20,23 @@ public class PagesServiceTests extends BaseTest {
 
 	@Test
 	public void testShouldReturnAtLeastOnePage() {
-		List<Page> pages = pagesService.listPagesForSitemap();
+		List<SitemapPageView> pages = pagesService.listPagesForSitemap();
 		Assertions.assertNotNull(pages);
-		Assertions.assertTrue(pages.size() > 0);
+		Assertions.assertTrue(pages.size() == 1);
 	}
 
 	@BeforeEach
 	public void setup() {
 		Page p = new Page();
 		p.setTitle("Test");
+		p.setSlug("test1");
 		p.setPublished(true);
 		pageRepository.save(p);
+		Page p2 = new Page();
+		p2.setTitle("Test2");
+		p2.setSlug("test2");
+		p2.setPublished(false);
+		pageRepository.save(p2);
 	}
 
 	@AfterEach

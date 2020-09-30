@@ -40,7 +40,7 @@ public class SitemapController {
 		List<SitemapPageView> pages = pagesService.listPagesForSitemap();
 		model.addAttribute("pages", pages);
 		// required to override Pebble's default content type
-		response.setContentType("text/xml");
+		response.setContentType(MediaType.TEXT_XML_VALUE);
 		return "web/pages/sitemap";
 	}
 

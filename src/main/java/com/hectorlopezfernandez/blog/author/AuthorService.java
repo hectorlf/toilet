@@ -1,5 +1,7 @@
 package com.hectorlopezfernandez.blog.author;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -21,6 +23,13 @@ public class AuthorService {
 	 */
 	public Optional<Author> getAuthorBySlug(String slug) {
 		return authorRepository.findBySlug(slug);
+	}
+
+	/**
+	 * Returns a list of Authors identified by their slugs
+	 */
+	public List<Author.FeedProjection> getAuthorsBySlug(Collection<String> slugs) {
+		return authorRepository.findBySlugIn(slugs);
 	}
 
 	// initialization

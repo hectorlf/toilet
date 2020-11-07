@@ -30,6 +30,8 @@ public class AuthorIndexConfigurer {
 	public void ensureIndexes() {
 		logger.info("Ensuring author indexes...");
 		mongoTemplate.indexOps(Author.class).ensureIndex(new Index().on("slug", Direction.ASC).unique());
+		mongoTemplate.indexOps(Author.class)
+				.ensureIndex(new Index().on("slug", Direction.ASC).on("displayName", Direction.ASC));
 	}
 
 }

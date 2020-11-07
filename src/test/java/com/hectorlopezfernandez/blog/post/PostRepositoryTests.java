@@ -1,8 +1,8 @@
 package com.hectorlopezfernandez.blog.post;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -27,8 +27,7 @@ public class PostRepositoryTests extends BaseTest {
 		assertEquals("Title2", post.getTitle());
 		post = postRepository.findBySlug("nonexistent");
 		assertNull(post);
-
-		List<Post> postList = postRepository.findByPublishedIsTrueAndPublicationTimeLessThanEqual(System.currentTimeMillis() - 60000);
+		List<Post.FeedProjection> postList = postRepository.findByPublishedIsTrueAndPublicationTimeGreaterThanEqual(System.currentTimeMillis() - 60000);
 		assertNotNull(postList);
 		assertTrue(postList.size() == 1);
 	}
@@ -38,13 +37,15 @@ public class PostRepositoryTests extends BaseTest {
 		Post p = new Post();
 		p.setContent("Content1");
 		p.setCreationTime(System.currentTimeMillis());
+		p.setPublicationTime(System.currentTimeMillis());
 		p.setTitle("Title1");
 		p.setSlug("title1");
 		p.setPublished(true);
 		postRepository.save(p);
 		p = new Post();
 		p.setContent("Content2");
-		p.setCreationTime(Long.valueOf(0));
+		p.setCreationTime(0);
+		p.setPublicationTime(0);
 		p.setTitle("Title2");
 		p.setSlug("title2");
 		p.setPublished(false);

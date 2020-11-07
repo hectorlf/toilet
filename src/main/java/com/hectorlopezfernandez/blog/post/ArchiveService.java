@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.hectorlopezfernandez.blog.author.Author;
 import com.hectorlopezfernandez.blog.author.AuthorService;
+import com.hectorlopezfernandez.blog.metadata.MetadataService;
 import com.hectorlopezfernandez.blog.tag.Tag;
 import com.hectorlopezfernandez.blog.tag.TagsService;
 
@@ -27,14 +29,17 @@ public class ArchiveService {
 	private final ArchiveEntryRepository archiveEntryRepository;
 	private final AuthorService authorService;
 	private final TagsService tagsService;
+	private final MetadataService metadataService;
 
 	@Inject
 	public ArchiveService(PostRepository postRepository, ArchiveEntryRepository archiveEntryRepository, 
-			AuthorService authorService, TagsService tagsService, ApplicationEventPublisher eventPublisher) {
+			AuthorService authorService, TagsService tagsService, MetadataService metadataService,
+			ApplicationEventPublisher eventPublisher) {
 		this.archiveEntryRepository = archiveEntryRepository;
 		this.postRepository = postRepository;
 		this.authorService = authorService;
 		this.tagsService = tagsService;
+		this.metadataService = metadataService;
 	}
 
 	// posts
@@ -118,5 +123,15 @@ public class ArchiveService {
 
 	// feeds
 
+	/**
+	 * Returns a container of posts tailored for the feed
+	 */
+	public FeedPostsView listPostsForFeed() {
+		long minPostTime = System.currentTimeMillis() - metadataService.getPreferences().getPostAgeLimitForFeed();
+		List<Post.FeedProjection> posts = postRepository.findByPublishedIsTrueAndPublicationTimeGreaterThanEqual(minPostTime);
+		Set<String> authorSlugs = posts.stream().map(Post.FeedProjection::getAuthor).collect(Collectors.toSet());
+		List<Author.FeedProjection> authors = authorService.getAuthorsBySlug(authorSlugs);
+		return new FeedPostsView(posts, authors);
+	}
 	
 }

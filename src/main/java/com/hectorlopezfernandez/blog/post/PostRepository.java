@@ -33,6 +33,6 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
 	// feeds
 
-	List<Post> findByPublishedIsTrueAndPublicationTimeLessThanEqual(long date);
+	List<Post.FeedProjection> findByPublishedIsTrueAndPublicationTimeGreaterThanEqual(long date);
 
 }

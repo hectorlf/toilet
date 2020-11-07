@@ -1,7 +1,6 @@
 package com.hectorlopezfernandez.blog.author;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -12,7 +11,6 @@ public class Author {
 
 	@Id
 	private String id;
-	@Indexed(unique=true)
 	private String slug;
 	private String displayName;
 	private String about;
@@ -53,6 +51,13 @@ public class Author {
 	}
 	public void setSlug(String slug) {
 		this.slug = slug;
+	}
+
+	// projections
+
+	public static interface FeedProjection {
+		String getSlug();
+		String getDisplayName();
 	}
 
 }

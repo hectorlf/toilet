@@ -178,4 +178,13 @@ public class Post {
 		long getLastModificationTime();
 	}
 
+	public static interface FeedProjection {
+		String getSlug();
+		long getPublicationTime();
+		long getLastModificationTime();
+		String getTitle();
+		String getFeedContent();
+		String getAuthor();
+	}
+
 }

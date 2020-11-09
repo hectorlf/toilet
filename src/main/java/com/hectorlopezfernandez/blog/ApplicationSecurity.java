@@ -49,10 +49,10 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 		http.logout().logoutUrl("/logout").logoutSuccessUrl("/index.page");
 		// management access rules
 		http.requiresChannel().antMatchers(MANAGEMENT_ENDPOINTS).requiresSecure();
-		http.authorizeRequests().antMatchers(MANAGEMENT_ENDPOINTS).hasRole(ADMIN.name());
+		http.authorizeRequests().antMatchers(MANAGEMENT_ENDPOINTS).hasAuthority(ADMIN.name());
 		// app access rules
-		http.requiresChannel().antMatchers("/login","/logout","/login.page","/admin/*.page").requiresSecure();
-		http.authorizeRequests().antMatchers("/admin/*.page","/admin/api/*").hasRole(ADMIN.name());
+		http.requiresChannel().antMatchers("/login","/logout","/login.page","/admin/*.page","/admin/api/*").requiresSecure();
+		http.authorizeRequests().antMatchers("/admin/*.page","/admin/api/*").hasAuthority(ADMIN.name());
 		// default access rules
 		http.authorizeRequests().antMatchers("/**").permitAll();
 	}

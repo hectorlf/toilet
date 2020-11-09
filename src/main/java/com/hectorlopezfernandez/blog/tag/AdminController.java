@@ -32,16 +32,17 @@ public class AdminController {
 
 	@RequestMapping(path = "/api/tags", method = GET)
 	@ResponseBody
-	public List<Tag> listTags() {
+	public TagContainer listTags() {
 		logger.debug("Going into Tag's AdminController.listTags()");
-		return tagService.listTags();
+		List<Tag> tags = tagService.listTags();
+		return new TagContainer(tags, tags.size());
 	}
 
 	@RequestMapping(path = "/api/tags/{tagId}", method = GET)
 	public ResponseEntity<Tag> getTag(@PathVariable("tagId") String tagId) {
 		logger.debug("Going into Tag's AdminController.getTag()");
 		Optional<Tag> tag = tagService.getTag(tagId);
-		return tag.isPresent() ? ResponseEntity.notFound().build() : ResponseEntity.ok(tag.get());
+		return tag.isPresent() ? ResponseEntity.ok(tag.get()) : ResponseEntity.notFound().build();
 	}
 
 }

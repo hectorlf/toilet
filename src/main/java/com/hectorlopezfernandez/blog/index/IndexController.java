@@ -29,6 +29,8 @@ public class IndexController {
 		this.metadataService = metadataService;
 	}
 
+	// web
+
 	@RequestMapping
 	public String root() {
 		logger.debug("Going into IndexController.root()");
@@ -43,6 +45,14 @@ public class IndexController {
 		List<Post> posts = archiveService.listIndexPosts();
 		model.addAttribute("posts", posts);
 		return "web/pages/index";
+	}
+
+	// admin console
+
+	@RequestMapping("/admin/index.page")
+	public String dashboard(ModelMap model) {
+		logger.debug("Going into .dashboard()");
+		return "admin/pages/dashboard";
 	}
 
 }

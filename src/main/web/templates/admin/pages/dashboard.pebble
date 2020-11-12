@@ -1,4 +1,4 @@
-{% extends 'admin/layout/admin-base' %}
+{% extends 'admin/layouts/skeleton' %}
 
 {% set pageName = message('title.dashboard') %}
 

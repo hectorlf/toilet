@@ -14,7 +14,7 @@ public class LoginController {
 	@RequestMapping(value="/login.page")
 	public String login(ModelMap model) {
 		logger.debug("Going into LoginController.login()");
-		return "admin/login";
+		return "admin/pages/login";
 	}
 
 }

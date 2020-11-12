@@ -1,0 +1,32 @@
+{% extends 'admin/layouts/skeleton' %}
+
+{% set pageName = message('login.pagename') %}
+
+{% block body %}
+<body class="body-bg-full profile-page">
+    <div id="wrapper" class="wrapper">
+        <div class="row container-min-full-height">
+            <div class="col-lg-2 p-3 login-left"></div>
+            <div class="col-lg-8 p-3 login-left">
+                <div class="w-50">
+                    <h2 class="mb-4 text-center">{{message('login.title')}}</h2>
+                    <form id="loginForm" class="text-center" action="/login" method="POST" autocomplete="off">
+                        <div class="form-group">
+                            <label class="text-muted" for="email">{{message('login.username')}}</label>
+                            <input type="text" placeholder="johndoe@site.com" class="form-control form-control-line" id="email" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label class="text-muted" for="password">{{message('login.password')}}</label>
+                            <input type="password" placeholder="password" class="form-control form-control-line" id="password" name="password">
+                        </div>
+                        <div class="form-group mr-b-20">
+                            <button type="submit" form="loginForm" class="btn btn-block btn-rounded btn-md btn-primary text-uppercase fw-600 ripple">{{message('login.submit')}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-2 p-3 login-left"></div>
+        </div>
+    </div>
+</body>
+{% endblock %}

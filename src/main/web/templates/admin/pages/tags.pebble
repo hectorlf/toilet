@@ -1,0 +1,49 @@
+{% extends 'admin/layouts/admin-base' %}
+
+{% set pageName = message('title.tags.list') %}
+
+{% block content %}
+        <div class="container-fluid">
+          <div class="row page-title clearfix">
+              <div class="page-title-left">
+                  <h6 class="page-title-heading mr-0 mr-r-5">Tags</h6>
+                  <p class="page-title-description mr-0 d-none d-md-inline-block">available tags with usage counts</p>
+              </div>
+              <div class="page-title-right d-none d-sm-inline-flex">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+                      </li>
+                      <li class="breadcrumb-item active">Tags</li>
+                  </ol>
+              </div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="widget-list">
+            <div class="row">
+              <div class="widget-holder col-md-12">
+                <div class="widget-bg">
+                  <div class="widget-body">
+                    <div id="tag-list"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+        var properties = { 
+          baseEndpointUrl: "https://localhost:8443/admin/api",
+          translations: {
+            name: "Name",
+            slug: "Slug",
+            count: "Count",
+            actions: "Actions",
+            noresults: "No results",
+            refresh: "Refresh"
+          }
+        }
+        </script>
+        <script type="module" src="/js/admin/tag-list.e38e93bb0169f78ece47.js"></script>
+{% endblock %}

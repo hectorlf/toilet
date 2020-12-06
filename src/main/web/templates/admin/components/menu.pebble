@@ -1,0 +1,12 @@
+      <aside class="site-sidebar scrollbar-enabled" data-suppress-scroll-x="true">
+        <nav class="sidebar-nav">
+            <ul class="nav in side-menu">
+                <li class="menu-item-has-children active">
+                	<a href="/admin/tags.page"><i class="list-icon material-icons">home</i><span class="hide-menu">Tags</span></a>
+                    <ul class="list-unstyled sub-menu">
+                        <li><a href="/admin/tags.page">List</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+      </aside>

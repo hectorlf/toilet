@@ -35,6 +35,7 @@
         <script>
         var properties = { 
           baseEndpointUrl: "https://localhost:8443/admin/api",
+          editUrl: "https://localhost:8443/admin/edit-tag.page",
           translations: {
             name: "Name",
             slug: "Slug",
@@ -45,5 +46,5 @@
           }
         }
         </script>
-        <script type="module" src="/js/admin/tag-list.e38e93bb0169f78ece47.js"></script>
+        <script type="module" src="/js/admin/tag-list.a8f0339fd9f85bfa25b5.js"></script>
 {% endblock %}

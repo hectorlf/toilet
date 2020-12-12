@@ -10,14 +10,17 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.hectorlopezfernandez.blog.metadata.Language;
-import com.hectorlopezfernandez.blog.metadata.MetadataService;
+import com.hectorlopezfernandez.blog.metadata.LanguageRepository;
+import com.hectorlopezfernandez.blog.metadata.Preferences;
+import com.hectorlopezfernandez.blog.metadata.PreferencesRepository;
 
 @SpringBootTest(classes={TestApplicationPersistence.class,Application.class}, webEnvironment=WebEnvironment.RANDOM_PORT)
 public abstract class BaseMvcTest {
 
 	@Autowired
-	private MetadataService metadataService;
-
+	private LanguageRepository languageRepository;
+	@Autowired
+	private PreferencesRepository preferencesRepository;
 	@Autowired
 	private WebApplicationContext wac;
 	protected MockMvc mockMvc;
@@ -27,16 +30,24 @@ public abstract class BaseMvcTest {
 		// database defaults go before mockmvc
 		Language l = new Language();
 		l.setTag("en");
-		metadataService.addLanguage(l);
+		languageRepository.save(l);
 		l = new Language();
 		l.setTag("es");
-		metadataService.addLanguage(l);
+		languageRepository.save(l);
 		l = new Language();
 		l.setTag("es-ES");
-		metadataService.addLanguage(l);
+		languageRepository.save(l);
 		l = new Language();
 		l.setTag("pt");
-		metadataService.addLanguage(l);
+		languageRepository.save(l);
+		Preferences p = new Preferences();
+		p.setPostAgeLimitForFeed(Long.valueOf(30*24*60*60*1000));
+		p.setPaginateIndexPage(true);
+		p.setMaxElementsPerPage(3);
+		p.setTagline("Tagline");
+		p.setTitle("Title");
+		p.setDefaultLanguage("es-ES");
+		preferencesRepository.save(p);
 
 		mockMvc = MockMvcBuilders
 			.webAppContextSetup(this.wac)
@@ -45,7 +56,8 @@ public abstract class BaseMvcTest {
 
 	@AfterEach
 	public void tearDown() {
-		metadataService.removeAllLanguages();
+		languageRepository.deleteAll();
+		preferencesRepository.deleteAll();
 	}
 
 }

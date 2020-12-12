@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.index;
+package com.hectorlopezfernandez.blog.feed;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -9,13 +9,13 @@ import org.springframework.http.MediaType;
 
 import com.hectorlopezfernandez.blog.BaseMvcTest;
 
-public class ControllerTests extends BaseMvcTest {
+public class FeedControllerTest extends BaseMvcTest {
 
 	@Test
-	public void index_statusOkAndContentIsHtml() throws Exception {
-		mockMvc.perform(get("/index.page"))
+	public void testFeed() throws Exception {
+		mockMvc.perform(get("/feed.atom"))
 			.andExpect(status().isOk())
-			.andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
+			.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_ATOM_XML_VALUE));
 	}
 
 }

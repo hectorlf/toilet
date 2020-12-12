@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.admin.dashboard;
+package com.hectorlopezfernandez.blog.index;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -13,11 +13,11 @@ import org.springframework.security.test.context.support.WithUserDetails;
 
 import com.hectorlopezfernandez.blog.BaseMvcTest;
 
-public class ControllerTests extends BaseMvcTest {
+public class IndexControllerTest extends BaseMvcTest {
 
 	@Test
-	public void testDashboard() throws Exception {
-		mockMvc.perform(get("/admin/dashboard.page"))
+	public void index_statusOkAndContentIsHtml() throws Exception {
+		mockMvc.perform(get("/index.page"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
 	}
@@ -58,4 +58,5 @@ public class ControllerTests extends BaseMvcTest {
 		this.mockMvc.perform(get("/admin/index.page").secure(true))
 			.andExpect(status().isForbidden());
 	}
+
 }

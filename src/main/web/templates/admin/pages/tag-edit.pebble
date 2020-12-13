@@ -24,7 +24,7 @@
               <div class="widget-holder col-md-12">
                 <div class="widget-bg">
                   <div class="widget-body">
-                    <div id="tag-list"></div>
+                    <div id="tag-editor"></div>
                   </div>
                 </div>
               </div>
@@ -35,16 +35,19 @@
         <script>
         var properties = { 
           baseEndpointUrl: "https://localhost:8443/admin/api",
-          editUrl: "https://localhost:8443/admin/tag-edit.page",
+          listUrl: "https://localhost:8443/admin/tags.page",
+          id: '{{tagId}}',
           translations: {
             name: "Name",
             slug: "Slug",
             count: "Count",
             actions: "Actions",
             noresults: "No results",
-            refresh: "Refresh"
+            refresh: "Refresh",
+            save: "Save",
+            cancel: "Cancel"
           }
         }
         </script>
-        <script type="module" src="/js/admin/tag-list.a8f0339fd9f85bfa25b5.js"></script>
+        <script type="module" src="/js/admin/tag-editor.57fff9f0e25f57c2b550.js"></script>
 {% endblock %}

@@ -10,4 +10,9 @@ public interface TagRepository extends MongoRepository<Tag, String>, CustomTagRe
 
 	Optional<Tag> findBySlug(String slug);
 
+	/**
+	 * Returns whether a Tag with the given slug exists.
+	 */
+	boolean existsBySlug(String slug);
+
 }

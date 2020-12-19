@@ -6,11 +6,18 @@ import java.util.Arrays;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+
+import com.hectorlopezfernandez.blog.tag.TagLifecycleEvent;
 
 @Service
 public class PostService {
+
+	private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
 	private final PostRepository postRepository;
 	private final ApplicationEventPublisher eventPublisher;
@@ -28,6 +35,19 @@ public class PostService {
 		Post result = postRepository.save(post);
 		eventPublisher.publishEvent(new PostPublicationEvent(result, PostPublicationEvent.Type.CREATED));
 		return result;
+	}
+
+	@EventListener
+	public void removeTagFromPosts(TagLifecycleEvent event) {
+		TagLifecycleEvent.Type eventType = event.getType();
+		String tagId = event.getSource().getId();
+		logger.debug("Event of type {} received for Tag with id: {}", eventType, tagId);
+		if (eventType == TagLifecycleEvent.Type.DELETED) {
+			// FIXME this needs to send an event so index and caches are updated
+			// Probably it makes more sense to update post by post since we need to reindex them anyway
+			//postRepository.removeAllTagsWithId(tagId);
+			postRepository.removeAllTagsWithId(event.getSource().getSlug());
+		}
 	}
 
 	// FIXME this helper function should only live until the admin console is built

@@ -17,7 +17,7 @@
 
 {% block 'head-content' %}{# page specific content for the head tag #}{% endblock %}
 
-   <link rel="shortcut icon" href="/images/favicon.gif" type="image/gif"/>
+   <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
 </head>
 {# flush head as soon as possible #}{% flush %}
 

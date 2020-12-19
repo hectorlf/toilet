@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.hectorlopezfernandez.blog.ElementContainer;
 
-public class TagContainer extends ElementContainer<Tag> {
+public class TagViewContainer extends ElementContainer<TagView> {
 
-	public TagContainer(List<Tag> elements, int total) {
+	public TagViewContainer(List<TagView> elements, int total) {
 		super(elements, total);
 	}
 

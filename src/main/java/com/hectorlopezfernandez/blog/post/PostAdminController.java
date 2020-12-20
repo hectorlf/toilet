@@ -1,4 +1,4 @@
-package com.hectorlopezfernandez.blog.admin.post;
+package com.hectorlopezfernandez.blog.post;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,34 +13,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hectorlopezfernandez.blog.post.ArchiveService;
-import com.hectorlopezfernandez.blog.post.Post;
-
 @Controller
-@RequestMapping("/admin")
-public class PostController {
+public class PostAdminController {
 
-	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
+	private static final Logger logger = LoggerFactory.getLogger(PostAdminController.class);
 
 	@Autowired
 	private ArchiveService archiveService;
 
-	@RequestMapping("/posts.page")
+	@RequestMapping("/admin/posts.page")
 	public String posts(ModelMap model) {
-		logger.debug("Going into PostController.posts()");
+		logger.debug("Going into .posts()");
 		return "admin/posts";
 	}
 
-	@RequestMapping("/api/posts")
+	@RequestMapping("/admin/api/posts")
 	@ResponseBody
 	public Page<Post> listPosts() {
-		logger.debug("Going into PostController.listPosts()");
+		logger.debug("Going into .listPosts()");
 		return archiveService.listPosts(PageRequest.of(0, 10, Direction.DESC, "id"));
 	}
 
-	@RequestMapping("/api/posts/{postId}")
+	@RequestMapping("/admin/api/posts/{postId}")
 	public ResponseEntity<Post> getPost(@PathVariable("postId") String postId) {
-		logger.debug("Going into PostController.getPost()");
+		logger.debug("Going into .getPost()");
 		//FIXME
 //		Optional<Post> post = archiveService.getPost(postId);
 //		return post.isPresent() ? ResponseEntity.notFound().build() : ResponseEntity.ok(post.get());

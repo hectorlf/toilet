@@ -28,16 +28,16 @@ public class CustomTagRepositoryImpl implements CustomTagRepository {
 	}
 
 	@Override
-	public void updateCountBySlug(String slug) {
-		logger.debug("Going into .updateCountBySlug() with slug {}", slug);
-		if (slug == null || slug.isBlank()) throw new IllegalArgumentException("Slug argument can't be null or blank");
+	public void updateTagCount(String id) {
+		logger.debug("Going into .updateTagCount() with id: {}", id);
+		if (id == null || id.isBlank()) throw new IllegalArgumentException("Id argument can't be null or blank");
 		Aggregation tagCountQuery = Aggregation.newAggregation(
-				match(where("tags").is(slug).and("published").is(true)),
+				match(where("tags").is(id).and("published").is(true)),
 				group("id"),
 				count().as("count"));
 		CountResults results = mongoTemplate.aggregate(tagCountQuery, Post.class, CountResults.class).getUniqueMappedResult();
 		int postCount = results == null ? 0 : results.count;
-		mongoTemplate.updateFirst(query(where("slug").is(slug)), update("count", postCount), Tag.class);
+		mongoTemplate.updateFirst(query(where("id").is(id)), update("count", postCount), Tag.class);
 	}
 
 	private class CountResults {

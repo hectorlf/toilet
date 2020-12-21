@@ -19,6 +19,20 @@ public class AuthorService {
 	}
 
 	/**
+	 * Returns the Author identified by its id
+	 */
+	public Optional<Author> getAuthor(String id) {
+		return authorRepository.findById(id);
+	}
+
+	/**
+	 * Returns a list of Authors identified by their slugs
+	 */
+	public List<Author.FeedProjection> getAuthorsForFeed(Collection<String> ids) {
+		return authorRepository.findByIdIn(ids);
+	}
+
+	/**
 	 * Returns the Author identified by its slug
 	 */
 	public Optional<Author> getAuthorBySlug(String slug) {
@@ -28,7 +42,7 @@ public class AuthorService {
 	/**
 	 * Returns a list of Authors identified by their slugs
 	 */
-	public List<Author.FeedProjection> getAuthorsBySlug(Collection<String> slugs) {
+	public List<Author> getAuthorsBySlug(Collection<String> slugs) {
 		return authorRepository.findBySlugIn(slugs);
 	}
 
@@ -47,12 +61,14 @@ public class AuthorService {
 		Author adminAuthor = new Author();
 		adminAuthor.setAbout("I am the law");
 		adminAuthor.setDisplayName("Administrator");
+		adminAuthor.setId("1");
 		adminAuthor.setSlug("admin");
 		authorRepository.save(adminAuthor);
 
 		Author author = new Author();
 		author.setAbout("An author...");
 		author.setDisplayName("Content McAuthor");
+		author.setId("2");
 		author.setRelatedUrl("https://disney.com");
 		author.setSlug("mcauthor");
 		authorRepository.save(author);

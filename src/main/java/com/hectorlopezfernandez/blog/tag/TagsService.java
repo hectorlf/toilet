@@ -36,6 +36,18 @@ public class TagsService {
 	}
 
 	/**
+	 * Returns a collection of Tags identified by their ids
+	 */
+	public Collection<Tag> getTags(Collection<String> ids) {
+		logger.debug("Going into .getTags()");
+		if (ids == null || ids.isEmpty()) return Collections.emptyList();
+		Collection<Tag> tags = new ArrayList<>(ids.size());
+		// FIXME this will bypass caches
+		tagRepository.findAllById(ids).forEach(t -> tags.add(t));
+		return tags;
+	}
+
+	/**
 	 * Returns a collection of Tags identified by their slugs
 	 */
 	public Collection<Tag> getTagsBySlug(Collection<String> slugs) {

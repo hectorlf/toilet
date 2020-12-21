@@ -25,9 +25,9 @@ public class FeedPostsView {
 		if (postProjections != null && !postProjections.isEmpty()) {
 			if (authorProjections == null || authorProjections.isEmpty()) throw new IllegalArgumentException("The parameter authorProjections can't be empty because postProjections is not empty");
 			Map<String,String> authorNames = authorProjections.stream()
-				.collect(Collectors.toMap(Author.FeedProjection::getSlug, Author.FeedProjection::getDisplayName, (value1, value2) -> value1));
+				.collect(Collectors.toMap(Author.FeedProjection::getId, Author.FeedProjection::getDisplayName, (value1, value2) -> value1));
 			postProjections.stream().forEach(post -> {
-				if (!authorNames.containsKey(post.getAuthor())) throw new IllegalArgumentException("The parameter authorProjections doesn't contain an entry for the author slug: " + post.getAuthor());
+				if (!authorNames.containsKey(post.getAuthor())) throw new IllegalArgumentException("The parameter authorProjections doesn't contain an entry for the author id: " + post.getAuthor());
 				this.posts.add(new FeedPostView(post.getPublicationTime(), post.getLastModificationTime(), 
 					post.getTitle(), post.getSlug(), post.getFeedContent(), authorNames.get(post.getAuthor())));
 			});

@@ -15,10 +15,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class MetadataService {
 
+	
+	private final LanguageRepository languageRepository;
+	private final PreferencesRepository preferencesRepository;
+
 	@Inject
-	private LanguageRepository languageRepository;
-	@Inject
-	private PreferencesRepository preferencesRepository;
+	public MetadataService(LanguageRepository languageRepository, PreferencesRepository preferencesRepository) {
+		this.languageRepository = languageRepository;
+		this.preferencesRepository = preferencesRepository;
+	}
 
 	// system languages
 
@@ -46,13 +51,12 @@ public class MetadataService {
 	/**
 	 * Returns the default language for the blog.
 	 * 
-	 * @return  The default language configured for the system, or null if the DB is empty
+	 * @return  The default language configured for the system, or null if there is none
 	 */
 	public Language getDefaultLanguage() {
 		Preferences preferences = preferencesRepository.get();
 		if (preferences == null) return null;
-		Language defaultLanguage = languageRepository.findByTag(preferences.getDefaultLanguage());
-		return defaultLanguage;
+		return languageRepository.findById(preferences.getDefaultLanguage()).orElse(null);
 	}
 
 	public void addLanguage(Language language) {
@@ -90,10 +94,10 @@ public class MetadataService {
 	public void initialize() {
 		Language english = new Language();
 		english.setTag("en");
-		languageRepository.save(english);
+		english = languageRepository.save(english);
 
 		Preferences prefs = new Preferences();
-		prefs.setDefaultLanguage("en");
+		prefs.setDefaultLanguage(english.getId());
 		prefs.setMaxElementsPerPage(10);
 		prefs.setPaginateIndexPage(false);
 		prefs.setPostAgeLimitForFeed(30*24*60*60*1000l);
@@ -106,10 +110,10 @@ public class MetadataService {
 	public void sample() {
 		Language english = new Language();
 		english.setTag("en");
-		languageRepository.save(english);
+		english = languageRepository.save(english);
 
 		Preferences prefs = new Preferences();
-		prefs.setDefaultLanguage("en");
+		prefs.setDefaultLanguage(english.getId());
 		prefs.setMaxElementsPerPage(10);
 		prefs.setPaginateIndexPage(false);
 		prefs.setPostAgeLimitForFeed(30*24*60*60*1000l);

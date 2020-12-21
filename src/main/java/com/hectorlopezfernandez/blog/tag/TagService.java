@@ -92,12 +92,12 @@ public class TagService {
 	}
 
 	@EventListener
-	public void updateTagCount(PostPublicationEvent event) {
+	public void updateTagCounts(PostPublicationEvent event) {
 		logger.debug("Event of type {} received for Post Id: {}", event.getType(), event.getSource().getId());
-		Collection<String> tags = event.getSource().getTags();
-		if (tags != null) {
-			for (String tag : tags) {
-				tagRepository.updateCountBySlug(tag);
+		Collection<String> tagIds = event.getSource().getTags();
+		if (tagIds != null) {
+			for (String id : tagIds) {
+				tagRepository.updateTagCount(id);
 			}
 		}
 	}
@@ -105,14 +105,17 @@ public class TagService {
 	// FIXME this helper function should only live until the admin console is built
 	public void sample() {
 		Tag tag1 = new Tag("a-tag", "A tag");
+		tag1.setId("1");
 		tagRepository.save(tag1);
-		tagRepository.updateCountBySlug("a-tag");
+		tagRepository.updateTagCount("1");
 		Tag tag2 = new Tag("another-tag", "Another tag");
+		tag2.setId("2");
 		tagRepository.save(tag2);
-		tagRepository.updateCountBySlug("another-tag");
+		tagRepository.updateTagCount("2");
 		Tag tag3 = new Tag("not-tagged", "Not tagged");
+		tag3.setId("3");
 		tagRepository.save(tag3);
-		tagRepository.updateCountBySlug("not-tagged");
+		tagRepository.updateTagCount("3");
 	}
 
 }

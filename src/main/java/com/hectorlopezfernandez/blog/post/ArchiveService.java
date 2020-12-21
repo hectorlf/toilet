@@ -94,8 +94,9 @@ public class ArchiveService {
 		if (post == null) return Optional.empty();
 		LocalDateTime publicationDate = post.getPublicationTimeAsDate();
 		if (publicationDate.getYear() != year || publicationDate.getMonthValue() != month) return Optional.empty();
-		Author author = authorService.getAuthorBySlug(post.getAuthor()).orElse(null);
-		Collection<Tag> tags = tagsService.getTagsBySlug(post.getTags());
+		//FIXME return something more meaningful than null? an empty-state author?
+		Author author = authorService.getAuthor(post.getAuthor()).orElse(null);
+		Collection<Tag> tags = tagsService.getTags(post.getTags());
 		return Optional.of(new SinglePostView(post, author, tags));
 	}
 
@@ -129,8 +130,8 @@ public class ArchiveService {
 	public FeedPostsView listPostsForFeed() {
 		long minPostTime = System.currentTimeMillis() - metadataService.getPreferences().getPostAgeLimitForFeed();
 		List<Post.FeedProjection> posts = postRepository.findByPublishedIsTrueAndPublicationTimeGreaterThanEqual(minPostTime);
-		Set<String> authorSlugs = posts.stream().map(Post.FeedProjection::getAuthor).collect(Collectors.toSet());
-		List<Author.FeedProjection> authors = authorService.getAuthorsBySlug(authorSlugs);
+		Set<String> authorIds = posts.stream().map(Post.FeedProjection::getAuthor).collect(Collectors.toSet());
+		List<Author.FeedProjection> authors = authorService.getAuthorsForFeed(authorIds);
 		return new FeedPostsView(posts, authors);
 	}
 	

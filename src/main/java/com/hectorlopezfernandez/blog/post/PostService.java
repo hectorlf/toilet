@@ -45,8 +45,7 @@ public class PostService {
 		if (eventType == TagLifecycleEvent.Type.DELETED) {
 			// FIXME this needs to send an event so index and caches are updated
 			// Probably it makes more sense to update post by post since we need to reindex them anyway
-			//postRepository.removeAllTagsWithId(tagId);
-			postRepository.removeAllTagsWithId(event.getSource().getSlug());
+			postRepository.removeAllTagsWithId(tagId);
 		}
 	}
 
@@ -55,7 +54,7 @@ public class PostService {
 		LocalDateTime now = LocalDateTime.now();
 
 		Post post = new Post();
-		post.setAuthor("mcauthor");
+		post.setAuthor("2");
 		post.setCommentsAllowed(true);
 		post.setContent("<p>This is a sample post that says some things and expands the information stored in the excerpt.</p>");
 		post.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
@@ -67,11 +66,11 @@ public class PostService {
 		post.setPublished(true);
 		post.setSlug("a-sample-post");
 		post.setTitle("A sample post");
-		post.setTags(Arrays.asList("a-tag", "another-tag"));
+		post.setTags(Arrays.asList("1", "2"));
 		postRepository.save(post);
 		
 		Post post2 = new Post();
-		post2.setAuthor("admin");
+		post2.setAuthor("1");
 		post2.setCommentsAllowed(false);
 		post2.setContent("<p>Posted by the Administrator.</p>");
 		post2.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
@@ -86,7 +85,7 @@ public class PostService {
 		postRepository.save(post2);
 		
 		Post post3 = new Post();
-		post3.setAuthor("mcauthor");
+		post3.setAuthor("2");
 		post3.setCommentsAllowed(false);
 		post3.setContent("<p>This post is tagged under A Tag.</p>");
 		post3.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
@@ -98,7 +97,7 @@ public class PostService {
 		post3.setPublished(true);
 		post3.setSlug("tagged-post");
 		post3.setTitle("Tagged Post");
-		post3.setTags(Arrays.asList("a-tag"));
+		post3.setTags(Arrays.asList("1"));
 		postRepository.save(post3);
 	}
 

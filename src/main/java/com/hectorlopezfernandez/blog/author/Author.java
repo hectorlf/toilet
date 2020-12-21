@@ -56,7 +56,7 @@ public class Author {
 	// projections
 
 	public static interface FeedProjection {
-		String getSlug();
+		String getId();
 		String getDisplayName();
 	}
 

@@ -12,6 +12,8 @@ public interface AuthorRepository extends MongoRepository<Author, String> {
 
 	Optional<Author> findBySlug(String slug);
 
-	List<Author.FeedProjection> findBySlugIn(Collection<String> slugs);
+	List<Author> findBySlugIn(Collection<String> slugs);
+
+	List<Author.FeedProjection> findByIdIn(Collection<String> id);
 
 }

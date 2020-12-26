@@ -29,15 +29,19 @@ public abstract class BaseMvcTest {
 	public void setup() {
 		// database defaults go before mockmvc
 		Language l = new Language();
+		l.setId("1");
 		l.setTag("en");
 		languageRepository.save(l);
 		l = new Language();
+		l.setId("2");
 		l.setTag("es");
 		languageRepository.save(l);
 		l = new Language();
+		l.setId("3");
 		l.setTag("es-ES");
 		languageRepository.save(l);
 		l = new Language();
+		l.setId("4");
 		l.setTag("pt");
 		languageRepository.save(l);
 		Preferences p = new Preferences();
@@ -46,7 +50,7 @@ public abstract class BaseMvcTest {
 		p.setMaxElementsPerPage(3);
 		p.setTagline("Tagline");
 		p.setTitle("Title");
-		p.setDefaultLanguage("es-ES");
+		p.setDefaultLanguage("3");
 		preferencesRepository.save(p);
 
 		mockMvc = MockMvcBuilders

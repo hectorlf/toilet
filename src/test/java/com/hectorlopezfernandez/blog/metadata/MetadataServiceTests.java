@@ -46,12 +46,14 @@ public class MetadataServiceTests extends BaseTest {
 		p.setMaxElementsPerPage(3);
 		p.setTagline("Tagline");
 		p.setTitle("Title");
-		p.setDefaultLanguage("es-ES");
+		p.setDefaultLanguage("1");
 		preferencesRepository.save(p);
 		Language l = new Language();
+		l.setId("1");
 		l.setTag("es-ES");
 		languageRepository.save(l);
 		l = new Language();
+		l.setId("2");
 		l.setTag("en-US");
 		languageRepository.save(l);
 	}

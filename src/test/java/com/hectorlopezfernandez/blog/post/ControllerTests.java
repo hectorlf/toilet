@@ -15,11 +15,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
 import com.hectorlopezfernandez.blog.BaseMvcTest;
+import com.hectorlopezfernandez.blog.author.Author;
+import com.hectorlopezfernandez.blog.author.AuthorRepository;
 
 public class ControllerTests extends BaseMvcTest {
 
 	@Inject
 	private PostRepository postRepository;
+	@Inject
+	private AuthorRepository authorRepository;
 
 	@Test
 	public void testArchiveRoot() throws Exception {
@@ -52,16 +56,21 @@ public class ControllerTests extends BaseMvcTest {
 	@BeforeEach
 	public void setup() {
 		super.setup();
+		Author author = new Author();
+		author.setId("1");
+		authorRepository.save(author);
 		Post post = new Post();
 		post.setPublicationTime(LocalDateTime.of(2017, 2, 1, 0, 0).toInstant(ZoneOffset.UTC).toEpochMilli());
 		post.setPublished(true);
 		post.setSlug("post-name");
+		post.setAuthor("1");
 		postRepository.save(post);
 	}
 
 	@AfterEach
 	public void tearDown() {
 		postRepository.deleteAll();
+		authorRepository.deleteAll();
 		super.tearDown();
 	}
 

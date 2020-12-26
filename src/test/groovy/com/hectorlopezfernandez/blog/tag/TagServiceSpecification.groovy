@@ -11,8 +11,8 @@ import spock.lang.Specification
 class TagServiceSpecification extends Specification {
 
 	TagRepository mockedTagRepository = Mock()
-	ApplicationEventPublisher eventPublisher = Mock()
-	def tagService = new TagService(mockedTagRepository, eventPublisher)
+	ApplicationEventPublisher mockedEventPublisher = Mock()
+	def tagService = new TagService(mockedTagRepository, mockedEventPublisher)
 
 	def "adding a tag"() {
 		given: "a new tag"
@@ -49,34 +49,37 @@ class TagServiceSpecification extends Specification {
 	def "editing a tag"() {
 		given: "an existing tag"
 		def tag = new Tag("tag-1", "tag 1")
+		tag.setId("1")
 		
 		when: "the Tag object is edited"
 		def result = tagService.editTag(tag)
 		
 		then: "the right methods are called"
+		1 * mockedTagRepository.findById(tag.getId()) >> tag
 		1 * mockedTagRepository.save(tag) >> tag
+		1 * mockedEventPublisher.publishEvent(_)
 		and: "the refreshed Tag object is returned"
 		result == tag
 	}
 
-	@Ignore
 	def "deleting a tag"() {
 		given: "an existing tag"
 		def tag = new Tag("tag-1", "tag 1")
 		tag.setId("1")
 		
 		when: "the Tag object is deleted"
-		def result = tagService.editTag(tag)
+		tagService.deleteTag(tag.getId())
 		
 		then: "the right methods are called"
-		1 * mockedTagRepository.save(tag)
+		1 * mockedTagRepository.findById(tag.getId()) >> Optional.of(tag)
+		1 * mockedTagRepository.deleteById(tag.getId())
+		1 * mockedEventPublisher.publishEvent(_)
 	}
 
-	@Ignore
 	def "updating tag counts"() {
 		given: "a post publication event"
 		Post post = Mock()
-		post.getTags() >> []
+		post.getTags() >> [ "1" ]
 		PostPublicationEvent event = Mock()
 		event.getType() >> PostPublicationEvent.Type.PUBLISHED
 		event.getSource() >> post

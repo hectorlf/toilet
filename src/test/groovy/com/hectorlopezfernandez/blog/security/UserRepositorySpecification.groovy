@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 import com.hectorlopezfernandez.blog.Application
-import com.hectorlopezfernandez.blog.TestApplicationPersistence
 
 import spock.lang.Specification
 
-@SpringBootTest(classes=[TestApplicationPersistence.class,Application.class])
+@SpringBootTest(classes=[Application.class])
 class UserRepositorySpecification extends Specification {
 
 	@Autowired

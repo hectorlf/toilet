@@ -17,7 +17,7 @@ import com.hectorlopezfernandez.blog.metadata.Preferences;
 import com.hectorlopezfernandez.blog.security.SecurityService;
 import com.hectorlopezfernandez.blog.security.User;
 
-@SpringBootTest(classes={TestApplicationPersistence.class,Application.class}, webEnvironment=WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes={Application.class}, webEnvironment=WebEnvironment.RANDOM_PORT)
 public abstract class BaseSecurityTest {
 
 	protected static final String ADMIN_USERNAME = "admin";

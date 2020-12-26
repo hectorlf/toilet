@@ -19,14 +19,13 @@ import org.springframework.test.web.servlet.MvcResult
 import org.springframework.web.context.WebApplicationContext
 
 import com.hectorlopezfernandez.blog.Application
-import com.hectorlopezfernandez.blog.TestApplicationPersistence
 import com.hectorlopezfernandez.blog.metadata.Language
 import com.hectorlopezfernandez.blog.metadata.MetadataService
 import com.hectorlopezfernandez.blog.metadata.Preferences
 
 import spock.lang.Specification
 
-@SpringBootTest(classes=[TestApplicationPersistence.class,Application.class], webEnvironment=WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes=[Application.class], webEnvironment=WebEnvironment.RANDOM_PORT)
 class ControllerSpecification extends Specification {
 
 	static final String ADMIN_USERNAME = 'admin'

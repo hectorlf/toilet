@@ -26,6 +26,8 @@ public interface PostRepository extends MongoRepository<Post, String>, CustomPos
 	List<Post> findPublishedBetween(long startTime, long endTime);
 
 	Post findBySlug(String slug);
+	
+	List<Post> findAllByPublishedIsTrueAndTagsIn(String tag);
 
 	// sitemap
 

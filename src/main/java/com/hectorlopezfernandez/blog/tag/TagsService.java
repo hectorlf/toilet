@@ -48,6 +48,15 @@ public class TagsService {
 	}
 
 	/**
+	 * Returns a Tag identified by its slug, if it exists
+	 */
+	public Optional<Tag> getTagBySlug(String slug) {
+		logger.debug("Going into .getTagBySlug()");
+		if (slug == null || slug.isBlank()) return Optional.empty();
+		return tagRepository.findBySlug(slug);
+	}
+
+	/**
 	 * Returns a collection of Tags identified by their slugs
 	 */
 	public Collection<Tag> getTagsBySlug(Collection<String> slugs) {

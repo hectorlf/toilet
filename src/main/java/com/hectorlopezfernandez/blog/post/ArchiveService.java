@@ -63,8 +63,8 @@ public class ArchiveService {
 	 * Returns the list of posts associated with a given tag
 	 */
 	public List<Post> listPostsByTag(String tag) {
-		//FIXME
-		return postRepository.findAll();
+		if (tag == null || tag.isBlank()) return Collections.emptyList();
+		return postRepository.findAllByPublishedIsTrueAndTagsIn(tag);
 	}
 	
 	/**

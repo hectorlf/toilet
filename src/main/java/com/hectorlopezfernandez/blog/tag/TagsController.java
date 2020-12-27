@@ -1,6 +1,8 @@
 package com.hectorlopezfernandez.blog.tag;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -34,7 +36,7 @@ public class TagsController {
 
 	@RequestMapping("/tags")
 	public String root(ModelMap model) {
-		logger.debug("Going into TagsController.root()");
+		logger.debug("Going into .root()");
 		Preferences prefs = metadataService.getPreferences();
 		model.addAttribute("preferences", prefs);
 		List<Tag> tags = tagsService.listTags();
@@ -44,12 +46,13 @@ public class TagsController {
 
 	@RequestMapping("/tags/{tag}")
 	public String byTag(@PathVariable("tag") String slug, ModelMap model) {
-		logger.debug("Going into TagsController.byTag()");
+		logger.debug("Going into .byTag()");
 		Preferences prefs = metadataService.getPreferences();
 		model.addAttribute("preferences", prefs);
-		List<Post> tagPosts = archiveService.listPostsByTag(slug);
+		Optional<Tag> tag = tagsService.getTagBySlug(slug);
+		List<Post> tagPosts = tag.isPresent() ? archiveService.listPostsByTag(tag.get().getId()) : Collections.emptyList();
 		model.addAttribute("posts", tagPosts);
-		return "web/pages/tag-posts-list";
+		return "web/pages/posts-for-tag";
 	}
 
 }

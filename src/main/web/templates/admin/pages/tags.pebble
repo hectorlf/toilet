@@ -35,8 +35,19 @@
         <script>
         var properties = { 
           baseEndpointUrl: "https://localhost:8443/admin/api",
-          editUrl: "https://localhost:8443/admin/tag-edit.page"
+          editUrl: "https://localhost:8443/admin/tag-edit.page",
+          labels: {
+            name: "{{message('tags.admin.list.name')}}",
+            slug: "{{message('tags.admin.list.slug')}}",
+            count: "{{message('tags.admin.list.count')}}",
+            actions: "{{message('tags.admin.list.actions')}}",
+            refresh: "{{message('tags.admin.list.refresh')}}",
+            refreshing: "{{message('tags.admin.list.refreshing')}}",
+            noresults: "{{message('tags.admin.list.noresults')}}",
+            edit: "{{message('tags.admin.list.edit')}}",
+            delete: "{{message('tags.admin.list.delete')}}"
+          }
         }
         </script>
-        <script type="module" src="/js/admin/tag-list.101f1e206521430c21bc.js"></script>
+        <script type="module" src="/js/admin/tag-list.2faf01f5b1ca99d63177.js"></script>
 {% endblock %}

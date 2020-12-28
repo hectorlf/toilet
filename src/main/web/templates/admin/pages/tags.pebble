@@ -1,19 +1,19 @@
 {% extends 'admin/layouts/admin-base' %}
 
-{% set pageName = message('title.tags.list') %}
+{% set pageName = message('tags.admin.list.title') %}
 
 {% block content %}
         <div class="container-fluid">
           <div class="row page-title clearfix">
               <div class="page-title-left">
-                  <h6 class="page-title-heading mr-0 mr-r-5">Tags</h6>
-                  <p class="page-title-description mr-0 d-none d-md-inline-block">available tags with usage counts</p>
+                  <h6 class="page-title-heading mr-0 mr-r-5">{{message('tags.admin.list.heading')}}</h6>
+                  <p class="page-title-description mr-0 d-none d-md-inline-block">{{message('tags.admin.list.description')}}</p>
               </div>
               <div class="page-title-right d-none d-sm-inline-flex">
                   <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
                       </li>
-                      <li class="breadcrumb-item active">Tags</li>
+                      <li class="breadcrumb-item active">{{message('tags.admin.list.breadcrumb')}}</li>
                   </ol>
               </div>
           </div>
@@ -35,16 +35,8 @@
         <script>
         var properties = { 
           baseEndpointUrl: "https://localhost:8443/admin/api",
-          editUrl: "https://localhost:8443/admin/tag-edit.page",
-          translations: {
-            name: "Name",
-            slug: "Slug",
-            count: "Count",
-            actions: "Actions",
-            noresults: "No results",
-            refresh: "Refresh"
-          }
+          editUrl: "https://localhost:8443/admin/tag-edit.page"
         }
         </script>
-        <script type="module" src="/js/admin/tag-list.776ab6217f0d6c34e6a9.js"></script>
+        <script type="module" src="/js/admin/tag-list.101f1e206521430c21bc.js"></script>
 {% endblock %}

@@ -7,12 +7,16 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 import static org.springframework.data.mongodb.core.query.Update.update;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.query.Query;
 
 import com.hectorlopezfernandez.toilet.post.Post;
 
@@ -25,6 +29,16 @@ public class CustomTagRepositoryImpl implements CustomTagRepository {
 	@Inject
 	public CustomTagRepositoryImpl(MongoTemplate mongoTemplate) {
 		this.mongoTemplate = mongoTemplate;
+	}
+
+	@Override
+	public List<Tag> listTags(Optional<String> slug) {
+		logger.debug("Going into .listTags() with slug: {}", slug);
+		Query query = new Query();
+		if (slug.isPresent()) {
+			query = query.addCriteria(where("slug").is(slug.get()));
+		}
+		return mongoTemplate.find(query, Tag.class);
 	}
 
 	@Override

@@ -13,10 +13,12 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,11 +57,11 @@ public class TagAdminController {
 		return "admin/pages/tag-edit";
 	}
 
-	@RequestMapping(path = "/admin/api/tags", method = GET)
+	@GetMapping(path = "/admin/api/tags", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public TagViewContainer listTags() {
+	public TagViewContainer listTags(@RequestParam(name = "slug", required = false) Optional<String> slug) {
 		logger.debug("Going into Tag's AdminController.listTags()");
-		List<TagView> tags = tagService.listTags().stream().map(tag -> TagMapper.from(tag))
+		List<TagView> tags = tagService.listTags(slug).stream().map(tag -> TagMapper.from(tag))
 				.collect(Collectors.toList());
 		return new TagViewContainer(tags, tags.size());
 	}

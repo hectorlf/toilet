@@ -35,9 +35,9 @@ public class TagService {
 	/**
 	 * Returns all the tags in the system. Never null.
 	 */
-	public List<Tag> listTags() {
+	public List<Tag> listTags(Optional<String> slug) {
 		logger.debug("Going into .listTags()");
-		return tagRepository.findAll();
+		return tagRepository.listTags(slug);
 	}
 
 	/**

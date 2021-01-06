@@ -2,6 +2,7 @@ package com.hectorlopezfernandez.toilet.tag;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -35,9 +36,18 @@ public class TagService {
 	/**
 	 * Returns all the tags in the system. Never null.
 	 */
-	public List<Tag> listTags(Optional<String> slug) {
+	public List<Tag> listTags(Map<String,String> filters) {
 		logger.debug("Going into .listTags()");
-		return tagRepository.listTags(slug);
+		if (filters == null) throw new IllegalArgumentException("The filters parameter cannot be null");
+		
+		List<Tag> tags;
+		if (filters.isEmpty()) {
+			tags = tagRepository.findAll();
+		} else {
+			Optional<String> slug = filters.containsKey("slug") ? Optional.of(filters.get("slug")) : Optional.empty(); 
+			tags = tagRepository.findTagsFilteredBy(slug);
+		}
+		return tags;
 	}
 
 	/**

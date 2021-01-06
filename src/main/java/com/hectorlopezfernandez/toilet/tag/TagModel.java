@@ -1,6 +1,9 @@
 package com.hectorlopezfernandez.toilet.tag;
 
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * View of a Tag as seen by the admin API
@@ -8,7 +11,8 @@ import org.springframework.lang.NonNull;
  * @author hector
  * @see Tag
  */
-public class TagView {
+@Relation(itemRelation = "tag", collectionRelation = "tags")
+public class TagModel extends RepresentationModel<TagModel> {
 
 	private String id;
 	@NonNull
@@ -46,5 +50,23 @@ public class TagView {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
+
+	// equals and hashcode
+
+	@Override
+	public boolean equals(@Nullable Object obj) {
+		if (this == obj) return true;
+		if (this.slug == null) return false;
+		if (obj == null || !obj.getClass().equals(this.getClass())) return false;
+		TagModel that = (TagModel) obj;
+		return this.slug.equals(that.slug);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 17;
+		if (slug != null) result += 31 * slug.hashCode();
+		return result;
+	}
+
 }

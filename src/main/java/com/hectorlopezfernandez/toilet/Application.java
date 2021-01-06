@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.hectorlopezfernandez.toilet.metadata.MetadataService;
+import com.hectorlopezfernandez.toilet.tag.TagModelAssembler;
 
 @SpringBootApplication
 @ServletComponentScan
@@ -41,5 +42,10 @@ public class Application {
     	});
     	return containerFactory;
     }
+
+	@Bean
+	public TagModelAssembler tagModelAssembler() {
+		return new TagModelAssembler();
+	}
 
 }

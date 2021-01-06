@@ -37,6 +37,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-jetty'
+	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 	implementation 'io.pebbletemplates:pebble-spring-boot-starter:3.1.0'
 	implementation 'com.hectorlopezfernandez.pebble:spring-security-extension:2.0.0-SNAPSHOT'
 	implementation 'javax.inject:javax.inject:1'

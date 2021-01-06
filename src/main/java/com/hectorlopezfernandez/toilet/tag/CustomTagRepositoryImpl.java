@@ -32,8 +32,8 @@ public class CustomTagRepositoryImpl implements CustomTagRepository {
 	}
 
 	@Override
-	public List<Tag> listTags(Optional<String> slug) {
-		logger.debug("Going into .listTags() with slug: {}", slug);
+	public List<Tag> findTagsFilteredBy(Optional<String> slug) {
+		logger.debug("Going into .findTagsFilteredBy() with slug: {}", slug);
 		Query query = new Query();
 		if (slug.isPresent()) {
 			query = query.addCriteria(where("slug").is(slug.get()));

@@ -49,5 +49,5 @@
           }
         }
         </script>
-        <script type="module" src="/js/admin/tag-editor.19048ea6a176d51eb426.js"></script>
+        <script type="module" src="/js/admin/tag-editor.bc0dd4106ece5122803f.js"></script>
 {% endblock %}

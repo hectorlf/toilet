@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
+import com.hectorlopezfernandez.toilet.DocumentNotFoundException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.CollectionModel;
@@ -26,8 +28,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.hectorlopezfernandez.toilet.DocumentNotFoundException;
 
 /**
  * Deals with the Tag resource, i.e. the /admin/api/tags endpoints
@@ -77,10 +77,10 @@ public class TagsApiController {
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<TagModel> createTag(@RequestBody @NonNull @Validated TagModel model) {
+	public ResponseEntity<TagModel> createTag(@RequestBody @Validated TagModel model) {
 		logger.debug("Going into .createTag()");
 		// prevent updates through this endpoint
-		if (!model.getId().isEmpty()) return ResponseEntity.badRequest().build();
+		if (model.getId() != null && !model.getId().isEmpty()) return ResponseEntity.badRequest().build();
 
 		Tag createdTag = tagService.addTag(tagModelAssembler.toEntity(model));
 		return ResponseEntity.created(entityLinks.linkToItemResource(createdTag.getClass(), createdTag.getId()).toUri())

@@ -18,7 +18,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/SocialIcons/1.0.1/soc.min.js" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" crossorigin="anonymous"></script>
-		<script src="/js/admin/commons.6af5700c32cebdd315d2.js"></script>
+		<script src="/js/admin/commons.3a7b4cdb49697ce85dea.js"></script>
 		<script src="/js/admin/webpack-runtime.6ce72239bf940e06d758.js"></script>
 		<script src="/js/admin/lib-lodash.99d15c9a9a60f5c66d00.js"></script>
 		<title>{{pageName}} - Toilet Admin</title>

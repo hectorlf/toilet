@@ -34,6 +34,7 @@ public class CustomTagRepositoryImpl implements CustomTagRepository {
 	@Override
 	public List<Tag> findTagsFilteredBy(Optional<String> slug) {
 		logger.debug("Going into .findTagsFilteredBy() with slug: {}", slug);
+		if (slug == null) throw new IllegalArgumentException("Slug argument can't be null");
 		Query query = new Query();
 		if (slug.isPresent()) {
 			query = query.addCriteria(where("slug").is(slug.get()));

@@ -27,10 +27,6 @@ class TagsControllerSpecification extends Specification {
 
 	@Autowired
 	MetadataService metadataService
-
-	@Autowired
-	TagService tagService
-
 	@Autowired
 	WebApplicationContext wac
 
@@ -49,7 +45,6 @@ class TagsControllerSpecification extends Specification {
 		metadataService.removeAllLanguages()
 	}
 
-	@Ignore("pebble needs to be configured")
 	def "accessing the /tags url"() {
 		when: "the /tags url is requested"
 		MvcResult tagsResult = mockMvc.perform(get("/tags")).andReturn()
@@ -57,11 +52,10 @@ class TagsControllerSpecification extends Specification {
 		then: "the tags page is loaded"
 		with(tagsResult.getResponse(), MockHttpServletResponse) {
 			getStatus() == HttpServletResponse.SC_OK
-			contentType() == "text/html"
+			getContentType() == "text/html;charset=UTF-8"
 		}
 	}
 
-	@Ignore("pebble needs to be configured")
 	def "accessing the /tags/{tag} url"() {
 		when: "the /tags/{tag} url is requested"
 		MvcResult tagsResult = mockMvc.perform(get("/tags/tag1")).andReturn()
@@ -69,7 +63,7 @@ class TagsControllerSpecification extends Specification {
 		then: "the tags page is loaded"
 		with(tagsResult.getResponse(), MockHttpServletResponse) {
 			getStatus() == HttpServletResponse.SC_OK
-			contentType() == "text/html"
+			getContentType() == "text/html;charset=UTF-8"
 		}
 	}
 

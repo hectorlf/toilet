@@ -13,6 +13,10 @@ class TagRepositorySpecification extends Specification {
 	@Autowired
 	TagRepository tagRepository
 
+	def cleanup() {
+		tagRepository.deleteAll()
+	}
+
 	def "inserting and deleting a tag"() {
 		given: "a new tag object"
 		def tag = new Tag("tag1", "tag1")
@@ -24,11 +28,12 @@ class TagRepositorySpecification extends Specification {
 		result != null
 		!result.id?.empty
 		
-		when: "object is deleted"
+		when: "the object is deleted"
 		tagRepository.delete(tag)
 		
 		then: "no exception is thrown"
-		notThrown()
+		and: "the object doesn't exist anymore"
+		tagRepository.findById(result.getId()).isEmpty()
 	}
 
 	def "listing all tags"() {
@@ -37,16 +42,12 @@ class TagRepositorySpecification extends Specification {
 		def tag2 = tagRepository.save(new Tag("tag2", "tag2"))
 		
 		when: "all tags are listed"
-		def results = tagRepository.findAll()
+		List<Tag> results = tagRepository.findAll()
 		
 		then: "the tags are returned"
 		results != null
-		results.size == 2
-		results.contains(tag1)
-		results.contains(tag2)
-		
-		cleanup:
-		tagRepository.deleteAll()
+		results.size() == 2
+		results.containsAll([tag1, tag2])
 	}
 
 	def "finding tags by slug"() {
@@ -68,9 +69,24 @@ class TagRepositorySpecification extends Specification {
 		then: "the tag is not found"
 		nonExistent != null
 		nonExistent.isEmpty()
+	}
+
+	def "checking the existence of tags by slug"() {
+		given: "a couple of tags exist in the database"
+		def tag1 = tagRepository.save(new Tag("tag1", "tag1"))
+		def tag2 = tagRepository.save(new Tag("tag2", "tag2"))
 		
-		cleanup:
-		tagRepository.deleteAll()
+		when: "an existing tag is checked by slug"
+		boolean exists = tagRepository.existsBySlug(tag1.getSlug())
+		
+		then: "true is returned"
+		exists
+		
+		when: "a non-existing tag is checked by slug"
+		exists = tagRepository.existsBySlug('non-existent')
+		
+		then: "false is returned"
+		!exists
 	}
 
 }

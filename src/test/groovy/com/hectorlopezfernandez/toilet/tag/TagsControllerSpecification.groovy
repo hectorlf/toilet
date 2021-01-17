@@ -16,33 +16,36 @@ import org.springframework.web.context.WebApplicationContext
 
 import com.hectorlopezfernandez.toilet.Application
 import com.hectorlopezfernandez.toilet.metadata.Language
-import com.hectorlopezfernandez.toilet.metadata.MetadataService
+import com.hectorlopezfernandez.toilet.metadata.LanguageRepository
 import com.hectorlopezfernandez.toilet.metadata.Preferences
+import com.hectorlopezfernandez.toilet.metadata.PreferencesRepository
 
-import spock.lang.Ignore
 import spock.lang.Specification
 
 @SpringBootTest(classes=[Application.class], webEnvironment=WebEnvironment.RANDOM_PORT)
 class TagsControllerSpecification extends Specification {
 
 	@Autowired
-	MetadataService metadataService
+	LanguageRepository languageRepository
+	@Autowired
+	PreferencesRepository preferencesRepository
 	@Autowired
 	WebApplicationContext wac
 
 	MockMvc mockMvc
 	
 	def setup() {
-		Language spanish = new Language('es');
-		metadataService.addLanguage(spanish);
-		Preferences preferences = new Preferences();
-		preferences.setDefaultLanguage('es');
-		metadataService.overwritePreferences(preferences);
+		Language spanish = new Language('es')
+		spanish = languageRepository.save(spanish)
+		Preferences preferences = new Preferences()
+		preferences.setDefaultLanguage(spanish.getId())
+		preferencesRepository.save(preferences)
 		mockMvc = webAppContextSetup(wac).apply(springSecurity()).build()
 	}
 
 	def cleanup() {
-		metadataService.removeAllLanguages()
+		languageRepository.deleteAll()
+		preferencesRepository.deleteAll()
 	}
 
 	def "accessing the /tags url"() {

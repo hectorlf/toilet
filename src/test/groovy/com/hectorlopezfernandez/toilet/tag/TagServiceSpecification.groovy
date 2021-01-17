@@ -5,7 +5,6 @@ import org.springframework.context.ApplicationEventPublisher
 import com.hectorlopezfernandez.toilet.post.Post
 import com.hectorlopezfernandez.toilet.post.PostPublicationEvent
 
-import spock.lang.Ignore
 import spock.lang.Specification
 
 class TagServiceSpecification extends Specification {
@@ -43,30 +42,27 @@ class TagServiceSpecification extends Specification {
 		1 * mockedTagRepository.findAll() >> []
 		and: "a list of Tags is returned"
 		result == []
-	}
-
-	@Ignore
-	def "listing tags filtered by slug"() {
-		when: "tags are listed"
-		def result = tagService.listTags()
+		
+		when: "tags are filtered by slug"
+		result = tagService.listTags(['slug': 'tag1'])
 		
 		then: "the right methods are called"
-		1 * mockedTagRepository.findAll() >> []
+		1 * mockedTagRepository.findTagsFilteredBy(Optional.of('tag1')) >> []
 		and: "a list of Tags is returned"
 		result == []
 	}
 
-	@Ignore
 	def "editing a tag"() {
 		given: "an existing tag"
-		def tag = new Tag("tag-1", "tag 1")
+		Tag tag = new Tag("tag-1", "tag 1")
 		tag.setId("1")
 		
 		when: "the Tag object is edited"
 		def result = tagService.editTag(tag)
 		
 		then: "the right methods are called"
-		1 * mockedTagRepository.findById(tag.getId()) >> tag
+		1 * mockedTagRepository.findById(tag.getId()) >> Optional.of(tag)
+		(0..1) * mockedTagRepository.existsBySlug(tag.getSlug()) >> true
 		1 * mockedTagRepository.save(tag) >> tag
 		1 * mockedEventPublisher.publishEvent(_)
 		and: "the refreshed Tag object is returned"

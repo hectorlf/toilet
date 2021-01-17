@@ -18,6 +18,11 @@ import com.hectorlopezfernandez.toilet.metadata.Preferences;
 import com.hectorlopezfernandez.toilet.post.ArchiveService;
 import com.hectorlopezfernandez.toilet.post.Post;
 
+/**
+ * Deals with the /tags section on the front web
+ * 
+ * @author hector
+ */
 @Controller
 public class TagsController {
 

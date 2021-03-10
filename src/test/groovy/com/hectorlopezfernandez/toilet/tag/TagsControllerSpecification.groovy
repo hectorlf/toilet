@@ -50,7 +50,7 @@ class TagsControllerSpecification extends Specification {
 
 	def "accessing the /tags url"() {
 		when: "the /tags url is requested"
-		MvcResult tagsResult = mockMvc.perform(get("/tags")).andReturn()
+		MvcResult tagsResult = mockMvc.perform(get("/tags").secure(true)).andReturn()
 		
 		then: "the tags page is loaded"
 		with(tagsResult.getResponse(), MockHttpServletResponse) {
@@ -61,7 +61,7 @@ class TagsControllerSpecification extends Specification {
 
 	def "accessing the /tags/{tag} url"() {
 		when: "the /tags/{tag} url is requested"
-		MvcResult tagsResult = mockMvc.perform(get("/tags/tag1")).andReturn()
+		MvcResult tagsResult = mockMvc.perform(get("/tags/tag1").secure(true)).andReturn()
 		
 		then: "the tags page is loaded"
 		with(tagsResult.getResponse(), MockHttpServletResponse) {

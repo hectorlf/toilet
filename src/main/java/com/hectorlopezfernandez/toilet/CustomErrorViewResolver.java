@@ -21,6 +21,8 @@ public class CustomErrorViewResolver implements ErrorViewResolver {
 		ModelAndView response;
 		if (status == HttpStatus.NOT_FOUND) {
 			response = new ModelAndView("web/pages/404-error");
+		} else if (status == HttpStatus.FORBIDDEN) {
+			response = new ModelAndView("web/pages/403-error");
 		} else if (status.is5xxServerError()) {
 			response = new ModelAndView("web/pages/500-error");
 		} else {

@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block 'additional-scripts' %}
-{% include 'web/components/prettify-scripts' %}
+{% include 'web/components/prismjs-scripts' %}
 {% endblock %}

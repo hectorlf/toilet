@@ -68,7 +68,7 @@ public class PostService {
 		post.setTitle("A sample post");
 		post.setTags(Arrays.asList("1", "2"));
 		postRepository.save(post);
-		
+
 		Post post2 = new Post();
 		post2.setAuthor("1");
 		post2.setCommentsAllowed(false);
@@ -83,7 +83,7 @@ public class PostService {
 		post2.setSlug("system-information");
 		post2.setTitle("WARNING!");
 		postRepository.save(post2);
-		
+
 		Post post3 = new Post();
 		post3.setAuthor("2");
 		post3.setCommentsAllowed(false);
@@ -99,6 +99,30 @@ public class PostService {
 		post3.setTitle("Tagged Post");
 		post3.setTags(Arrays.asList("1"));
 		postRepository.save(post3);
+
+		Post post4 = new Post();
+		post4.setAuthor("2");
+		post4.setCommentsAllowed(false);
+		post4.setContent("<p>And here is a bigger code snippet:</p><pre><code class=\"language-java\">"
+				+ "@Document(collection=\"tags\")\n"
+				+ "public class Tag {\n"
+				+ "  @Id\n"
+				+ "  private String id;\n"
+				+ "  private String slug;\n"
+				+ "  private String name;\n"
+				+ "  private int count;\n"
+				+ "}</code></pre>");
+		post4.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post4.setExcerpt("<p>Here's a small code snippet:</p><pre><code class=\"language-java\">public class PostService { }</code></pre>");
+		post4.setFeedContent("This post contains a code snippet.");
+		post4.setLastModificationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post4.setMetaDescription("Post with a code snippet");
+		post4.setPublicationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
+		post4.setPublished(true);
+		post4.setSlug("code-snippet");
+		post4.setTitle("Code snippet");
+		post4.setTags(Arrays.asList("1"));
+		postRepository.save(post4);
 	}
 
 }

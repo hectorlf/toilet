@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
+import com.hectorlopezfernandez.toilet.HtmlUtils;
 import com.hectorlopezfernandez.toilet.tag.TagLifecycleEvent;
 
 @Service
@@ -32,6 +33,8 @@ public class PostService {
 	 * Creates a Post
 	 */
 	public Post create(Post post) {
+		post.setUnstyledExcerpt(HtmlUtils.preprocessForFeeds(post.getExcerpt()));
+		post.setUnstyledContent(HtmlUtils.preprocessForFeeds(post.getContent()));
 		Post result = postRepository.save(post);
 		eventPublisher.publishEvent(new PostPublicationEvent(result, PostPublicationEvent.Type.CREATED));
 		return result;
@@ -59,7 +62,6 @@ public class PostService {
 		post.setContent("<p>This is a sample post that says some things and expands the information stored in the excerpt.</p>");
 		post.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post.setExcerpt("<p>This is a sample post.</p>");
-		post.setFeedContent("Post content processed for the feeds.");
 		post.setLastModificationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post.setMetaDescription("This is the meta of the sample post");
 		post.setPublicationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
@@ -67,6 +69,8 @@ public class PostService {
 		post.setSlug("a-sample-post");
 		post.setTitle("A sample post");
 		post.setTags(Arrays.asList("1", "2"));
+		post.setUnstyledExcerpt(HtmlUtils.preprocessForFeeds(post.getExcerpt()));
+		post.setUnstyledContent(HtmlUtils.preprocessForFeeds(post.getContent()));
 		postRepository.save(post);
 
 		Post post2 = new Post();
@@ -75,13 +79,14 @@ public class PostService {
 		post2.setContent("<p>Posted by the Administrator.</p>");
 		post2.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post2.setExcerpt("<p>System information.</p>");
-		post2.setFeedContent("System information. Posted by the Administrator.");
 		post2.setLastModificationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post2.setMetaDescription("System information");
 		post2.setPublicationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post2.setPublished(true);
 		post2.setSlug("system-information");
 		post2.setTitle("WARNING!");
+		post2.setUnstyledExcerpt(HtmlUtils.preprocessForFeeds(post2.getExcerpt()));
+		post2.setUnstyledContent(HtmlUtils.preprocessForFeeds(post2.getContent()));
 		postRepository.save(post2);
 
 		Post post3 = new Post();
@@ -90,7 +95,6 @@ public class PostService {
 		post3.setContent("<p>This post is tagged under A Tag.</p>");
 		post3.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post3.setExcerpt("<p>Tagged post.</p>");
-		post3.setFeedContent("This post is tagged under A Tag.");
 		post3.setLastModificationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post3.setMetaDescription("Tagged post");
 		post3.setPublicationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
@@ -98,6 +102,8 @@ public class PostService {
 		post3.setSlug("tagged-post");
 		post3.setTitle("Tagged Post");
 		post3.setTags(Arrays.asList("1"));
+		post3.setUnstyledExcerpt(HtmlUtils.preprocessForFeeds(post3.getExcerpt()));
+		post3.setUnstyledContent(HtmlUtils.preprocessForFeeds(post3.getContent()));
 		postRepository.save(post3);
 
 		Post post4 = new Post();
@@ -114,7 +120,6 @@ public class PostService {
 				+ "}</code></pre>");
 		post4.setCreationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post4.setExcerpt("<p>Here's a small code snippet:</p><pre><code class=\"language-java\">public class PostService { }</code></pre>");
-		post4.setFeedContent("This post contains a code snippet.");
 		post4.setLastModificationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
 		post4.setMetaDescription("Post with a code snippet");
 		post4.setPublicationTime(now.toInstant(ZoneOffset.UTC).toEpochMilli());
@@ -122,6 +127,8 @@ public class PostService {
 		post4.setSlug("code-snippet");
 		post4.setTitle("Code snippet");
 		post4.setTags(Arrays.asList("1"));
+		post4.setUnstyledExcerpt(HtmlUtils.preprocessForFeeds(post4.getExcerpt()));
+		post4.setUnstyledContent(HtmlUtils.preprocessForFeeds(post4.getContent()));
 		postRepository.save(post4);
 	}
 

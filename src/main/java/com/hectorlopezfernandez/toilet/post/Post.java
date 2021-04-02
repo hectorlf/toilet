@@ -21,8 +21,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * - content is the proper post HTML body, including markup (relative to the layout container)
  * - excerpt will typically store a summary of the post, in HTML including markup, although
  *   different layouts could have different uses for this
- * - feedContent is a performance optimization: upon saving a post, a feed-compatible content
- *   will be computed and stored here for quicker responses
+ * - unstyledExcerpt and unstyledContent contain a stripped-down version of the post contents, 
+ *   that only allows for very selective markup, e.g. strong, img or a tags. This is used in the
+ *   feeds as a performance optimization.
  * 
  * Restrictions: slug is unique in the DB
  * 
@@ -38,10 +39,9 @@ public class Post {
 
 	private String metaDescription;
 	private String excerpt;
+	private String unstyledExcerpt; // stripped-down version of the excerpt, for feeds and search index
 	private String content;
-
-	// preprocessed text for feeds
-	private String feedContent;
+	private String unstyledContent; // stripped-down version of the content, for feeds and search index
 
 	private long creationTime;
 	private long publicationTime;
@@ -100,6 +100,13 @@ public class Post {
 		this.excerpt = excerpt;
 	}
 
+	public String getUnstyledExcerpt() {
+		return unstyledExcerpt;
+	}
+	public void setUnstyledExcerpt(String unstyledExcerpt) {
+		this.unstyledExcerpt = unstyledExcerpt;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -107,11 +114,11 @@ public class Post {
 		this.content = content;
 	}
 
-	public String getFeedContent() {
-		return feedContent;
+	public String getUnstyledContent() {
+		return unstyledContent;
 	}
-	public void setFeedContent(String feedContent) {
-		this.feedContent = feedContent;
+	public void setUnstyledContent(String unstyledContent) {
+		this.unstyledContent = unstyledContent;
 	}
 
 	public boolean isPublished() {

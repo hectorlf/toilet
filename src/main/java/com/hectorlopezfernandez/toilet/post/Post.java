@@ -190,7 +190,7 @@ public class Post {
 		long getPublicationTime();
 		long getLastModificationTime();
 		String getTitle();
-		String getFeedContent();
+		String getUnstyledExcerpt();
 		String getAuthor();
 	}
 

@@ -14,7 +14,7 @@
       <id>{{postUrl}}</id>
       <published>{{post.publicationTimeAsDate | date("yyyy-MM-dd'T'HH:mm:ss'Z'")}}</published>
       <updated>{{post.lastModificationTimeAsDate | date("yyyy-MM-dd'T'HH:mm:ss'Z'")}}</updated>
-      <content type="html">{{post.feedContent | raw}}</content>
+      <content type="html">{{post.content | raw}}</content>
       <author>
          <name>{{post.authorName}}</name>
       </author>

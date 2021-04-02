@@ -29,7 +29,7 @@ public class FeedPostsView {
 			postProjections.stream().forEach(post -> {
 				if (!authorNames.containsKey(post.getAuthor())) throw new IllegalArgumentException("The parameter authorProjections doesn't contain an entry for the author id: " + post.getAuthor());
 				this.posts.add(new FeedPostView(post.getPublicationTime(), post.getLastModificationTime(), 
-					post.getTitle(), post.getSlug(), post.getFeedContent(), authorNames.get(post.getAuthor())));
+					post.getTitle(), post.getSlug(), post.getUnstyledExcerpt(), authorNames.get(post.getAuthor())));
 			});
 			this.lastUpdatedOnTime = postProjections.stream().map(Post.FeedProjection::getLastModificationTime).max(Long::compare).orElse(Long.valueOf(0));
 		}
@@ -52,16 +52,16 @@ public class FeedPostsView {
 		private long lastModificationTime;
 		private String title;
 		private String slug;
-		private String feedContent;
+		private String content;
 		private String authorName;
 		
 		private FeedPostView(long publicationTime, long lastModificationTime, String title, String slug, 
-				String feedContent, String authorName) {
+				String content, String authorName) {
 			this.publicationTime = publicationTime;
 			this.lastModificationTime = lastModificationTime;
 			this.title = title;
 			this.slug = slug;
-			this.feedContent = feedContent;
+			this.content = content;
 			this.authorName = authorName;
 		}
 
@@ -81,8 +81,8 @@ public class FeedPostsView {
 			return slug;
 		}
 
-		public String getFeedContent() {
-			return feedContent;
+		public String getContent() {
+			return content;
 		}
 
 		public String getAuthorName() {

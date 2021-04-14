@@ -1,6 +1,10 @@
 package com.hectorlopezfernandez.toilet.post;
 
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Year;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -71,16 +75,19 @@ public class ArchiveService {
 	 * Returns the list of posts associated with a given year
 	 */
 	public List<Post> listPostsByYear(int year) {
-		//FIXME
-		return postRepository.findPublishedBetween(0, System.currentTimeMillis());
+		long lowestMillisForYear = ZonedDateTime.of(year, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault()).toInstant().toEpochMilli();
+		long highestMillisForYear = ZonedDateTime.of(year, 12, 31, 23, 59, 59, 999999999, ZoneId.systemDefault()).toInstant().toEpochMilli();
+		return postRepository.findPublishedBetween(lowestMillisForYear, highestMillisForYear);
 	}
 
 	/**
 	 * Returns the list of posts associated with a given year and month
 	 */
 	public List<Post> listPostsByMonth(int year, int month) {
-		//FIXME
-		return postRepository.findPublishedBetween(0, System.currentTimeMillis());
+		if (month < 1 || month > 12) return Collections.emptyList();
+		long lowestMillisForMonth = ZonedDateTime.of(year, month, 1, 0, 0, 0, 0, ZoneId.systemDefault()).toInstant().toEpochMilli();
+		long highestMillisForMonth = ZonedDateTime.of(year, month, Month.of(month).length(Year.isLeap(year)), 23, 59, 59, 999999999, ZoneId.systemDefault()).toInstant().toEpochMilli();
+		return postRepository.findPublishedBetween(lowestMillisForMonth, highestMillisForMonth);
 	}
 
 	/**

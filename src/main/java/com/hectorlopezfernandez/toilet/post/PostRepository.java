@@ -22,7 +22,7 @@ public interface PostRepository extends MongoRepository<Post, String>, CustomPos
 
 	// archive section
 
-	@Query(value = "{ 'publicationTime': { $gte: ?0, $lt: ?1 }, 'published': true }", sort = "{ 'publicationTime': -1 }")
+	@Query(value = "{ 'publicationTime': { $gte: ?0, $lte: ?1 }, 'published': true }", sort = "{ 'publicationTime': -1 }")
 	List<Post> findPublishedBetween(long startTime, long endTime);
 
 	Post findBySlug(String slug);

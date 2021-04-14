@@ -70,8 +70,7 @@ public class ArchiveService {
 	/**
 	 * Returns the list of posts associated with a given year
 	 */
-	public List<Post> listPostsByYear(Integer year) {
-		if (year == null) return Collections.emptyList();
+	public List<Post> listPostsByYear(int year) {
 		//FIXME
 		return postRepository.findPublishedBetween(0, System.currentTimeMillis());
 	}
@@ -79,8 +78,7 @@ public class ArchiveService {
 	/**
 	 * Returns the list of posts associated with a given year and month
 	 */
-	public List<Post> listPostsByMonth(Integer year, Integer month) {
-		if (year == null || month == null) return Collections.emptyList();
+	public List<Post> listPostsByMonth(int year, int month) {
 		//FIXME
 		return postRepository.findPublishedBetween(0, System.currentTimeMillis());
 	}
@@ -88,8 +86,8 @@ public class ArchiveService {
 	/**
 	 * Returns the Post details identified by the slug
 	 */
-	public Optional<SinglePostView> getDataForPostPage(Integer year, Integer month, String slug) {
-		if (year == null || month == null || slug == null || slug.isEmpty()) return Optional.empty();
+	public Optional<SinglePostView> getDataForPostPage(int year, int month, String slug) {
+		if (slug == null || slug.isEmpty()) return Optional.empty();
 		Post post = postRepository.findBySlug(slug);
 		if (post == null) return Optional.empty();
 		LocalDateTime publicationDate = post.getPublicationTimeAsDate();

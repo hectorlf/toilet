@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.5'
+	id 'org.springframework.boot' version '2.5.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'eclipse'
@@ -45,7 +45,7 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	testImplementation platform('org.spockframework:spock-bom:2.0-M4-groovy-2.5')
+	testImplementation platform('org.spockframework:spock-bom:2.0-groovy-3.0')
 	testImplementation 'org.spockframework:spock-core'
 	testImplementation 'org.spockframework:spock-spring'
 	testImplementation 'net.bytebuddy:byte-buddy'

@@ -27,15 +27,16 @@ sourceSets {
 }
 
 configurations {
-	compile.exclude module: "spring-boot-starter-tomcat"
+	implementation.exclude module: 'spring-boot-starter-tomcat'
+	testImplementation.exclude module: 'spring-boot-starter-tomcat'
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-undertow'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-jetty'
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 	implementation 'io.pebbletemplates:pebble-spring-boot-starter:3.1.0'
 	implementation 'com.hectorlopezfernandez.pebble:spring-security-extension:2.0.0-SNAPSHOT'

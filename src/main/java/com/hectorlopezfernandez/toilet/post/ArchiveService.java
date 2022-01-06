@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.hectorlopezfernandez.toilet.PaginationData;
 import com.hectorlopezfernandez.toilet.author.Author;
 import com.hectorlopezfernandez.toilet.author.AuthorService;
 import com.hectorlopezfernandez.toilet.metadata.MetadataService;
@@ -51,8 +52,8 @@ public class ArchiveService {
 	/**
 	 * Returns a list of posts tailored for the index page
 	 */
-	public List<Post> listIndexPosts() {
-		Pageable pageable = PageRequest.of(0, 3);
+	public List<Post> listIndexPosts(PaginationData paginationRequest) {
+		Pageable pageable = PageRequest.of(paginationRequest.getEffectivePage(), paginationRequest.getSize());
 		return postRepository.findByPublishedIsTrueOrderByPublicationTimeDesc(pageable).getContent();
 	}
 

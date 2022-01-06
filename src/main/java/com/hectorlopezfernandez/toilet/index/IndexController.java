@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hectorlopezfernandez.toilet.PaginationData;
 import com.hectorlopezfernandez.toilet.metadata.MetadataService;
 import com.hectorlopezfernandez.toilet.metadata.Preferences;
 import com.hectorlopezfernandez.toilet.post.ArchiveService;
@@ -38,11 +39,12 @@ public class IndexController {
 	}
 
 	@RequestMapping(value="/index.page")
-	public String welcome(ModelMap model) {
+	public String welcome(PaginationData requestedPage, ModelMap model) {
 		logger.debug("Going into IndexController.welcome()");
 		Preferences prefs = metadataService.getPreferences();
 		model.addAttribute("preferences", prefs);
-		List<Post> posts = archiveService.listIndexPosts();
+		requestedPage.withSize(prefs.getMaxElementsPerIndexPage()).enabled(prefs.isPaginationEnabledForIndexPage());
+		List<Post> posts = archiveService.listIndexPosts(requestedPage);
 		model.addAttribute("posts", posts);
 		return "web/pages/index";
 	}

@@ -42,7 +42,7 @@ public class MetadataServiceTests extends BaseTest {
 	public void setup() {
 		Preferences p = new Preferences();
 		p.setPostAgeLimitForFeed(Long.valueOf(30*24*60*60*1000));
-		p.setPaginateIndexPage(true);
+		p.setPaginationEnabledForIndexPage(true);;
 		p.setMaxElementsPerPage(3);
 		p.setTagline("Tagline");
 		p.setTitle("Title");

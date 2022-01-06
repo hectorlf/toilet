@@ -19,8 +19,9 @@ public class Preferences {
 	private String id = ID;
 	private String title;
 	private String tagline;
-	private boolean paginateIndexPage;
 	private int maxElementsPerPage;
+	private boolean paginationEnabledForIndexPage;
+	private int maxElementsPerIndexPage;
 	private long postAgeLimitForFeed;
 	private String defaultLanguage;
 
@@ -66,18 +67,25 @@ public class Preferences {
 		this.postAgeLimitForFeed = postAgeLimitForFeed;
 	}
 
-	public boolean isPaginateIndexPage() {
-		return paginateIndexPage;
-	}
-	public void setPaginateIndexPage(boolean paginateIndexPage) {
-		this.paginateIndexPage = paginateIndexPage;
-	}
-
 	public int getMaxElementsPerPage() {
 		return maxElementsPerPage;
 	}
 	public void setMaxElementsPerPage(int maxElementsPerPage) {
 		this.maxElementsPerPage = maxElementsPerPage;
+	}
+
+	public boolean isPaginationEnabledForIndexPage() {
+		return paginationEnabledForIndexPage;
+	}
+	public void setPaginationEnabledForIndexPage(boolean paginationEnabledForIndexPage) {
+		this.paginationEnabledForIndexPage = paginationEnabledForIndexPage;
+	}
+
+	public int getMaxElementsPerIndexPage() {
+		return maxElementsPerIndexPage;
+	}
+	public void setMaxElementsPerIndexPage(int maxElementsPerIndexPage) {
+		this.maxElementsPerIndexPage = maxElementsPerIndexPage;
 	}
 
 }

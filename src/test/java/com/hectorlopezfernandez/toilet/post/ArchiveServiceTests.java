@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hectorlopezfernandez.toilet.BaseTest;
+import com.hectorlopezfernandez.toilet.PaginationData;
 
 public class ArchiveServiceTests extends BaseTest {
 
@@ -19,8 +20,17 @@ public class ArchiveServiceTests extends BaseTest {
 	private PostRepository postRepository;
 
 	@Test
-	public void testIndexPostList() {
-		List<Post> posts = archiveService.listIndexPosts();
+	public void testListIndexPosts_PaginationEnabled() {
+		PaginationData pagination = new PaginationData();
+		List<Post> posts = archiveService.listIndexPosts(pagination);
+		Assertions.assertNotNull(posts);
+		Assertions.assertTrue(posts.size() > 0);
+	}
+
+	@Test
+	public void testListIndexPosts_PaginationDisabled() {
+		PaginationData pagination = new PaginationData().enabled(false);
+		List<Post> posts = archiveService.listIndexPosts(pagination);
 		Assertions.assertNotNull(posts);
 		Assertions.assertTrue(posts.size() > 0);
 	}

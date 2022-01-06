@@ -24,7 +24,7 @@ public class PreferencesRepositoryTests extends BaseTest {
 	public void setup() {
 		Preferences p = new Preferences();
 		p.setMaxElementsPerPage(3);
-		p.setPaginateIndexPage(true);
+		p.setPaginationEnabledForIndexPage(true);
 		p.setPostAgeLimitForFeed(30*24*60*60*1000);
 		p.setTagline("Tagline");
 		p.setTitle("Title");

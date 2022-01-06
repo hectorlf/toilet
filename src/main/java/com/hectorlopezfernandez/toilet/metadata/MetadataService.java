@@ -98,8 +98,9 @@ public class MetadataService {
 
 		Preferences prefs = new Preferences();
 		prefs.setDefaultLanguage(english.getId());
+		prefs.setMaxElementsPerIndexPage(3);
 		prefs.setMaxElementsPerPage(10);
-		prefs.setPaginateIndexPage(false);
+		prefs.setPaginationEnabledForIndexPage(false);
 		prefs.setPostAgeLimitForFeed(30*24*60*60*1000l);
 		prefs.setTagline("Your blog is ready to start rolling...");
 		prefs.setTitle("It's alive!!");
@@ -114,8 +115,9 @@ public class MetadataService {
 
 		Preferences prefs = new Preferences();
 		prefs.setDefaultLanguage(english.getId());
+		prefs.setMaxElementsPerIndexPage(3);
 		prefs.setMaxElementsPerPage(10);
-		prefs.setPaginateIndexPage(false);
+		prefs.setPaginationEnabledForIndexPage(true);
 		prefs.setPostAgeLimitForFeed(30*24*60*60*1000l);
 		prefs.setTagline("This is the tagline of the blog...");
 		prefs.setTitle("This is the name of the blog");

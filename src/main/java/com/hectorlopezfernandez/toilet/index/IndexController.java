@@ -43,7 +43,7 @@ public class IndexController {
 		logger.debug("Going into IndexController.welcome()");
 		Preferences prefs = metadataService.getPreferences();
 		model.addAttribute("preferences", prefs);
-		requestedPage.withSize(prefs.getMaxElementsPerIndexPage()).enabled(prefs.isPaginationEnabledForIndexPage());
+		requestedPage.withSize(prefs.getMaxElementsPerIndexPage()).setEnabled(prefs.isPaginationEnabledForIndexPage());
 		List<Post> posts = archiveService.listIndexPosts(requestedPage);
 		model.addAttribute("posts", posts);
 		return "web/pages/index";

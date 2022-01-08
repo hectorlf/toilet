@@ -29,7 +29,7 @@ public class ArchiveServiceTests extends BaseTest {
 
 	@Test
 	public void testListIndexPosts_PaginationDisabled() {
-		PaginationData pagination = new PaginationData().enabled(false);
+		PaginationData pagination = new PaginationData().setEnabled(false);
 		List<Post> posts = archiveService.listIndexPosts(pagination);
 		Assertions.assertNotNull(posts);
 		Assertions.assertTrue(posts.size() > 0);

@@ -55,7 +55,7 @@ public class PaginationData {
 		this.lastAvailablePage = computeMaxPage();
 		return this;
 	}
-	public PaginationData enabled(boolean enabled) {
+	public PaginationData setEnabled(boolean enabled) {
 		this.enabled = enabled;
 		return this;
 	}

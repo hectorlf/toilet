@@ -51,7 +51,7 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	testImplementation platform('org.spockframework:spock-bom:2.0-groovy-3.0')
+	testImplementation platform('org.spockframework:spock-bom:2.1-groovy-3.0')
 	testImplementation 'org.spockframework:spock-core'
 	testImplementation 'org.spockframework:spock-spring'
 	testImplementation 'net.bytebuddy:byte-buddy'

@@ -41,7 +41,7 @@ class UserRepositorySpecification extends Specification {
 		
 		then: "the users are returned"
 		results != null
-		results.size == 2
+		results.size() == 2
 		results.stream().anyMatch { e -> e.username == user1.username }
 		results.stream().anyMatch { e -> e.username == user2.username }
 		

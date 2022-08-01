@@ -41,7 +41,7 @@ class RoleRepositorySpecification extends Specification {
 		
 		then: "the roles are returned"
 		results != null
-		results.size == 2
+		results.size() == 2
 		results.contains(role1)
 		results.contains(role2)
 		
